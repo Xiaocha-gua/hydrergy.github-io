@@ -1,0 +1,30 @@
+<svg width="200" height="60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#007bff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0056b3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="200" height="60" fill="white" rx="8"/>
+  
+  <!-- 图标部分 -->
+  <g transform="translate(10, 10)">
+    <!-- 氢分子图标 -->
+    <circle cx="15" cy="20" r="8" fill="url(#logoGradient)" opacity="0.8"/>
+    <circle cx="25" cy="20" r="6" fill="url(#logoGradient)" opacity="0.6"/>
+    <line x1="23" y1="20" x2="17" y2="20" stroke="#007bff" stroke-width="2"/>
+    
+    <!-- 能源波纹 -->
+    <path d="M 5 30 Q 15 25 25 30 Q 35 35 45 30" stroke="url(#logoGradient)" stroke-width="2" fill="none" opacity="0.7"/>
+    <path d="M 5 35 Q 15 30 25 35 Q 35 40 45 35" stroke="url(#logoGradient)" stroke-width="1.5" fill="none" opacity="0.5"/>
+  </g>
+  
+  <!-- 文字部分 -->
+  <text x="65" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="url(#logoGradient)">HYDRERGY</text>
+  <text x="65" y="42" font-family="Arial, sans-serif" font-size="10" fill="#666">氢能科技</text>
+  
+  <!-- 装饰线 -->
+  <line x1="65" y1="48" x2="180" y2="48" stroke="url(#logoGradient)" stroke-width="1" opacity="0.5"/>
+</svg>

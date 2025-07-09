@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公司网站</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>公司名称</h1>
+        <nav>
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="electrolysis.html">电解水制氢设备</a></li>
+                <li><a href="#co2-conversion">电解二氧化碳</a></li>
+                <li><a href="#consulting">咨询业务</a></li>
+                <li><a href="#">联系我们</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h2>欢迎来到我们的公司</h2>
+            <p>我们致力于提供创新的能源解决方案。</p>
+        </section>
+
+        <section id="electrolysis" class="service-section">
+            <h2>电解水制氢设备</h2>
+            <p>我们提供高效、可靠的电解水制氢设备，助力清洁能源发展。</p>
+            <a href="electrolysis.html" class="learn-more-link">了解更多</a>
+        </section>
+
+        <section id="co2-conversion" class="service-section">
+            <h2>电解二氧化碳</h2>
+            <p>通过先进的电解技术，将二氧化碳转化为有价值的化学品，实现碳中和。</p>
+            <button class="learn-more-link" data-target="co2-conversion-details">了解更多</button>
+            <div id="co2-conversion-details" class="details-content">
+                <h3>核心技术</h3>
+                <ul>
+                    <li>高效催化剂</li>
+                    <li>反应器优化</li>
+                    <li>产物分离</li>
+                </ul>
+                <p>详细介绍电解二氧化碳的技术原理、转化产物和环保意义。</p>
+            </div>
+        </section>
+
+        <section id="consulting" class="service-section">
+            <h2>咨询业务</h2>
+            <p>为客户提供专业的能源转型和碳中和解决方案咨询服务。</p>
+            <button class="learn-more-link" data-target="consulting-details">了解更多</button>
+            <div id="consulting-details" class="details-content">
+                <h3>服务范围</h3>
+                <ul>
+                    <li>市场分析</li>
+                    <li>技术评估</li>
+                    <li>项目规划</li>
+                </ul>
+                <p>详细介绍咨询业务的服务内容、专家团队和成功案例。</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 公司名称. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

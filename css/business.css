@@ -1,0 +1,1099 @@
+/* 业务详情页面样式 */
+
+/* 面包屑导航 */
+.breadcrumb {
+    background: #f8f9fa;
+    padding: 15px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.breadcrumb .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.breadcrumb a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    margin: 0 10px;
+    color: #6c757d;
+}
+
+/* 主要内容布局 */
+.main-content {
+    padding: 40px 0;
+    background: #fff;
+}
+
+.content-layout {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 左侧边栏 */
+.sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.sidebar-section {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.sidebar-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+}
+
+/* 业务导航 */
+.business-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.business-nav li {
+    margin-bottom: 10px;
+}
+
+.business-nav a {
+    display: block;
+    padding: 12px 15px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.business-nav a:hover {
+    background: #0056b3;
+    transform: translateX(5px);
+}
+
+.business-nav li.active a {
+    background: #0056b3;
+    font-weight: 600;
+}
+
+/* 推荐产品 */
+.recommended-products .product-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.recommended-products .product-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.recommended-products .product-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.recommended-products .product-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recommended-products .product-info h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.recommended-products .arrow {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* 中间主体区 */
+.main-area {
+    flex: 1;
+}
+
+.page-title {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #007bff;
+}
+
+.page-title h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+/* 产品网格 */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-card h3 {
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* 页面标题区域 */
+.page-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 80px 0 60px;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 42px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.page-header p {
+    font-size: 20px;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* 主要内容区域 */
+.main-content {
+    padding: 0;
+}
+
+.main-content section {
+    padding: 80px 0;
+}
+
+.main-content section:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* 技术概述区域 */
+.tech-overview {
+    background-color: #fff;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.text-content h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: 600;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 15px;
+}
+
+.text-content p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    background: #e9ecef;
+    transform: translateX(10px);
+}
+
+.feature-icon {
+    font-size: 32px;
+    margin-right: 20px;
+    min-width: 50px;
+}
+
+.feature-text h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.feature-text p {
+    color: #666;
+    margin: 0;
+    font-size: 14px;
+}
+
+.image-content {
+    text-align: center;
+}
+
+.tech-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.tech-image:hover {
+    transform: scale(1.05);
+}
+
+/* 产品系列区域 */
+.product-series h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.product-header h3 {
+    font-size: 22px;
+    color: #333;
+    margin: 0;
+    font-weight: 600;
+}
+
+.product-tag {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.product-specs {
+    margin-bottom: 20px;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.spec-label {
+    color: #666;
+    font-weight: 500;
+}
+
+.spec-value {
+    color: #333;
+    font-weight: 600;
+}
+
+.product-description {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+}
+
+/* 应用场景区域 */
+.applications h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.applications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.application-item {
+    text-align: center;
+    padding: 40px 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.application-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.app-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.application-item h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.application-item p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 技术优势区域 */
+.tech-advantages h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.advantage-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.advantage-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+.advantage-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.advantage-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.advantage-card h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.advantage-card p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+    .page-header {
+        padding: 60px 0 40px;
+    }
+    
+    .page-header h1 {
+        font-size: 32px;
+    }
+    
+    .page-header p {
+        font-size: 16px;
+    }
+    
+    .main-content section {
+        padding: 50px 0;
+    }
+    
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .text-content h2 {
+        font-size: 28px;
+    }
+    
+    .product-series h2,
+    .applications h2,
+    .tech-advantages h2 {
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+    
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .applications-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .feature-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .feature-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .page-header {
+        padding: 40px 0 30px;
+    }
+    
+    .page-header h1 {
+        font-size: 26px;
+    }
+    
+    .page-header p {
+        font-size: 14px;
+    }
+    
+    .main-content section {
+        padding: 40px 0;
+    }
+    
+    .text-content h2 {
+        font-size: 24px;
+    }
+    
+    .product-series h2,
+    .applications h2,
+    .tech-advantages h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .product-card {
+        padding: 20px;
+    }
+    
+    .application-item {
+        padding: 30px 15px;
+    }
+    
+    .advantage-card {
+        padding: 30px 20px;
+    }
+    
+    .advantage-number {
+        font-size: 36px;
+    }
+    
+    .breadcrumb {
+        font-size: 12px;
+    }
+}
+
+/* 环境效益区域样式 */
+.environmental-benefits {
+    background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+}
+
+.environmental-benefits h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: flex-start;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.benefit-icon {
+    font-size: 48px;
+    margin-right: 20px;
+    min-width: 60px;
+}
+
+.benefit-content h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.benefit-content p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .environmental-benefits h2 {
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .benefit-item {
+        padding: 25px;
+    }
+    
+    .benefit-icon {
+        font-size: 36px;
+        min-width: 50px;
+        margin-right: 15px;
+    }
+    
+    .benefit-content h3 {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .environmental-benefits h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .benefit-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .benefit-icon {
+         margin-right: 0;
+         margin-bottom: 15px;
+     }
+ }
+
+/* 咨询服务区域样式 */
+.consulting-services h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.service-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.service-card h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.service-list li {
+    padding: 8px 0;
+    color: #666;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+    padding-left: 20px;
+}
+
+.service-list li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.service-list li:last-child {
+    border-bottom: none;
+}
+
+/* 数据库服务区域样式 */
+.database-services h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.database-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.database-category {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.database-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.category-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.category-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.category-header h3 {
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.category-content {
+    padding: 25px;
+}
+
+.category-content p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.data-stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-number {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 服务流程区域样式 */
+.service-process h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.process-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.process-step {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.process-step:hover {
+    transform: translateX(10px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.step-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 25px;
+    min-width: 60px;
+}
+
+.step-content h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.step-content p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 成功案例区域样式 */
+.success-cases h2 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 60px;
+    font-weight: 600;
+}
+
+.cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+.case-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.case-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.case-header {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.case-header h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    font-weight: 600;
+    flex: 1;
+}
+
+.case-tag {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 15px;
+}
+
+.case-content {
+    padding: 25px;
+}
+
+.case-content p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.case-results {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.result-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.result-value {
+    color: #007bff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 768px) {
+    .consulting-services h2,
+    .database-services h2,
+    .service-process h2,
+    .success-cases h2 {
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .database-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cases-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .process-step {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .step-number {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .case-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .case-tag {
+        margin-left: 0;
+    }
+    
+    .case-results {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .consulting-services h2,
+    .database-services h2,
+    .service-process h2,
+    .success-cases h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .service-card {
+        padding: 20px;
+    }
+    
+    .category-header {
+        padding: 20px;
+    }
+    
+    .category-content {
+        padding: 20px;
+    }
+    
+    .process-step {
+        padding: 20px;
+    }
+    
+    .case-header {
+        padding: 20px;
+    }
+    
+    .case-content {
+        padding: 20px;
+    }
+    
+    .data-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

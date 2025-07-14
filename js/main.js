@@ -303,6 +303,7 @@ ${data.message}
         // 方式1：使用EmailJS（推荐）
         if (typeof emailjs !== 'undefined') {
             emailjs.send('service_y7euqtk', 'template_3vjncmk', {
+                to_email: 'qiuzt@carbonxtech.com.cn',
                 from_name: data.name,
                 reply_to: data.email,
                 phone: data.phone,
@@ -321,7 +322,7 @@ ${data.message}
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    to: 'sales@carbonxtech.com.cn',
+                    to: 'qiuzt@carbonxtech.com.cn',
                     subject: `HYDRERGY网站新留言 - ${data.name}`,
                     content: emailContent,
                     replyTo: data.email

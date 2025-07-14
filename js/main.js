@@ -281,62 +281,36 @@ function handleFormSubmit(form) {
 // 发送邮件通知函数
 function sendEmailNotification(data) {
     return new Promise((resolve, reject) => {
-        // 构建邮件内容
-        const emailContent = `
-新的网站留言：
-
-姓名：${data.name}
-邮箱：${data.email}
-电话：${data.phone}
-留言时间：${new Date().toLocaleString('zh-CN')}
-
-留言内容：
-${data.message}
-
----
-此邮件来自HYDRERGY官网留言系统
-        `.trim();
-        
-        // 使用EmailJS发送邮件（需要配置EmailJS服务）
-        // 这里提供两种实现方式：
-        
-        // 方式1：使用EmailJS（推荐）
-        if (typeof emailjs !== 'undefined') {
-            emailjs.send('service_y7euqtk', 'template_3vjncmk', {
-                to_email: 'qiuzt@carbonxtech.com.cn',
-                from_name: data.name,
-                reply_to: data.email,
-                phone: data.phone,
-                message: data.message,
-                current_time: new Date().toLocaleString('zh-CN')
-            }).then(() => {
-                resolve();
-            }).catch((error) => {
-                reject(error);
-            });
-        } else {
-            // 方式2：使用Fetch API发送到后端接口（需要后端支持）
-            fetch('/api/send-message', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    to: 'qiuzt@carbonxtech.com.cn',
-                    subject: `HYDRERGY网站新留言 - ${data.name}`,
-                    content: emailContent,
-                    replyTo: data.email
-                })
-            }).then(response => {
-                if (response.ok) {
-                    resolve();
-                } else {
-                    reject(new Error('服务器响应错误'));
-                }
-            }).catch(error => {
-                reject(error);
-            });
+        // 统一初始化方式
+        if (typeof emailjs === 'undefined') {
+            return reject(new Error('邮件服务未正确加载'));
         }
+        
+        emailjs.send('service_y7euqtk', 'template_3vjncmk', {
+            to_email: 'qiuzt@carbonxtech.com.cn',
+            from_name: data.name,
+            reply_to: data.email,
+            phone: data.phone,
+            message: data.message,
+            current_time: new Date().toLocaleString('zh-CN')
+        }).then(() => {
+            // 添加成功日志
+            console.log('[EmailJS] 邮件发送成功:', data);
+            resolve();
+        }).catch((error) => {
+            // 增强错误处理
+            console.error('[EmailJS] 发送失败:', {
+                error: error,
+                config: emailjs._config,
+                data: data
+            });
+            
+            if (!navigator.onLine) {
+                reject(new Error('网络连接异常，请检查网络后重试'));
+            } else {
+                reject(new Error('邮件服务暂时不可用，请直接拨打0512-66059080'));
+            }
+        });
     });
 }
 

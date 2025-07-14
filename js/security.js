@@ -265,13 +265,20 @@ function disablePrint() {
 
 // 添加安全头部
 function addSecurityHeaders() {
-    // 添加CSP meta标签（如果不存在）
-    if (!document.querySelector('meta[http-equiv="Content-Security-Policy"]')) {
-        const cspMeta = document.createElement('meta');
-        cspMeta.setAttribute('http-equiv', 'Content-Security-Policy');
-        cspMeta.setAttribute('content', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
-        document.head.appendChild(cspMeta);
-    }
+    // 移除严格的内容安全策略
+    const meta = document.createElement('meta');
+    meta.httpEquiv = 'Content-Security-Policy';
+    meta.content = "default-src 'self' https://cdn.emailjs.com;";
+    document.head.appendChild(meta);
+}
+
+// 添加CSP meta标签（如果不存在）
+if (!document.querySelector('meta[http-equiv="Content-Security-Policy"]')) {
+    const cspMeta = document.createElement('meta');
+    cspMeta.setAttribute('http-equiv', 'Content-Security-Policy');
+    cspMeta.setAttribute('content', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
+    document.head.appendChild(cspMeta);
+}
     
     // 添加X-Frame-Options
     const frameMeta = document.createElement('meta');

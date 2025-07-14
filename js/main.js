@@ -303,12 +303,10 @@ ${data.message}
         // 方式1：使用EmailJS（推荐）
         if (typeof emailjs !== 'undefined') {
             emailjs.send('service_y7euqtk', 'template_3vjncmk', {
-                to_email: 'qiuzt@carbonxtech.com.cn',
                 from_name: data.name,
-                from_email: data.email,
+                reply_to: data.email,
                 phone: data.phone,
                 message: data.message,
-                reply_to: data.email,
                 current_time: new Date().toLocaleString('zh-CN')
             }).then(() => {
                 resolve();

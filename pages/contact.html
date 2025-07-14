@@ -254,29 +254,62 @@
                 return;
             }
             
-            // 模拟表单提交
+            // 获取表单数据
+            const name = form.querySelector('input[name="name"]').value;
+            const email = form.querySelector('input[name="email"]').value;
+            const phone = form.querySelector('input[name="phone"]').value || '未提供';
+            const company = form.querySelector('input[name="company"]').value || '未提供';
+            const subject = form.querySelector('select[name="subject"]').value || '未选择';
+            const message = form.querySelector('textarea[name="message"]').value;
+            
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             
             submitBtn.textContent = '发送中...';
             submitBtn.disabled = true;
             
-            // 模拟网络请求
-            setTimeout(() => {
+            // 构建详细的留言内容
+            const detailedMessage = `咨询主题：${subject}\n公司：${company}\n\n留言内容：\n${message}`;
+            
+            // 使用EmailJS发送邮件
+            if (typeof emailjs !== 'undefined') {
+                emailjs.send('service_y7euqtk', 'template_3vjncmk', {
+                    from_name: name,
+                    reply_to: email,
+                    phone: phone,
+                    message: detailedMessage,
+                    current_time: new Date().toLocaleString('zh-CN')
+                }).then(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // 重置表单
+                    form.reset();
+                    inputs.forEach(input => {
+                        input.style.borderColor = '#ddd';
+                    });
+                    
+                    // 显示成功消息
+                    if (window.HydrergyMain) {
+                        window.HydrergyMain.showNotification('留言发送成功，我们会尽快回复您！', 'success');
+                    }
+                }).catch((error) => {
+                    console.error('邮件发送失败:', error);
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // 显示错误消息
+                    if (window.HydrergyMain) {
+                        window.HydrergyMain.showNotification('发送失败，请稍后重试或直接联系我们', 'error');
+                    }
+                });
+            } else {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-                
-                // 重置表单
-                form.reset();
-                inputs.forEach(input => {
-                    input.style.borderColor = '#ddd';
-                });
-                
-                // 显示成功消息
                 if (window.HydrergyMain) {
-                    window.HydrergyMain.showNotification('留言发送成功，我们会尽快回复您！', 'success');
+                    window.HydrergyMain.showNotification('邮件服务未初始化，请稍后重试', 'error');
                 }
-            }, 2000);
+            }
         }
     </script>
     <!-- EmailJS CDN -->

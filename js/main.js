@@ -115,6 +115,11 @@ function initMessageModal() {
     const closeModal = document.getElementById('closeModal');
     const messageForm = document.getElementById('messageForm');
     
+    if (!messageBtn || !messageModal || !closeModal || !messageForm) {
+        console.log('留言功能组件未找到，跳过初始化');
+        return;
+    }
+    
     // 打开弹窗
     messageBtn.addEventListener('click', function() {
         messageModal.style.display = 'block';
@@ -143,10 +148,37 @@ function initMessageModal() {
         }
     });
     
-    // 表单提交
+    // 表单提交 - 延迟绑定，等待EmailJS加载
     messageForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        handleFormSubmit(this);
+        // 检查EmailJS是否已加载，如果没有则等待
+        waitForEmailJS().then(() => {
+            handleFormSubmit(this);
+        }).catch((error) => {
+            console.error('EmailJS加载失败:', error);
+            showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
+        });
+    });
+}
+
+// 等待EmailJS加载完成
+function waitForEmailJS(maxWait = 10000) {
+    return new Promise((resolve, reject) => {
+        if (typeof emailjs !== 'undefined') {
+            resolve();
+            return;
+        }
+        
+        const startTime = Date.now();
+        const checkInterval = setInterval(() => {
+            if (typeof emailjs !== 'undefined') {
+                clearInterval(checkInterval);
+                resolve();
+            } else if (Date.now() - startTime > maxWait) {
+                clearInterval(checkInterval);
+                reject(new Error('EmailJS加载超时'));
+            }
+        }, 100);
     });
 }
 
@@ -222,14 +254,6 @@ function handleFormSubmit(form) {
     const inputs = form.querySelectorAll('input, textarea');
     let isFormValid = true;
     
-    // 等待邮件服务初始化
-    // 在handleFormSubmit顶部添加环境检查
-    if (typeof emailjs === 'undefined') {
-        console.error('EmailJS SDK未加载');
-        showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
-        return;
-    }
-    
     // 统一字段获取方式
     const nameInput = form.querySelector('[name="name"]');
     const emailInput = form.querySelector('[name="email"]');
@@ -295,23 +319,10 @@ function handleFormSubmit(form) {
 // 发送邮件通知函数
 function sendEmailNotification(data) {
     return new Promise((resolve, reject) => {
-        // 检查EmailJS是否已加载
+        // 统一初始化方式
         if (typeof emailjs === 'undefined') {
-            console.error('[EmailJS] EmailJS未加载');
-            return reject(new Error('邮件服务初始化失败，请刷新页面重试'));
+            return reject(new Error('邮件服务未正确加载'));
         }
-        
-        // 检查EmailJS是否已初始化
-        if (!emailjs._config || !emailjs._config.publicKey) {
-            console.error('[EmailJS] EmailJS未初始化');
-            return reject(new Error('邮件服务初始化失败，请刷新页面重试'));
-        }
-        
-        console.log('[EmailJS] 开始发送邮件:', {
-            publicKey: emailjs._config.publicKey,
-            serviceId: 'service_y7euqtk',
-            templateId: 'template_3vjncmk'
-        });
         
         emailjs.send('service_y7euqtk', 'template_3vjncmk', {
             to_email: 'qiuzt@carbonxtech.com.cn',

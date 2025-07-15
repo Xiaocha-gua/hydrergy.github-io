@@ -409,16 +409,31 @@ function handleEmailForm(form, options = {}) {
 
 // 初始化留言弹窗功能
 function initMessageModal() {
+    debugLog('开始初始化留言弹窗功能');
+    
     const messageBtn = document.getElementById('messageBtn');
     const messageModal = document.getElementById('messageModal');
-    const closeModal = document.getElementById('closeModal');
+    const closeModal = document.getElementById('closeModal') || document.querySelector('.close');
     const messageForm = document.getElementById('messageForm');
     
+    debugLog('留言弹窗元素检查:', {
+        messageBtn: !!messageBtn,
+        messageModal: !!messageModal,
+        closeModal: !!closeModal,
+        messageForm: !!messageForm
+    });
+    
     if (messageBtn && messageModal) {
+        debugLog('添加留言按钮点击事件监听器');
+        
         // 打开留言弹窗
         messageBtn.addEventListener('click', function() {
+            debugLog('留言按钮被点击');
             messageModal.style.display = 'flex';
+            messageModal.style.alignItems = 'center';
+            messageModal.style.justifyContent = 'center';
             document.body.style.overflow = 'hidden';
+            debugLog('留言弹窗已显示');
         });
         
         // 关闭留言弹窗函数
@@ -443,11 +458,31 @@ function initMessageModal() {
         if (messageForm) {
             handleEmailForm(messageForm, { closeModal: closeMessageModal });
         }
+        
+        debugLog('留言弹窗初始化完成');
+    } else {
+        debugLog('留言弹窗初始化失败 - 缺少必要元素:', {
+            messageBtn: !!messageBtn,
+            messageModal: !!messageModal
+        });
     }
 }
 
 // 自动初始化函数
 function autoInitEmailService() {
+    debugLog('开始自动初始化邮件服务');
+    
+    // 检查必要的DOM元素
+    const messageBtn = document.getElementById('messageBtn');
+    const messageModal = document.getElementById('messageModal');
+    
+    debugLog('DOM元素检查:', {
+        messageBtn: !!messageBtn,
+        messageModal: !!messageModal,
+        messageBtn_element: messageBtn,
+        messageModal_element: messageModal
+    });
+    
     // 初始化留言弹窗
     initMessageModal();
     
@@ -464,6 +499,8 @@ function autoInitEmailService() {
             handleEmailForm(form);
         }
     });
+    
+    debugLog('邮件服务自动初始化完成');
 }
 
 // 导出API

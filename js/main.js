@@ -248,37 +248,9 @@ document.addEventListener('visibilitychange', function() {
 // 留言功能初始化 - 已迁移到email-service.js
 // 保留此函数以维持兼容性，实际功能由EmailService模块处理
 function initMessageModal() {
-    // 功能已迁移到email-service.js模块
-    // 如果EmailService模块未加载，则提供基本的弹窗功能
-    if (typeof window.EmailService === 'undefined') {
-        console.warn('EmailService模块未加载，使用基本弹窗功能');
-        
-        const messageBtn = document.getElementById('messageBtn');
-        const messageModal = document.getElementById('messageModal');
-        const closeModal = document.getElementById('closeModal');
-        
-        if (messageBtn && messageModal) {
-            messageBtn.addEventListener('click', function() {
-                messageModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            });
-            
-            function closeMessageModal() {
-                messageModal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-            
-            if (closeModal) {
-                closeModal.addEventListener('click', closeMessageModal);
-            }
-            
-            messageModal.addEventListener('click', function(e) {
-                if (e.target === messageModal) {
-                    closeMessageModal();
-                }
-            });
-        }
-    }
+    // 功能已完全迁移到email-service.js模块
+    // 不再在main.js中处理留言弹窗，避免冲突
+    console.log('留言功能已迁移到EmailService模块');
 }
 
 // EmailJS发送邮件功能 - 已迁移到email-service.js

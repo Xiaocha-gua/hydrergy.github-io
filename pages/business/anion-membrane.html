@@ -510,11 +510,19 @@
 
 <script src="../../js/security.js?v=20250111001"></script>
     <!-- EmailJS CDN -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init("rxffQW9Xlbh6J_9EE");
-        })();
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // 延迟初始化EmailJS，确保在DOM和其他脚本加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                if (typeof emailjs !== 'undefined') {
+                    emailjs.init("rxffQW9Xlbh6J_9EE");
+                    console.log('[EmailJS] 延迟初始化完成');
+                } else {
+                    console.error('[EmailJS] EmailJS库未加载');
+                }
+            }, 100);
+        });
     </script>
 </body>
 </html>

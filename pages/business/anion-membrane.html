@@ -432,53 +432,7 @@
         </div>
     </main>
 
-    <!-- 信息区域 -->
-    <section class="info-section">
-        <div class="container">
-            <div class="info-grid">
-                <!-- 联系我们 -->
-                <div class="info-column contact-column">
-                    <h3 data-zh="联系我们" data-en="Contact Us">联系我们</h3>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="icon">👤</div>
-                            <span data-zh="联系人：邱经理" data-en="Contact: Manager Qiu">联系人：邱经理</span>
-                        </div>
-                        <div class="contact-item">
-                            <div class="icon">📞</div>
-                            <span>+86-15680598517</span>
-                        </div>
-                        <div class="contact-item">
-                            <div class="icon">✉️</div>
-                            <a href="mailto:sales@carbonxtech.com.cn">sales@carbonxtech.com.cn</a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- 业务领域 -->
-                <div class="info-column business-column">
-                    <h3 data-zh="业务领域" data-en="Business Areas">业务领域</h3>
-                    <div class="business-details">
-                        <div class="business-item">
-                            <a href="hydrogen.html" data-zh="电解制氢技术与产品" data-en="Electrolytic Hydrogen Technology & Products">电解制氢技术与产品</a>
-                        </div>
-                        <div class="business-item">
-                            <a href="co2.html" data-zh="电解二氧化碳技术与产品" data-en="CO2 Electrolysis Technology & Products">电解二氧化碳技术与产品</a>
-                        </div>
-                        <div class="business-item">
-                            <a href="consulting.html" data-zh="技术咨询服务与数据库" data-en="Technical Consulting & Database Services">技术咨询服务与数据库</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 留言按钮 -->
-                <div class="info-column message-column">
-                    <button class="message-btn" id="messageBtn" data-zh="留言" data-en="Message">留言</button>
-                    <p class="contact-cta" data-zh="联系我们，探索前沿的氢能膜技术解决方案" data-en="Contact us to explore cutting-edge hydrogen membrane technology solutions">联系我们，探索前沿的氢能膜技术解决方案</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- 底部 -->
     <footer class="main-footer">
@@ -488,20 +442,7 @@
         </div>
     </footer>
 
-    <!-- 留言弹窗 -->
-    <div class="message-modal" id="messageModal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <h3 data-zh="留言" data-en="Leave a Message">留言</h3>
-            <form class="message-form" id="messageForm">
-                <input type="text" name="name" placeholder="姓名" data-zh-placeholder="姓名" data-en-placeholder="Name" required>
-                <input type="email" name="email" placeholder="邮箱" data-zh-placeholder="邮箱" data-en-placeholder="Email" required>
-                <input type="tel" name="phone" placeholder="电话" data-zh-placeholder="电话" data-en-placeholder="Phone">
-                <textarea name="message" placeholder="留言内容" data-zh-placeholder="留言内容" data-en-placeholder="Message Content" required></textarea>
-                <button type="submit" data-zh="发送" data-en="Send">发送</button>
-            </form>
-        </div>
-    </div>
+
 
     <script src="../../js/main.js?v=20250111001"></script>
 <script src="../../js/language.js?v=20250111001"></script>
@@ -509,20 +450,6 @@
     <script src="../../js/breadcrumb.js?v=20250111001"></script>
 
 <script src="../../js/security.js?v=20250111001"></script>
-    <!-- EmailJS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script>
-        // 延迟初始化EmailJS，确保在DOM和其他脚本加载完成后执行
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                if (typeof emailjs !== 'undefined') {
-                    emailjs.init("rxffQW9Xlbh6J_9EE");
-                    console.log('[EmailJS] 延迟初始化完成');
-                } else {
-                    console.error('[EmailJS] EmailJS库未加载');
-                }
-            }, 100);
-        });
-    </script>
+
 </body>
 </html>

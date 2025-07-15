@@ -153,7 +153,7 @@ function initMessageModal() {
         e.preventDefault();
         // 检查EmailJS是否已加载，如果没有则等待
         waitForEmailJS().then(() => {
-            handleFormSubmit(this);
+            handleFormSubmit(this, e);
         }).catch((error) => {
             console.error('EmailJS加载失败:', error);
             showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
@@ -306,9 +306,10 @@ function handleFormSubmit(form, event) {
             form.reset();
             
             // 如果是弹窗表单，关闭弹窗
-            const modal = form.closest('.modal');
+            const modal = form.closest('.message-modal');
             if (modal) {
                 modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
         })
         .catch((error) => {

@@ -9,8 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeWebsite() {
     initNavigation();
     initBusinessItems();
+    // 初始化留言功能
     initMessageModal();
     initSmoothScroll();
+    // 初始化表单验证
     initFormValidation();
     
     // 加载保存的语言设置
@@ -507,8 +509,8 @@ document.addEventListener('visibilitychange', function() {
 window.HydrergyMain = {
     showNotification,
     debounce,
-    throttle,
-    validateField
+    throttle
+    // validateField - 已移除
 };
 
 // 将邮件发送函数暴露到全局作用域，供contact.html等页面使用

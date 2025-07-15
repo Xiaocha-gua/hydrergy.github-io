@@ -148,68 +148,38 @@ function initMessageModal() {
         }
     });
     
-    // 表单提交 - 延迟绑定，等待EmailJS加载
+    // 表单提交 - 直接处理，不再使用延迟绑定
     messageForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         // 显示加载状态
         const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;
-        submitBtn.textContent = '初始化中...';
+        submitBtn.textContent = '发送中...';
         submitBtn.disabled = true;
         
-        // 检查EmailJS是否已加载，如果没有则等待
-        waitForEmailJS().then(() => {
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            handleFormSubmit(this);
-        }).catch((error) => {
-            console.error('EmailJS加载失败:', error);
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
-        });
+        // 直接处理表单提交
+        handleFormSubmit(this);
     });
 }
 
-// 等待EmailJS加载完成
-function waitForEmailJS(maxWait = 15000) {
-    return new Promise((resolve, reject) => {
-        // 检查EmailJS是否已经加载并初始化
-        if (typeof emailjs !== 'undefined' && emailjs.init) {
-            // 确保EmailJS已经初始化
-            try {
-                // 重新初始化以确保配置正确
-                emailjs.init("rxffQW9Xlbh6J_9EE");
-                console.log('[EmailJS] 服务已初始化');
-                resolve();
-                return;
-            } catch (error) {
-                console.error('[EmailJS] 初始化失败:', error);
-                reject(new Error('EmailJS初始化失败'));
-                return;
-            }
-        }
-        
-        const startTime = Date.now();
-        const checkInterval = setInterval(() => {
-            if (typeof emailjs !== 'undefined' && emailjs.init) {
-                clearInterval(checkInterval);
-                try {
-                    emailjs.init("rxffQW9Xlbh6J_9EE");
-                    console.log('[EmailJS] 服务延迟初始化成功');
-                    resolve();
-                } catch (error) {
-                    console.error('[EmailJS] 延迟初始化失败:', error);
-                    reject(new Error('EmailJS初始化失败'));
-                }
-            } else if (Date.now() - startTime > maxWait) {
-                clearInterval(checkInterval);
-                console.error('[EmailJS] 加载超时');
-                reject(new Error('EmailJS加载超时，请检查网络连接'));
-            }
-        }, 200);
-    });
+// 确保EmailJS已正确初始化
+function ensureEmailJSInitialized() {
+    // 检查EmailJS是否已经加载
+    if (typeof emailjs === 'undefined' || !emailjs.send) {
+        console.error('[EmailJS] 邮件服务未正确加载');
+        return false;
+    }
+    
+    // 尝试重新初始化
+    try {
+        emailjs.init("rxffQW9Xlbh6J_9EE");
+        console.log('[EmailJS] 服务已初始化');
+        return true;
+    } catch (error) {
+        console.error('[EmailJS] 初始化失败:', error);
+        return false;
+    }
 }
 
 // 平滑滚动初始化
@@ -309,6 +279,15 @@ function handleFormSubmit(form) {
         return;
     }
     
+    // 确保EmailJS已初始化
+    if (!ensureEmailJSInitialized()) {
+        showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.textContent = '发送';
+        submitBtn.disabled = false;
+        return;
+    }
+    
     // 获取表单数据（统一使用name属性）
     const name = nameInput.value;
     const email = emailInput.value;
@@ -356,7 +335,7 @@ function handleFormSubmit(form) {
 // 发送邮件通知函数
 function sendEmailNotification(data) {
     return new Promise((resolve, reject) => {
-        // 检查EmailJS是否可用
+        // 再次检查EmailJS是否可用
         if (typeof emailjs === 'undefined' || !emailjs.send) {
             console.error('[EmailJS] 邮件服务未正确加载');
             return reject(new Error('邮件服务未正确加载'));
@@ -374,26 +353,30 @@ function sendEmailNotification(data) {
         
         console.log('[EmailJS] 准备发送邮件:', {
             serviceId: 'service_y7euqtk',
-            templateId: 'template_3vjncmk',
-            params: templateParams
+            templateId: 'template_3vjncmk'
         });
+        
+        // 添加超时处理
+        const timeoutId = setTimeout(() => {
+            reject(new Error('邮件发送超时，请检查网络连接后重试'));
+        }, 15000); // 15秒超时
         
         emailjs.send('service_y7euqtk', 'template_3vjncmk', templateParams)
             .then((response) => {
+                clearTimeout(timeoutId);
                 console.log('[EmailJS] 邮件发送成功:', {
                     status: response.status,
-                    text: response.text,
-                    data: data
+                    text: response.text
                 });
                 resolve(response);
             })
             .catch((error) => {
+                clearTimeout(timeoutId);
                 console.error('[EmailJS] 发送失败详细信息:', {
                     error: error,
                     message: error.message,
                     status: error.status,
-                    text: error.text,
-                    templateParams: templateParams
+                    text: error.text
                 });
                 
                 // 根据错误类型提供更具体的错误信息

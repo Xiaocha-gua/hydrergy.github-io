@@ -151,34 +151,64 @@ function initMessageModal() {
     // 表单提交 - 延迟绑定，等待EmailJS加载
     messageForm.addEventListener('submit', function(e) {
         e.preventDefault();
+        
+        // 显示加载状态
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = '初始化中...';
+        submitBtn.disabled = true;
+        
         // 检查EmailJS是否已加载，如果没有则等待
         waitForEmailJS().then(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
             handleFormSubmit(this);
         }).catch((error) => {
             console.error('EmailJS加载失败:', error);
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
             showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
         });
     });
 }
 
 // 等待EmailJS加载完成
-function waitForEmailJS(maxWait = 10000) {
+function waitForEmailJS(maxWait = 15000) {
     return new Promise((resolve, reject) => {
-        if (typeof emailjs !== 'undefined') {
-            resolve();
-            return;
+        // 检查EmailJS是否已经加载并初始化
+        if (typeof emailjs !== 'undefined' && emailjs.init) {
+            // 确保EmailJS已经初始化
+            try {
+                // 重新初始化以确保配置正确
+                emailjs.init("rxffQW9Xlbh6J_9EE");
+                console.log('[EmailJS] 服务已初始化');
+                resolve();
+                return;
+            } catch (error) {
+                console.error('[EmailJS] 初始化失败:', error);
+                reject(new Error('EmailJS初始化失败'));
+                return;
+            }
         }
         
         const startTime = Date.now();
         const checkInterval = setInterval(() => {
-            if (typeof emailjs !== 'undefined') {
+            if (typeof emailjs !== 'undefined' && emailjs.init) {
                 clearInterval(checkInterval);
-                resolve();
+                try {
+                    emailjs.init("rxffQW9Xlbh6J_9EE");
+                    console.log('[EmailJS] 服务延迟初始化成功');
+                    resolve();
+                } catch (error) {
+                    console.error('[EmailJS] 延迟初始化失败:', error);
+                    reject(new Error('EmailJS初始化失败'));
+                }
             } else if (Date.now() - startTime > maxWait) {
                 clearInterval(checkInterval);
-                reject(new Error('EmailJS加载超时'));
+                console.error('[EmailJS] 加载超时');
+                reject(new Error('EmailJS加载超时，请检查网络连接'));
             }
-        }, 100);
+        }, 200);
     });
 }
 
@@ -267,6 +297,13 @@ function handleFormSubmit(form) {
         return;
     }
     
+    // 验证所有必填字段
+    inputs.forEach(input => {
+        if (!validateField(input)) {
+            isFormValid = false;
+        }
+    });
+    
     if (!isFormValid) {
         showNotification('请检查并填写正确的信息', 'error');
         return;
@@ -319,36 +356,64 @@ function handleFormSubmit(form) {
 // 发送邮件通知函数
 function sendEmailNotification(data) {
     return new Promise((resolve, reject) => {
-        // 统一初始化方式
-        if (typeof emailjs === 'undefined') {
+        // 检查EmailJS是否可用
+        if (typeof emailjs === 'undefined' || !emailjs.send) {
+            console.error('[EmailJS] 邮件服务未正确加载');
             return reject(new Error('邮件服务未正确加载'));
         }
         
-        emailjs.send('service_y7euqtk', 'template_3vjncmk', {
+        // 验证必要的配置参数
+        const templateParams = {
             to_email: 'qiuzt@carbonxtech.com.cn',
-            from_name: data.name,
-            reply_to: data.email,
-            phone: data.phone,
-            message: data.message,
+            from_name: data.name || '未提供姓名',
+            reply_to: data.email || '',
+            phone: data.phone || '未提供',
+            message: data.message || '',
             current_time: new Date().toLocaleString('zh-CN')
-        }).then(() => {
-            // 添加成功日志
-            console.log('[EmailJS] 邮件发送成功:', data);
-            resolve();
-        }).catch((error) => {
-            // 增强错误处理
-            console.error('[EmailJS] 发送失败:', {
-                error: error,
-                config: emailjs._config,
-                data: data
-            });
-            
-            if (!navigator.onLine) {
-                reject(new Error('网络连接异常，请检查网络后重试'));
-            } else {
-                reject(new Error('邮件服务暂时不可用，请直接拨打0512-66059080'));
-            }
+        };
+        
+        console.log('[EmailJS] 准备发送邮件:', {
+            serviceId: 'service_y7euqtk',
+            templateId: 'template_3vjncmk',
+            params: templateParams
         });
+        
+        emailjs.send('service_y7euqtk', 'template_3vjncmk', templateParams)
+            .then((response) => {
+                console.log('[EmailJS] 邮件发送成功:', {
+                    status: response.status,
+                    text: response.text,
+                    data: data
+                });
+                resolve(response);
+            })
+            .catch((error) => {
+                console.error('[EmailJS] 发送失败详细信息:', {
+                    error: error,
+                    message: error.message,
+                    status: error.status,
+                    text: error.text,
+                    templateParams: templateParams
+                });
+                
+                // 根据错误类型提供更具体的错误信息
+                let errorMessage = '邮件发送失败';
+                if (!navigator.onLine) {
+                    errorMessage = '网络连接异常，请检查网络后重试';
+                } else if (error.status === 400) {
+                    errorMessage = '邮件模板配置错误，请联系技术支持';
+                } else if (error.status === 401) {
+                    errorMessage = '邮件服务认证失败，请联系技术支持';
+                } else if (error.status === 403) {
+                    errorMessage = '邮件服务权限不足，请联系技术支持';
+                } else if (error.status >= 500) {
+                    errorMessage = '邮件服务器暂时不可用，请稍后重试';
+                } else {
+                    errorMessage = '邮件发送失败，请直接联系我们：+86-15680598517';
+                }
+                
+                reject(new Error(errorMessage));
+            });
     });
 }
 

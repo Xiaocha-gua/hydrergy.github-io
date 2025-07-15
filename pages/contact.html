@@ -217,10 +217,19 @@
         </div>
     </footer>
 
-    <script src="../js/main.js?v=20250111001"></script>
-<script src="../js/language.js?v=20250111001"></script>
-<script src="../js/geo-language.js?v=20250111001"></script>
-<script src="../js/security.js?v=20250111001"></script>
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("rxffQW9Xlbh6J_9EE");
+        })();
+    </script>
+    
+    <script src="../js/main.js?v=20250112002"></script>
+    <script src="../js/language.js?v=20250111001"></script>
+    <script src="../js/geo-language.js?v=20250111001"></script>
+    <script src="../js/breadcrumb.js?v=20250111001"></script>
+    <script src="../js/security.js?v=20250111001"></script>
     
     <script>
         // 联系表单特定功能
@@ -230,101 +239,61 @@
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    handleContactFormSubmit(this);
+                    
+                    // 获取表单数据
+                    const name = this.querySelector('input[name="name"]').value;
+                    const email = this.querySelector('input[name="email"]').value;
+                    const phone = this.querySelector('input[name="phone"]').value || '未提供';
+                    const company = this.querySelector('input[name="company"]').value || '未提供';
+                    const subject = this.querySelector('select[name="subject"]').value || '未选择';
+                    const message = this.querySelector('textarea[name="message"]').value;
+                    
+                    // 构建详细的留言内容
+                    const detailedMessage = `咨询主题：${subject}\n公司：${company}\n\n留言内容：\n${message}`;
+                    
+                    // 使用main.js中的邮件发送功能
+                    if (typeof sendEmailNotification === 'function') {
+                        const submitBtn = this.querySelector('button[type="submit"]');
+                        const originalText = submitBtn.textContent;
+                        
+                        submitBtn.textContent = '发送中...';
+                        submitBtn.disabled = true;
+                        
+                        sendEmailNotification({
+                            name: name,
+                            email: email,
+                            phone: phone,
+                            message: detailedMessage
+                        }).then(() => {
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                            
+                            // 重置表单
+                            this.reset();
+                            
+                            // 显示成功消息
+                            if (window.HydrergyMain) {
+                                window.HydrergyMain.showNotification('留言发送成功，我们会尽快回复您！', 'success');
+                            }
+                        }).catch((error) => {
+                            console.error('邮件发送失败:', error);
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                            
+                            // 显示错误消息
+                            if (window.HydrergyMain) {
+                                window.HydrergyMain.showNotification('发送失败，请稍后重试或直接联系我们', 'error');
+                            }
+                        });
+                    } else {
+                        console.error('邮件发送功能未加载');
+                        if (window.HydrergyMain) {
+                            window.HydrergyMain.showNotification('邮件服务未初始化，请稍后重试', 'error');
+                        }
+                    }
                 });
             }
         });
-        
-        function handleContactFormSubmit(form) {
-            const formData = new FormData(form);
-            const inputs = form.querySelectorAll('input, textarea, select');
-            let isFormValid = true;
-            
-            // 验证所有字段
-            inputs.forEach(input => {
-                if (window.HydrergyMain && !window.HydrergyMain.validateField(input)) {
-                    isFormValid = false;
-                }
-            });
-            
-            if (!isFormValid) {
-                if (window.HydrergyMain) {
-                    window.HydrergyMain.showNotification('请检查并填写正确的信息', 'error');
-                }
-                return;
-            }
-            
-            // 获取表单数据
-            const name = form.querySelector('input[name="name"]').value;
-            const email = form.querySelector('input[name="email"]').value;
-            const phone = form.querySelector('input[name="phone"]').value || '未提供';
-            const company = form.querySelector('input[name="company"]').value || '未提供';
-            const subject = form.querySelector('select[name="subject"]').value || '未选择';
-            const message = form.querySelector('textarea[name="message"]').value;
-            
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = '发送中...';
-            submitBtn.disabled = true;
-            
-            // 构建详细的留言内容
-            const detailedMessage = `咨询主题：${subject}\n公司：${company}\n\n留言内容：\n${message}`;
-            
-            // 使用EmailJS发送邮件
-            if (typeof emailjs !== 'undefined') {
-                emailjs.send('service_y7euqtk', 'template_3vjncmk', {
-                    to_email: 'qiuzt@carbonxtech.com.cn',
-                    from_name: name,
-                    reply_to: email,
-                    phone: phone,
-                    message: detailedMessage,
-                    current_time: new Date().toLocaleString('zh-CN')
-                }).then(() => {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    
-                    // 重置表单
-                    form.reset();
-                    inputs.forEach(input => {
-                        input.style.borderColor = '#ddd';
-                    });
-                    
-                    // 显示成功消息
-                    if (window.HydrergyMain) {
-                        window.HydrergyMain.showNotification('留言发送成功，我们会尽快回复您！', 'success');
-                    }
-                }).catch((error) => {
-                    console.error('邮件发送失败:', error);
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                    
-                    // 显示错误消息
-                    if (window.HydrergyMain) {
-                        window.HydrergyMain.showNotification('发送失败，请稍后重试或直接联系我们', 'error');
-                    }
-                });
-            } else {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                if (window.HydrergyMain) {
-                    window.HydrergyMain.showNotification('邮件服务未初始化，请稍后重试', 'error');
-                }
-            }
-        }
     </script>
-    <!-- EmailJS CDN -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init("rxffQW9Xlbh6J_9EE");
-        })();
-    </script>
-    
-    <script src="../js/main.js?v=20250111001"></script>
-    <script src="../js/language.js?v=20250111001"></script>
-    <script src="../js/geo-language.js?v=20250111001"></script>
-    <script src="../js/breadcrumb.js?v=20250111001"></script>
-    <script src="../js/security.js?v=20250111001"></script>
 </body>
 </html>

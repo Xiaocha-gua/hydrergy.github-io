@@ -138,9 +138,9 @@
                         </div>
                     </div>
 
-                    <!-- 留言按钮 -->
-                    <div class="info-column message-column">
+                    <!-- 留言按钮 -->                    <div class="info-column message-column">
                         <button class="message-btn" id="messageBtn" data-zh="留言" data-en="Message">留言</button>
+                        <p class="contact-cta" data-zh="携手共创绿色氢能未来，开启清洁能源新时代" data-en="Join us to create a green hydrogen future and usher in a new era of clean energy">携手共创绿色氢能未来，开启清洁能源新时代</p>
                     </div>
                 </div>
             </div>
@@ -169,19 +169,21 @@
             </form>
         </div>
     </div>
-
+    
+    <!-- EmailJS CDN for email functionality -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // 初始化EmailJS（需要替换为实际的公钥）
+        (function(){
+            emailjs.init("rxffQW9Xlbh6J_9EE");
+        })();
+    </script>
+    
     <script src="js/main.js?v=20250111001"></script>
     <script src="js/language.js?v=20250111001"></script>
     <script src="js/geo-language.js?v=20250111001"></script>
     <script src="js/breadcrumb.js?v=20250111001"></script>
     
     <script src="js/security.js?v=20250111001"></script>
-    <!-- EmailJS CDN -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init("rxffQW9Xlbh6J_9EE");
-        })();
-    </script>
 </body>
 </html>

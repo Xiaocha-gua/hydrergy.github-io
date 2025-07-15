@@ -295,10 +295,23 @@ function handleFormSubmit(form) {
 // 发送邮件通知函数
 function sendEmailNotification(data) {
     return new Promise((resolve, reject) => {
-        // 统一初始化方式
+        // 检查EmailJS是否已加载
         if (typeof emailjs === 'undefined') {
-            return reject(new Error('邮件服务未正确加载'));
+            console.error('[EmailJS] EmailJS未加载');
+            return reject(new Error('邮件服务初始化失败，请刷新页面重试'));
         }
+        
+        // 检查EmailJS是否已初始化
+        if (!emailjs._config || !emailjs._config.publicKey) {
+            console.error('[EmailJS] EmailJS未初始化');
+            return reject(new Error('邮件服务初始化失败，请刷新页面重试'));
+        }
+        
+        console.log('[EmailJS] 开始发送邮件:', {
+            publicKey: emailjs._config.publicKey,
+            serviceId: 'service_y7euqtk',
+            templateId: 'template_3vjncmk'
+        });
         
         emailjs.send('service_y7euqtk', 'template_3vjncmk', {
             to_email: 'qiuzt@carbonxtech.com.cn',

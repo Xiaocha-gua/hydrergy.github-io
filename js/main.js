@@ -462,3 +462,7 @@ window.HydrergyMain = {
     throttle,
     validateField
 };
+
+// 将邮件发送函数暴露到全局作用域，供contact.html等页面使用
+window.sendEmailNotification = sendEmailNotification;
+window.handleFormSubmit = handleFormSubmit;

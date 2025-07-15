@@ -9,11 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeWebsite() {
     initNavigation();
     initBusinessItems();
-    // 初始化留言功能
-    initMessageModal();
+
     initSmoothScroll();
-    // 初始化表单验证
-    initFormValidation();
+    initMessageModal();
+
     
     // 加载保存的语言设置
     const savedLanguage = localStorage.getItem('website-language') || 'zh';
@@ -110,79 +109,9 @@ function handleBusinessClick(businessType) {
     }
 }
 
-// 留言弹窗功能初始化
-function initMessageModal() {
-    const messageBtn = document.getElementById('messageBtn');
-    const messageModal = document.getElementById('messageModal');
-    const closeModal = document.getElementById('closeModal');
-    const messageForm = document.getElementById('messageForm');
-    
-    if (!messageBtn || !messageModal || !closeModal || !messageForm) {
-        console.log('留言功能组件未找到，跳过初始化');
-        return;
-    }
-    
-    // 打开弹窗
-    messageBtn.addEventListener('click', function() {
-        messageModal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    });
-    
-    // 关闭弹窗
-    function closeModalFunction() {
-        messageModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-    
-    closeModal.addEventListener('click', closeModalFunction);
-    
-    // 点击背景关闭弹窗
-    messageModal.addEventListener('click', function(e) {
-        if (e.target === messageModal) {
-            closeModalFunction();
-        }
-    });
-    
-    // ESC键关闭弹窗
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && messageModal.style.display === 'block') {
-            closeModalFunction();
-        }
-    });
-    
-    // 表单提交 - 直接处理，不再使用延迟绑定
-    messageForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // 显示加载状态
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = '发送中...';
-        submitBtn.disabled = true;
-        
-        // 直接处理表单提交
-        handleFormSubmit(this);
-    });
-}
 
-// 确保EmailJS已正确初始化
-function ensureEmailJSInitialized() {
-    // 检查EmailJS是否已经加载
-    if (typeof emailjs === 'undefined' || !emailjs.send) {
-        console.error('[EmailJS] 邮件服务未正确加载');
-        return false;
-    }
-    
-    // 尝试重新初始化
-    try {
-        emailjs.init("rxffQW9Xlbh6J_9EE");
-        console.log('[EmailJS] 服务已初始化');
-        return true;
-    } catch (error) {
-        console.error('[EmailJS] 初始化失败:', error);
-        return false;
-    }
-}
+
+
 
 // 平滑滚动初始化
 function initSmoothScroll() {
@@ -205,202 +134,13 @@ function initSmoothScroll() {
     });
 }
 
-// 表单验证初始化
-function initFormValidation() {
-    const inputs = document.querySelectorAll('.message-form input, .message-form textarea');
-    
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            validateField(this);
-        });
-        
-        input.addEventListener('input', function() {
-            // 清除错误状态
-            this.style.borderColor = '#ddd';
-        });
-    });
-}
 
-// 字段验证
-function validateField(field) {
-    const value = field.value.trim();
-    let isValid = true;
-    
-    if (field.hasAttribute('required') && !value) {
-        isValid = false;
-    }
-    
-    if (field.type === 'email' && value) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value)) {
-            isValid = false;
-        }
-    }
-    
-    if (field.type === 'tel' && value) {
-        const phoneRegex = /^[\d\s\-\+\(\)]+$/;
-        if (!phoneRegex.test(value)) {
-            isValid = false;
-        }
-    }
-    
-    // 设置样式
-    field.style.borderColor = isValid ? '#28a745' : '#dc3545';
-    
-    return isValid;
-}
 
-// 处理表单提交
-function handleFormSubmit(form) {
-    const formData = new FormData(form);
-    const inputs = form.querySelectorAll('input, textarea');
-    let isFormValid = true;
-    
-    // 统一字段获取方式
-    const nameInput = form.querySelector('[name="name"]');
-    const emailInput = form.querySelector('[name="email"]');
-    const phoneInput = form.querySelector('[name="phone"]');
-    const messageInput = form.querySelector('[name="message"]');
-    
-    // 增加空值检测
-    if (!nameInput || !emailInput || !messageInput) {
-        console.error('表单字段缺失:', {nameInput, emailInput, messageInput});
-        showNotification('表单配置异常，请联系技术支持', 'error');
-        return;
-    }
-    
-    // 验证所有必填字段
-    inputs.forEach(input => {
-        if (!validateField(input)) {
-            isFormValid = false;
-        }
-    });
-    
-    if (!isFormValid) {
-        showNotification('请检查并填写正确的信息', 'error');
-        return;
-    }
-    
-    // 确保EmailJS已初始化
-    if (!ensureEmailJSInitialized()) {
-        showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
-        const submitBtn = form.querySelector('button[type="submit"]');
-        submitBtn.textContent = '发送';
-        submitBtn.disabled = false;
-        return;
-    }
-    
-    // 获取表单数据（统一使用name属性）
-    const name = nameInput.value;
-    const email = emailInput.value;
-    const phone = phoneInput ? phoneInput.value : '未提供';
-    const message = messageInput.value;
-    
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    
-    submitBtn.textContent = '发送中...';
-    submitBtn.disabled = true;
-    
-    // 发送邮件到指定邮箱
-    sendEmailNotification({
-        name: name,
-        email: email,
-        phone: phone,
-        message: message
-    }).then(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-        
-        // 重置表单
-        form.reset();
-        inputs.forEach(input => {
-            input.style.borderColor = '#ddd';
-        });
-        
-        // 关闭弹窗
-        document.getElementById('messageModal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-        
-        // 显示成功消息
-        showNotification('留言发送成功，我们会尽快回复您！', 'success');
-    }).catch((error) => {
-        console.error('邮件发送失败:', error);
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-        
-        // 显示错误消息
-        showNotification('发送失败，请稍后重试或直接联系我们', 'error');
-    });
-}
 
-// 发送邮件通知函数
-function sendEmailNotification(data) {
-    return new Promise((resolve, reject) => {
-        // 再次检查EmailJS是否可用
-        if (typeof emailjs === 'undefined' || !emailjs.send) {
-            console.error('[EmailJS] 邮件服务未正确加载');
-            return reject(new Error('邮件服务未正确加载'));
-        }
-        
-        // 验证必要的配置参数
-        const templateParams = {
-            to_email: 'qiuzt@carbonxtech.com.cn',
-            from_name: data.name || '未提供姓名',
-            reply_to: data.email || '',
-            phone: data.phone || '未提供',
-            message: data.message || '',
-            current_time: new Date().toLocaleString('zh-CN')
-        };
-        
-        console.log('[EmailJS] 准备发送邮件:', {
-            serviceId: 'service_y7euqtk',
-            templateId: 'template_3vjncmk'
-        });
-        
-        // 添加超时处理
-        const timeoutId = setTimeout(() => {
-            reject(new Error('邮件发送超时，请检查网络连接后重试'));
-        }, 15000); // 15秒超时
-        
-        emailjs.send('service_y7euqtk', 'template_3vjncmk', templateParams)
-            .then((response) => {
-                clearTimeout(timeoutId);
-                console.log('[EmailJS] 邮件发送成功:', {
-                    status: response.status,
-                    text: response.text
-                });
-                resolve(response);
-            })
-            .catch((error) => {
-                clearTimeout(timeoutId);
-                console.error('[EmailJS] 发送失败详细信息:', {
-                    error: error,
-                    message: error.message,
-                    status: error.status,
-                    text: error.text
-                });
-                
-                // 根据错误类型提供更具体的错误信息
-                let errorMessage = '邮件发送失败';
-                if (!navigator.onLine) {
-                    errorMessage = '网络连接异常，请检查网络后重试';
-                } else if (error.status === 400) {
-                    errorMessage = '邮件模板配置错误，请联系技术支持';
-                } else if (error.status === 401) {
-                    errorMessage = '邮件服务认证失败，请联系技术支持';
-                } else if (error.status === 403) {
-                    errorMessage = '邮件服务权限不足，请联系技术支持';
-                } else if (error.status >= 500) {
-                    errorMessage = '邮件服务器暂时不可用，请稍后重试';
-                } else {
-                    errorMessage = '邮件发送失败，请直接联系我们：+86-15680598517';
-                }
-                
-                reject(new Error(errorMessage));
-            });
-    });
-}
+
+
+
+
 
 // 显示通知
 function showNotification(message, type = 'info') {
@@ -505,14 +245,120 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
+// 留言功能初始化
+function initMessageModal() {
+    const messageBtn = document.getElementById('messageBtn');
+    const messageModal = document.getElementById('messageModal');
+    const closeModal = document.getElementById('closeModal');
+    const messageForm = document.getElementById('messageForm');
+    
+    if (messageBtn && messageModal) {
+        // 打开留言弹窗
+        messageBtn.addEventListener('click', function() {
+            messageModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // 关闭留言弹窗
+        function closeMessageModal() {
+            messageModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        if (closeModal) {
+            closeModal.addEventListener('click', closeMessageModal);
+        }
+        
+        // 点击弹窗外部关闭
+        messageModal.addEventListener('click', function(e) {
+            if (e.target === messageModal) {
+                closeMessageModal();
+            }
+        });
+        
+        // 表单提交处理
+        if (messageForm) {
+            messageForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const data = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone') || '未提供',
+                    message: formData.get('message')
+                };
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.textContent = '发送中...';
+                submitBtn.disabled = true;
+                
+                // 发送邮件
+                sendEmailNotification(data)
+                    .then(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // 重置表单
+                        messageForm.reset();
+                        
+                        // 关闭弹窗
+                        closeMessageModal();
+                        
+                        // 显示成功消息
+                        showNotification('留言发送成功，我们会尽快回复您！', 'success');
+                    })
+                    .catch((error) => {
+                        console.error('邮件发送失败:', error);
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // 显示错误消息
+                        showNotification('发送失败，请稍后重试或直接联系我们', 'error');
+                    });
+            });
+        }
+    }
+}
+
+// EmailJS发送邮件功能
+function sendEmailNotification(data) {
+    return new Promise((resolve, reject) => {
+        // 检查EmailJS是否已加载
+        if (typeof emailjs === 'undefined') {
+            reject(new Error('EmailJS未加载'));
+            return;
+        }
+        
+        // 发送邮件
+        emailjs.send('service_y7euqtk', 'template_3vjncmk', {
+            to_email: 'qiuzt@carbonxtech.com.cn',
+            from_name: data.name,
+            from_email: data.email,
+            phone: data.phone,
+            message: data.message,
+            reply_to: data.email,
+            current_time: new Date().toLocaleString('zh-CN')
+        })
+        .then((response) => {
+            console.log('邮件发送成功:', response);
+            resolve(response);
+        })
+        .catch((error) => {
+            console.error('EmailJS发送失败:', error);
+            reject(error);
+        });
+    });
+}
+
 // 导出函数供其他脚本使用
 window.HydrergyMain = {
     showNotification,
     debounce,
     throttle
-    // validateField - 已移除
 };
 
-// 将邮件发送函数暴露到全局作用域，供contact.html等页面使用
+// 全局导出sendEmailNotification函数
 window.sendEmailNotification = sendEmailNotification;
-window.handleFormSubmit = handleFormSubmit;

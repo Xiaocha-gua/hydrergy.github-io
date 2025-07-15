@@ -265,10 +265,10 @@ function disablePrint() {
 
 // 添加安全头部
 function addSecurityHeaders() {
-    // 移除严格的内容安全策略
+    // 扩展CSP策略
     const meta = document.createElement('meta');
     meta.httpEquiv = 'Content-Security-Policy';
-    meta.content = "default-src 'self' https://cdn.emailjs.com;";
+    meta.content = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.emailjs.com; img-src 'self' data:;";
     document.head.appendChild(meta);
 }
 

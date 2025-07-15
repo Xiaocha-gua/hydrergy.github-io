@@ -248,11 +248,11 @@ function handleFormSubmit(form) {
         return;
     }
     
-    // 获取表单数据
-    const name = form.querySelector('input[type="text"]').value;
-    const email = form.querySelector('input[type="email"]').value;
-    const phone = form.querySelector('input[type="tel"]').value || '未提供';
-    const message = form.querySelector('textarea').value;
+    // 获取表单数据（统一使用name属性）
+    const name = nameInput.value;
+    const email = emailInput.value;
+    const phone = phoneInput ? phoneInput.value : '未提供';
+    const message = messageInput.value;
     
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;

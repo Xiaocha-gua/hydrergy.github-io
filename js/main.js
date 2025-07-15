@@ -245,94 +245,58 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
-// 留言功能初始化
+// 留言功能初始化 - 已迁移到email-service.js
+// 保留此函数以维持兼容性，实际功能由EmailService模块处理
 function initMessageModal() {
-    const messageBtn = document.getElementById('messageBtn');
-    const messageModal = document.getElementById('messageModal');
-    const closeModal = document.getElementById('closeModal');
-    const messageForm = document.getElementById('messageForm');
-    
-    if (messageBtn && messageModal) {
-        // 打开留言弹窗
-        messageBtn.addEventListener('click', function() {
-            messageModal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        });
+    // 功能已迁移到email-service.js模块
+    // 如果EmailService模块未加载，则提供基本的弹窗功能
+    if (typeof window.EmailService === 'undefined') {
+        console.warn('EmailService模块未加载，使用基本弹窗功能');
         
-        // 关闭留言弹窗
-        function closeMessageModal() {
-            messageModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+        const messageBtn = document.getElementById('messageBtn');
+        const messageModal = document.getElementById('messageModal');
+        const closeModal = document.getElementById('closeModal');
         
-        if (closeModal) {
-            closeModal.addEventListener('click', closeMessageModal);
-        }
-        
-        // 点击弹窗外部关闭
-        messageModal.addEventListener('click', function(e) {
-            if (e.target === messageModal) {
-                closeMessageModal();
+        if (messageBtn && messageModal) {
+            messageBtn.addEventListener('click', function() {
+                messageModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            function closeMessageModal() {
+                messageModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
-        });
-        
-        // 表单提交处理
-        if (messageForm) {
-            messageForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const formData = new FormData(this);
-                const data = {
-                    name: formData.get('name'),
-                    email: formData.get('email'),
-                    phone: formData.get('phone') || '未提供',
-                    message: formData.get('message')
-                };
-                
-                const submitBtn = this.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                
-                submitBtn.textContent = '发送中...';
-                submitBtn.disabled = true;
-                
-                // 发送邮件
-                sendEmailNotification(data)
-                    .then(() => {
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                        
-                        // 重置表单
-                        messageForm.reset();
-                        
-                        // 关闭弹窗
-                        closeMessageModal();
-                        
-                        // 显示成功消息
-                        showNotification('留言发送成功，我们会尽快回复您！', 'success');
-                    })
-                    .catch((error) => {
-                        console.error('邮件发送失败:', error);
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                        
-                        // 显示错误消息
-                        showNotification('发送失败，请稍后重试或直接联系我们', 'error');
-                    });
+            
+            if (closeModal) {
+                closeModal.addEventListener('click', closeMessageModal);
+            }
+            
+            messageModal.addEventListener('click', function(e) {
+                if (e.target === messageModal) {
+                    closeMessageModal();
+                }
             });
         }
     }
 }
 
-// EmailJS发送邮件功能
+// EmailJS发送邮件功能 - 已迁移到email-service.js
+// 保留此函数以维持向后兼容性
 function sendEmailNotification(data) {
+    // 如果EmailService模块已加载，使用新的服务
+    if (typeof window.EmailService !== 'undefined') {
+        return window.EmailService.sendEmail(data);
+    }
+    
+    // 兼容性回退：使用原有逻辑
+    console.warn('EmailService模块未加载，使用兼容性邮件发送功能');
     return new Promise((resolve, reject) => {
-        // 检查EmailJS是否已加载
         if (typeof emailjs === 'undefined') {
             reject(new Error('EmailJS未加载'));
             return;
         }
         
-        // 发送邮件
         emailjs.send('service_y7euqtk', 'template_3vjncmk', {
             to_email: 'qiuzt@carbonxtech.com.cn',
             from_name: data.name,

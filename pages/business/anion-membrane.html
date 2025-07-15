@@ -503,6 +503,14 @@
         </div>
     </div>
 
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("rxffQW9Xlbh6J_9EE");
+        })();
+    </script>
+
     <!-- 引入现有网站的JavaScript文件 -->
     <script src="../../js/main.js?v=20250111001"></script>
     <script src="../../js/language.js?v=20250111001"></script>
@@ -510,13 +518,5 @@
     <script src="../../js/breadcrumb.js?v=20250111001"></script>
     
     <script src="../../js/security.js?v=20250111001"></script>
-
-    <!-- EmailJS CDN for email functionality -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init("rxffQW9Xlbh6J_9EE");
-        })();
-    </script>
 </body>
 </html>

@@ -222,12 +222,26 @@ function handleFormSubmit(form) {
     const inputs = form.querySelectorAll('input, textarea');
     let isFormValid = true;
     
-    // 验证所有字段
-    inputs.forEach(input => {
-        if (!validateField(input)) {
-            isFormValid = false;
-        }
-    });
+    // 等待邮件服务初始化
+    // 在handleFormSubmit顶部添加环境检查
+    if (typeof emailjs === 'undefined') {
+        console.error('EmailJS SDK未加载');
+        showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
+        return;
+    }
+    
+    // 统一字段获取方式
+    const nameInput = form.querySelector('[name="name"]');
+    const emailInput = form.querySelector('[name="email"]');
+    const phoneInput = form.querySelector('[name="phone"]');
+    const messageInput = form.querySelector('[name="message"]');
+    
+    // 增加空值检测
+    if (!nameInput || !emailInput || !messageInput) {
+        console.error('表单字段缺失:', {nameInput, emailInput, messageInput});
+        showNotification('表单配置异常，请联系技术支持', 'error');
+        return;
+    }
     
     if (!isFormValid) {
         showNotification('请检查并填写正确的信息', 'error');

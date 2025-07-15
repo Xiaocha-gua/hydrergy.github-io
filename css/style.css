@@ -427,9 +427,11 @@ body {
 
 
 
-/* 底部样式 */
+/* ========================================= */
+/* 页脚样式 */
+/* ========================================= */
 .main-footer {
-    background-color: #f8f9fa;
+    background: #f8f9fa;
     padding: 40px 0;
     margin-top: 60px;
 }
@@ -437,16 +439,84 @@ body {
 .footer-divider {
     border: none;
     height: 1px;
-    background: linear-gradient(to right, transparent, #ddd, transparent);
-    margin-bottom: 20px;
+    background: linear-gradient(to right, transparent, #007bff, transparent);
+    margin-bottom: 30px;
 }
 
 .footer-slogan {
     text-align: center;
-    color: #666;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
+    color: #333;
+    margin: 0;
     letter-spacing: 1px;
+}
+
+/* ========================================= */
+/* 邮件通知样式 */
+/* ========================================= */
+.email-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 10001;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.notification-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.notification-message {
+    line-height: 1.4;
+    flex: 1;
+}
+
+.email-notification.success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.email-notification.error {
+    background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+}
+
+.email-notification.info {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+.email-notification.warning {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+    color: #333;
+}
+
+/* 响应式通知 */
+@media (max-width: 768px) {
+    .email-notification {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        top: 10px;
+    }
 }
 
 

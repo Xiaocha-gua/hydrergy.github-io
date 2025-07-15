@@ -14,6 +14,16 @@ const EMAIL_CONFIG = {
     targetEmail: 'qiuzt@carbonxtech.com.cn'
 };
 
+// 调试模式
+const DEBUG_MODE = true;
+
+// 调试日志函数
+function debugLog(message, data = null) {
+    if (DEBUG_MODE) {
+        console.log(`[EmailService] ${message}`, data || '');
+    }
+}
+
 // 邮件服务类
 class EmailService {
     constructor() {
@@ -26,31 +36,50 @@ class EmailService {
      * @returns {Promise} 初始化Promise
      */
     async init() {
+        debugLog('开始初始化EmailJS服务');
+        
         if (this.isInitialized) {
+            debugLog('EmailJS已经初始化，直接返回');
             return Promise.resolve();
         }
 
         if (this.initPromise) {
+            debugLog('EmailJS正在初始化中，等待完成');
             return this.initPromise;
         }
 
         this.initPromise = new Promise((resolve, reject) => {
             // 检查EmailJS是否已加载
             if (typeof emailjs === 'undefined') {
+                debugLog('EmailJS未加载，开始动态加载');
                 // 动态加载EmailJS
                 const script = document.createElement('script');
                 script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
                 script.onload = () => {
-                    this.initializeEmailJS();
-                    resolve();
+                    debugLog('EmailJS脚本加载成功');
+                    try {
+                        this.initializeEmailJS();
+                        resolve();
+                    } catch (error) {
+                        debugLog('EmailJS初始化失败', error);
+                        reject(error);
+                    }
                 };
                 script.onerror = () => {
-                    reject(new Error('EmailJS加载失败'));
+                    const error = new Error('EmailJS脚本加载失败');
+                    debugLog('EmailJS脚本加载失败', error);
+                    reject(error);
                 };
                 document.head.appendChild(script);
             } else {
-                this.initializeEmailJS();
-                resolve();
+                debugLog('EmailJS已存在，直接初始化');
+                try {
+                    this.initializeEmailJS();
+                    resolve();
+                } catch (error) {
+                    debugLog('EmailJS初始化失败', error);
+                    reject(error);
+                }
             }
         });
 
@@ -62,11 +91,15 @@ class EmailService {
      */
     initializeEmailJS() {
         try {
+            if (typeof emailjs === 'undefined') {
+                throw new Error('EmailJS对象未定义');
+            }
+            
             emailjs.init(EMAIL_CONFIG.publicKey);
             this.isInitialized = true;
-            console.log('EmailJS初始化成功');
+            debugLog('EmailJS初始化成功');
         } catch (error) {
-            console.error('EmailJS初始化失败:', error);
+            debugLog('EmailJS初始化失败', error);
             throw error;
         }
     }
@@ -84,27 +117,48 @@ class EmailService {
      */
     async sendEmail(data) {
         try {
+            debugLog('准备发送邮件', data);
+            
             // 确保EmailJS已初始化
             await this.init();
+            debugLog('EmailJS初始化完成');
 
             // 验证必填字段
             this.validateEmailData(data);
+            debugLog('数据验证通过');
 
             // 构建邮件模板参数
             const templateParams = this.buildTemplateParams(data);
+            debugLog('模板参数构建完成', templateParams);
 
             // 发送邮件
+            debugLog('开始调用EmailJS发送邮件');
             const response = await emailjs.send(
                 EMAIL_CONFIG.serviceId,
                 EMAIL_CONFIG.templateId,
                 templateParams
             );
 
-            console.log('邮件发送成功:', response);
+            debugLog('邮件发送成功', response);
             return response;
         } catch (error) {
-            console.error('邮件发送失败:', error);
-            throw error;
+            debugLog('邮件发送失败', error);
+            
+            // 提供更友好的错误信息
+            let friendlyMessage = '发送失败，请稍后重试';
+            if (error.message) {
+                if (error.message.includes('网络')) {
+                    friendlyMessage = '网络连接失败，请检查网络后重试';
+                } else if (error.message.includes('邮箱')) {
+                    friendlyMessage = '邮箱格式不正确，请检查后重试';
+                } else if (error.message.includes('必填')) {
+                    friendlyMessage = error.message;
+                }
+            }
+            
+            const enhancedError = new Error(friendlyMessage);
+            enhancedError.originalError = error;
+            throw enhancedError;
         }
     }
 
@@ -186,62 +240,97 @@ const emailService = new EmailService();
 
 // 通知显示函数
 function showEmailNotification(message, type = 'info') {
+    debugLog('显示通知', { message, type });
+    
+    // 移除现有通知
+    const existingNotifications = document.querySelectorAll('.email-notification');
+    existingNotifications.forEach(notification => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    });
+    
     // 创建通知元素
     const notification = document.createElement('div');
-    notification.className = 'email-notification';
+    notification.className = `email-notification ${type}`;
+    
+    // 图标映射
+    const icons = {
+        'success': '✅',
+        'error': '❌',
+        'warning': '⚠️',
+        'info': 'ℹ️'
+    };
+    
     notification.innerHTML = `
         <div class="notification-content">
-            <span class="notification-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
+            <span class="notification-icon">${icons[type] || icons.info}</span>
             <span class="notification-message">${message}</span>
         </div>
     `;
     
-    // 设置样式
+    // 设置初始样式（隐藏状态）
     Object.assign(notification.style, {
-        position: 'fixed',
-        top: '20px',
-        right: '20px',
-        padding: '15px 20px',
-        borderRadius: '8px',
-        color: 'white',
-        fontSize: '14px',
-        fontWeight: '500',
-        zIndex: '10000',
         opacity: '0',
-        transform: 'translateX(100%)',
-        transition: 'all 0.3s ease',
-        maxWidth: '400px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+        transform: 'translateX(100%) scale(0.8)',
+        transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'
     });
-    
-    // 设置背景色
-    const colors = {
-        'success': '#28a745',
-        'error': '#dc3545',
-        'info': '#007bff',
-        'warning': '#ffc107'
-    };
-    notification.style.backgroundColor = colors[type] || colors.info;
     
     // 添加到页面
     document.body.appendChild(notification);
     
     // 显示动画
-    setTimeout(() => {
-        notification.style.opacity = '1';
-        notification.style.transform = 'translateX(0)';
-    }, 100);
+    requestAnimationFrame(() => {
+        setTimeout(() => {
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateX(0) scale(1)';
+        }, 50);
+    });
     
     // 自动隐藏
-    setTimeout(() => {
+    const hideTimeout = setTimeout(() => {
         notification.style.opacity = '0';
-        notification.style.transform = 'translateX(100%)';
+        notification.style.transform = 'translateX(100%) scale(0.8)';
+        
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.parentNode.removeChild(notification);
             }
-        }, 300);
-    }, 4000);
+        }, 400);
+    }, 5000);
+    
+    // 点击关闭
+    notification.addEventListener('click', () => {
+        clearTimeout(hideTimeout);
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%) scale(0.8)';
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 400);
+    });
+    
+    // 鼠标悬停暂停自动隐藏
+    notification.addEventListener('mouseenter', () => {
+        clearTimeout(hideTimeout);
+    });
+    
+    notification.addEventListener('mouseleave', () => {
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%) scale(0.8)';
+                
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 400);
+            }
+        }, 2000);
+    });
 }
 
 // 统一的表单处理函数
@@ -276,9 +365,17 @@ function handleEmailForm(form, options = {}) {
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             
+            // 保存原始文本
+            if (!submitBtn.getAttribute('data-original-text')) {
+                submitBtn.setAttribute('data-original-text', originalText);
+            }
+            
             // 设置加载状态
             submitBtn.textContent = '发送中...';
             submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            
+            debugLog('开始发送邮件', data);
             
             // 发送邮件
             await emailService.sendEmail(data);
@@ -301,8 +398,10 @@ function handleEmailForm(form, options = {}) {
             // 恢复按钮状态
             const submitBtn = this.querySelector('button[type="submit"]');
             if (submitBtn) {
-                submitBtn.textContent = submitBtn.getAttribute('data-original-text') || '发送';
+                const originalText = submitBtn.getAttribute('data-original-text') || submitBtn.textContent.replace('发送中...', '发送留言');
+                submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
             }
         }
     });

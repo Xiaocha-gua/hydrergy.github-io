@@ -159,15 +159,36 @@
     <!-- 留言弹窗 -->
     <div class="message-modal" id="messageModal">
         <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <h3 data-zh="留言" data-en="Leave a Message">留言</h3>
-            <form class="message-form" id="messageForm">
-                <input type="text" name="name" placeholder="姓名" data-zh-placeholder="姓名" data-en-placeholder="Name" required>
-                <input type="email" name="email" placeholder="邮箱" data-zh-placeholder="邮箱" data-en-placeholder="Email" required>
-                <input type="tel" name="phone" placeholder="电话" data-zh-placeholder="电话" data-en-placeholder="Phone">
-                <textarea name="message" placeholder="留言内容" data-zh-placeholder="留言内容" data-en-placeholder="Message Content" required></textarea>
-                <button type="submit" data-zh="发送" data-en="Send">发送</button>
-            </form>
+            <div class="modal-header">
+                <h2 data-zh="联系我们" data-en="Contact Us">联系我们</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description" data-zh="请填写以下信息，我们会尽快与您联系" data-en="Please fill in the following information, we will contact you as soon as possible">请填写以下信息，我们会尽快与您联系</p>
+                <form class="message-form" id="messageForm">
+                    <div class="form-group">
+                        <label for="userName" data-zh="姓名" data-en="Name">姓名 *</label>
+                        <input type="text" id="userName" name="name" placeholder="请输入您的姓名" data-zh-placeholder="请输入您的姓名" data-en-placeholder="Please enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail" data-zh="邮箱" data-en="Email">邮箱 *</label>
+                        <input type="email" id="userEmail" name="email" placeholder="请输入您的邮箱" data-zh-placeholder="请输入您的邮箱" data-en-placeholder="Please enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userPhone" data-zh="电话" data-en="Phone">电话</label>
+                        <input type="tel" id="userPhone" name="phone" placeholder="请输入您的电话号码" data-zh-placeholder="请输入您的电话号码" data-en-placeholder="Please enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="userCompany" data-zh="公司" data-en="Company">公司/机构</label>
+                        <input type="text" id="userCompany" name="company" placeholder="请输入您的公司或机构名称" data-zh-placeholder="请输入您的公司或机构名称" data-en-placeholder="Please enter your company or organization">
+                    </div>
+                    <div class="form-group">
+                        <label for="userMessage" data-zh="留言内容" data-en="Message">留言内容 *</label>
+                        <textarea id="userMessage" name="message" placeholder="请详细描述您的需求或问题" data-zh-placeholder="请详细描述您的需求或问题" data-en-placeholder="Please describe your requirements or questions in detail" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" data-original-text="发送留言" data-zh="发送留言" data-en="Send Message">发送留言</button>
+                </form>
+            </div>
         </div>
     </div>
 

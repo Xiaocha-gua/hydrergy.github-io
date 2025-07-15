@@ -2292,8 +2292,8 @@ h3.section-title {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
 }
 
 .message-modal.show {
@@ -2306,59 +2306,71 @@ h3.section-title {
 /* 弹窗内容容器 */
 .modal-content {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 0;
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     position: relative;
-    animation: slideIn 0.3s ease;
+    animation: slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* 弹窗头部 */
 .modal-header {
     background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
-    padding: 20px 25px;
-    border-radius: 12px 12px 0 0;
+    padding: 25px 30px;
+    border-radius: 16px 16px 0 0;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .modal-header h2 {
     margin: 0;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.modal-description {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    text-align: center;
 }
 
 /* 关闭按钮 */
 .close {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
     color: white;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .close:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-50%) scale(1.1);
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* 弹窗主体 */
 .modal-body {
-    padding: 30px 25px;
+    padding: 30px;
 }
 
 /* 表单样式 */
@@ -2375,31 +2387,42 @@ h3.section-title {
 }
 
 .form-group label {
-    font-weight: 500;
+    font-weight: 600;
     color: #333;
     font-size: 14px;
+    margin-bottom: 4px;
 }
 
 .form-group input,
 .form-group textarea {
-    padding: 12px 15px;
+    padding: 14px 16px;
     border: 2px solid #e9ecef;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 14px;
     transition: all 0.3s ease;
     font-family: inherit;
+    background: #fafafa;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+    background: white;
+    transform: translateY(-1px);
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+    border-color: #007bff;
+    background: white;
 }
 
 .form-group textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 120px;
+    line-height: 1.5;
 }
 
 /* 提交按钮 */
@@ -2407,18 +2430,40 @@ h3.section-title {
     background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
     border: none;
-    padding: 15px 30px;
-    border-radius: 8px;
+    padding: 16px 32px;
+    border-radius: 10px;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 10px;
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.submit-btn:hover::before {
+    left: 100%;
 }
 
 .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
 .submit-btn:disabled {
@@ -2426,6 +2471,10 @@ h3.section-title {
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+}
+
+.submit-btn:disabled::before {
+    display: none;
 }
 
 /* 加载状态 */

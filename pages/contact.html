@@ -217,83 +217,14 @@
         </div>
     </footer>
 
-    <!-- EmailJS CDN -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init("rxffQW9Xlbh6J_9EE");
-        })();
-    </script>
-    
-    <script src="../js/main.js?v=20250112002"></script>
+    <!-- 统一邮件服务模块 -->
+    <script src="../js/email-service.js?v=20250112001"></script>
+    <script src="../js/main.js?v=20250112001"></script>
     <script src="../js/language.js?v=20250111001"></script>
     <script src="../js/geo-language.js?v=20250111001"></script>
     <script src="../js/breadcrumb.js?v=20250111001"></script>
     <script src="../js/security.js?v=20250111001"></script>
     
-    <script>
-        // 联系表单特定功能
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contactForm');
-            
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // 获取表单数据
-                    const name = this.querySelector('input[name="name"]').value;
-                    const email = this.querySelector('input[name="email"]').value;
-                    const phone = this.querySelector('input[name="phone"]').value || '未提供';
-                    const company = this.querySelector('input[name="company"]').value || '未提供';
-                    const subject = this.querySelector('select[name="subject"]').value || '未选择';
-                    const message = this.querySelector('textarea[name="message"]').value;
-                    
-                    // 构建详细的留言内容
-                    const detailedMessage = `咨询主题：${subject}\n公司：${company}\n\n留言内容：\n${message}`;
-                    
-                    // 使用main.js中的邮件发送功能
-                    if (typeof sendEmailNotification === 'function') {
-                        const submitBtn = this.querySelector('button[type="submit"]');
-                        const originalText = submitBtn.textContent;
-                        
-                        submitBtn.textContent = '发送中...';
-                        submitBtn.disabled = true;
-                        
-                        sendEmailNotification({
-                            name: name,
-                            email: email,
-                            phone: phone,
-                            message: detailedMessage
-                        }).then(() => {
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                            
-                            // 重置表单
-                            this.reset();
-                            
-                            // 显示成功消息
-                            if (window.HydrergyMain) {
-                                window.HydrergyMain.showNotification('留言发送成功，我们会尽快回复您！', 'success');
-                            }
-                        }).catch((error) => {
-                            console.error('邮件发送失败:', error);
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                            
-                            // 显示错误消息
-                            if (window.HydrergyMain) {
-                                window.HydrergyMain.showNotification('发送失败，请稍后重试或直接联系我们', 'error');
-                            }
-                        });
-                    } else {
-                        console.error('邮件发送功能未加载');
-                        if (window.HydrergyMain) {
-                            window.HydrergyMain.showNotification('邮件服务未初始化，请稍后重试', 'error');
-                        }
-                    }
-                });
-            }
-        });
-    </script>
+    <!-- 表单处理已由email-service.js统一处理，无需额外脚本 -->
 </body>
 </html>

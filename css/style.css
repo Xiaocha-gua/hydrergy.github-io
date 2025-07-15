@@ -1,0 +1,592 @@
+/* HYDRERGY 网站主样式文件 */
+/* 作者：HYDRERGY 开发团队 */
+/* 创建时间：2025年1月 */
+/* 用途：网站主要样式定义，包含全局样式、顶部导航、业务展示、信息区域等 */
+
+/* ========================================= */
+/* 重置和基础样式 */
+/* ========================================= */
+/* 全局重置：清除所有元素的默认边距和内边距，使用border-box盒模型 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 页面主体样式：设置字体、行高、颜色和背景 */
+/* padding-top: 140px 为固定顶部导航预留空间 */
+body {
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'Roboto', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+    padding-top: 140px; /* 为固定顶部导航预留空间 */
+}
+
+/* 通用容器样式：限制最大宽度，居中显示，左右内边距 */
+.container {
+    max-width: 1200px; /* 最大宽度限制 */
+    margin: 0 auto; /* 水平居中 */
+    padding: 0 20px; /* 左右内边距 */
+}
+
+/* ========================================= */
+/* 顶部通栏样式 */
+/* ========================================= */
+/* 固定在页面顶部的联系信息栏，包含邮箱、Logo、电话和语言切换 */
+.top-bar {
+    background: white;
+    color: #333;
+    padding: 10px 0;
+    position: fixed; /* 固定定位 */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* 确保在其他元素之上 */
+    transition: all 0.3s ease; /* 平滑过渡效果 */
+    border-bottom: 1px solid #e0e0e0; /* 底部边框 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 阴影效果 */
+}
+
+/* 顶部通栏内容布局：左中右三栏布局 */
+.top-bar .container {
+    display: flex; /* 弹性布局 */
+    justify-content: space-between; /* 两端对齐 */
+    align-items: center; /* 垂直居中 */
+}
+
+/* 联系信息和电话区域的通用样式 */
+.contact-info, .contact-phone {
+    display: flex; /* 弹性布局 */
+    align-items: center; /* 垂直居中 */
+    gap: 20px; /* 元素间距 */
+}
+
+/* 邮箱和电话的具体样式 */
+.email, .phone {
+    display: flex; /* 弹性布局 */
+    align-items: center; /* 垂直居中 */
+    gap: 5px; /* 图标与文字间距 */
+    font-size: 14px;
+    color: #666;
+}
+
+/* 邮箱和电话链接样式 */
+.email a, .phone a {
+    color: #666;
+    text-decoration: none; /* 去除下划线 */
+    transition: color 0.3s ease; /* 颜色过渡效果 */
+}
+
+/* 邮箱和电话链接悬停效果 */
+.email a:hover, .phone a:hover {
+    color: #007bff; /* 悬停时变为蓝色 */
+}
+
+/* 图标样式：邮箱、电话、人员图标的统一大小 */
+.icon-email, .icon-phone, .icon-person {
+    font-size: 16px;
+}
+
+/* ========================================= */
+/* Logo样式 */
+/* ========================================= */
+/* Logo容器：居中对齐 */
+.logo {
+    text-align: center;
+}
+
+/* Logo图片：固定高度，宽度自适应 */
+.logo img {
+    height: 40px; /* 固定高度 */
+    width: auto; /* 宽度自适应 */
+}
+
+/* Logo文字：备用文字样式（当前隐藏） */
+.logo-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    letter-spacing: 2px; /* 字母间距 */
+}
+
+/* ========================================= */
+/* 语言切换按钮 */
+/* ========================================= */
+/* 语言切换按钮：蓝色背景，白色文字，圆角设计 */
+.language-toggle {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease; /* 背景色过渡效果 */
+}
+
+/* 语言切换按钮悬停效果：深蓝色背景 */
+.language-toggle:hover {
+    background: #0056b3;
+}
+
+/* ========================================= */
+/* 导航栏样式 */
+/* ========================================= */
+/* 主导航栏：固定在顶部通栏下方，白色背景，带阴影 */
+.main-nav {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 阴影效果 */
+    position: fixed; /* 固定定位 */
+    top: 60px; /* 距离顶部60px（顶部通栏高度） */
+    left: 0;
+    right: 0;
+    z-index: 999; /* 层级略低于顶部通栏 */
+    transition: all 0.3s ease; /* 平滑过渡效果 */
+}
+
+/* 导航菜单：水平排列，居中对齐 */
+.nav-menu {
+    display: flex; /* 弹性布局 */
+    list-style: none; /* 去除列表样式 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    padding: 15px 0;
+}
+
+/* 导航菜单项：相对定位，用于下拉菜单 */
+.nav-menu li {
+    position: relative; /* 相对定位，为下拉菜单提供定位基准 */
+    margin: 0 30px; /* 左右间距 */
+}
+
+/* 导航链接：深色文字，无下划线，圆角背景 */
+.nav-link {
+    color: #333;
+    text-decoration: none; /* 去除下划线 */
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease; /* 所有属性过渡效果 */
+}
+
+/* 导航链接悬停和激活状态：蓝色文字，浅灰背景 */
+.nav-link:hover, .nav-link.active {
+    color: #007bff;
+    background-color: #f8f9fa;
+}
+
+/* ========================================= */
+/* 下拉菜单样式 */
+/* ========================================= */
+/* 下拉菜单容器：相对定位 */
+.dropdown {
+    position: relative;
+}
+
+/* 下拉菜单：绝对定位，初始隐藏，悬停时显示 */
+.dropdown-menu {
+    position: absolute; /* 绝对定位 */
+    top: 100%; /* 位于父元素下方 */
+    left: 0;
+    background: white;
+    min-width: 250px; /* 最小宽度 */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 阴影效果 */
+    border-radius: 4px;
+    opacity: 0; /* 初始透明 */
+    visibility: hidden; /* 初始隐藏 */
+    transform: translateY(-10px); /* 初始向上偏移 */
+    transition: all 0.3s ease; /* 所有属性过渡效果 */
+    list-style: none; /* 去除列表样式 */
+    padding: 10px 0;
+    z-index: 1001; /* 确保在其他元素之上 */
+}
+
+/* 下拉菜单显示效果：悬停时显示 */
+.dropdown:hover .dropdown-menu {
+    opacity: 1; /* 完全不透明 */
+    visibility: visible; /* 显示 */
+    transform: translateY(0); /* 恢复正常位置 */
+}
+
+/* 下拉菜单项：重置边距 */
+.dropdown-menu li {
+    margin: 0;
+}
+
+/* 下拉菜单链接：块级显示，内边距，悬停效果 */
+.dropdown-menu a {
+    display: block; /* 块级显示 */
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none; /* 去除下划线 */
+    transition: background-color 0.3s ease; /* 背景色过渡效果 */
+    font-size: 14px;
+}
+
+/* 下拉菜单链接悬停效果：浅灰背景，蓝色文字 */
+.dropdown-menu a:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+/* ========================================= */
+/* 主体内容区样式 */
+/* ========================================= */
+/* 主要内容区域：上下内边距 */
+.main-content {
+    padding: 0px 0;
+}
+
+/* ========================================= */
+/* 业务展示区样式 */
+/* ========================================= */
+/* 业务展示区：渐变背景，展示三个主要业务领域 */
+.business-showcase {
+    padding: 40px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* 浅灰渐变背景 */
+}
+
+/* 业务网格布局：自适应网格，最小宽度300px */
+.business-grid {
+    display: grid; /* 网格布局 */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 自适应列数 */
+    gap: 40px; /* 网格间距 */
+    margin-top: 40px;
+}
+
+/* 业务项目卡片：白色背景，圆角，阴影，居中对齐 */
+.business-item {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px; /* 圆角 */
+    text-align: center; /* 文字居中 */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 阴影效果 */
+    transition: all 0.3s ease; /* 所有属性过渡效果 */
+    cursor: pointer; /* 鼠标指针 */
+}
+
+/* 业务项目悬停效果：向上移动，增强阴影 */
+.business-item:hover {
+    transform: translateY(-10px); /* 向上移动10px */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* 增强阴影 */
+}
+
+.business-icon {
+    margin-bottom: 20px;
+}
+
+.business-icon img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.business-item:hover .business-icon img {
+    transform: scale(1.1);
+}
+
+.business-item h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+.business-item p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* 信息区域样式 */
+.info-section {
+    padding: 60px 0;
+    background-color: #fff;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.info-column h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+/* 联系我们列样式 */
+.contact-details {
+    space-y: 15px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #666;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.contact-item:hover {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* 业务领域列样式 */
+.business-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.business-details .business-item {
+    font-size: 14px;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.business-details .business-item:hover {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.business-details .business-item a {
+    color: #666;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.business-details .business-item:hover a {
+    color: white;
+}
+
+.contact-item .icon {
+    width: 20px;
+    height: 20px;
+    background: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.contact-item a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item:hover a {
+    color: white;
+}
+
+/* 查看更多链接样式 */
+.view-more {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.view-more:hover {
+    border-bottom-color: #007bff;
+}
+
+/* 留言按钮样式 */
+.message-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.message-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,123,255,0.3);
+    order: 1;
+}
+
+.message-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,123,255,0.4);
+}
+
+/* 底部样式 */
+.main-footer {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    margin-top: 60px;
+}
+
+.footer-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ddd, transparent);
+    margin-bottom: 20px;
+}
+
+.footer-slogan {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* 留言弹窗样式 */
+.message-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: slideIn 0.3s ease;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.message-form {
+    margin-top: 20px;
+}
+
+.message-form input,
+.message-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.message-form input:focus,
+.message-form textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.message-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.message-form button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.message-form button:hover {
+    background: #0056b3;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+/* 选择文本样式 */
+::selection {
+    background-color: #007bff;
+    color: white;
+}
+
+::-moz-selection {
+    background-color: #007bff;
+    color: white;
+}

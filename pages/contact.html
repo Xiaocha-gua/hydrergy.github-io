@@ -217,14 +217,49 @@
         </div>
     </footer>
 
-    <!-- 统一邮件服务模块 -->
-    <script src="../js/email-service.js?v=20250112001"></script>
-    <script src="../js/main.js?v=20250112001"></script>
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- EmailJS统一配置模块 -->
+    <script src="../js/emailjs-config.js"></script>
+    
+    <script src="../js/main.js?v=20250112002"></script>
     <script src="../js/language.js?v=20250111001"></script>
     <script src="../js/geo-language.js?v=20250111001"></script>
     <script src="../js/breadcrumb.js?v=20250111001"></script>
     <script src="../js/security.js?v=20250111001"></script>
     
-    <!-- 表单处理已由email-service.js统一处理，无需额外脚本 -->
+    <script>
+        // 联系表单特定功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // 获取表单数据
+                    const name = this.querySelector('input[name="name"]').value;
+                    const email = this.querySelector('input[name="email"]').value;
+                    const phone = this.querySelector('input[name="phone"]').value || '未提供';
+                    const company = this.querySelector('input[name="company"]').value || '未提供';
+                    const subject = this.querySelector('select[name="subject"]').value || '未选择';
+                    const message = this.querySelector('textarea[name="message"]').value;
+                    
+                    // 构建详细的留言内容
+                    const detailedMessage = `咨询主题：${subject}\n公司：${company}\n\n留言内容：\n${message}`;
+                    
+                    // 使用统一的表单处理函数
+                    if (typeof handleFormSubmit === 'function') {
+                        handleFormSubmit(this, e);
+                    } else {
+                        console.error('handleFormSubmit函数未找到');
+                        if (window.HydrergyMain) {
+                            window.HydrergyMain.showNotification('表单处理函数未加载，请刷新页面重试', 'error');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

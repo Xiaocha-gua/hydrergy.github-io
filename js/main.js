@@ -9,10 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeWebsite() {
     initNavigation();
     initBusinessItems();
-
-    initSmoothScroll();
     initMessageModal();
-
+    initSmoothScroll();
+    initFormValidation();
     
     // 加载保存的语言设置
     const savedLanguage = localStorage.getItem('website-language') || 'zh';
@@ -109,9 +108,67 @@ function handleBusinessClick(businessType) {
     }
 }
 
+// 留言弹窗功能初始化
+function initMessageModal() {
+    const messageBtn = document.getElementById('messageBtn');
+    const messageModal = document.getElementById('messageModal');
+    const closeModal = document.getElementById('closeModal');
+    const messageForm = document.getElementById('messageForm');
+    
+    if (!messageBtn || !messageModal || !closeModal || !messageForm) {
+        console.log('留言功能组件未找到，跳过初始化');
+        return;
+    }
+    
+    // 打开弹窗
+    messageBtn.addEventListener('click', function() {
+        messageModal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    });
+    
+    // 关闭弹窗
+    function closeModalFunction() {
+        messageModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    closeModal.addEventListener('click', closeModalFunction);
+    
+    // 点击背景关闭弹窗
+    messageModal.addEventListener('click', function(e) {
+        if (e.target === messageModal) {
+            closeModalFunction();
+        }
+    });
+    
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && messageModal.style.display === 'block') {
+            closeModalFunction();
+        }
+    });
+    
+    // 表单提交 - 延迟绑定，等待EmailJS加载
+    messageForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // 检查EmailJS是否已加载，如果没有则等待
+        waitForEmailJS().then(() => {
+            handleFormSubmit(this);
+        }).catch((error) => {
+            console.error('EmailJS加载失败:', error);
+            showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
+        });
+    });
+}
 
-
-
+// EmailJS功能已迁移到emailjs-config.js模块
+// 此函数保留用于向后兼容
+function waitForEmailJS(maxWait = 10000) {
+    if (window.EmailJSConfig) {
+        return window.EmailJSConfig.waitForEmailJS(maxWait);
+    }
+    return Promise.reject(new Error('EmailJS配置模块未加载'));
+}
 
 // 平滑滚动初始化
 function initSmoothScroll() {
@@ -134,13 +191,147 @@ function initSmoothScroll() {
     });
 }
 
+// 表单验证初始化
+function initFormValidation() {
+    const inputs = document.querySelectorAll('.message-form input, .message-form textarea');
+    
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+            // 清除错误状态
+            this.style.borderColor = '#ddd';
+        });
+    });
+}
 
+// 字段验证 - 使用统一配置模块的验证功能
+function validateField(field) {
+    const value = field.value.trim();
+    let isValid = true;
+    
+    if (field.hasAttribute('required') && !value) {
+        isValid = false;
+    }
+    
+    // 使用统一配置模块的验证功能
+    if (window.EmailJSConfig) {
+        // 邮箱验证
+        if (field.type === 'email' && value) {
+            if (!window.EmailJSConfig.validateEmail(value)) {
+                isValid = false;
+            }
+        }
+        
+        // 电话验证
+        if (field.type === 'tel' && value) {
+            if (!window.EmailJSConfig.validatePhone(value)) {
+                isValid = false;
+            }
+        }
+    } else {
+        // 降级验证（如果配置模块未加载）
+        if (field.type === 'email' && value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                isValid = false;
+            }
+        }
+        
+        if (field.type === 'tel' && value) {
+            const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+            if (!phoneRegex.test(value)) {
+                isValid = false;
+            }
+        }
+    }
+    
+    // 设置样式
+    field.style.borderColor = isValid ? '#28a745' : '#dc3545';
+    
+    return isValid;
+}
 
+// 处理表单提交 - 使用统一配置模块
+function handleFormSubmit(form, event) {
+    if (event) {
+        event.preventDefault();
+    }
+    
+    const formData = new FormData(form);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        company: formData.get('company'),
+        subject: formData.get('subject'),
+        message: formData.get('message'),
+        pageSource: window.location.pathname // 添加页面来源信息
+    };
+    
+    // 使用统一配置模块进行表单验证
+    if (window.EmailJSConfig) {
+        const validation = window.EmailJSConfig.validateFormData(data);
+        if (!validation.isValid) {
+            showNotification(validation.errors.join('；'), 'error');
+            return;
+        }
+    } else {
+        // 降级验证（如果配置模块未加载）
+        if (!data.name || !data.email || !data.message) {
+            showNotification('请填写所有必填字段', 'error');
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email)) {
+            showNotification('请输入正确的邮箱格式', 'error');
+            return;
+        }
+    }
+    
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    // 禁用提交按钮
+    submitBtn.disabled = true;
+    submitBtn.textContent = '发送中...';
+    
+    // 发送邮件
+    sendEmailNotification(data)
+        .then(() => {
+            showNotification('留言发送成功！我们会尽快回复您。', 'success');
+            form.reset();
+            
+            // 如果是弹窗表单，关闭弹窗
+            const modal = form.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        })
+        .catch((error) => {
+            console.error('发送失败:', error);
+            showNotification(error.message || '发送失败，请稍后重试', 'error');
+        })
+        .finally(() => {
+            // 恢复提交按钮
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+        });
+}
 
-
-
-
-
+// 发送邮件通知 - 使用统一配置模块
+function sendEmailNotification(data) {
+    if (!window.EmailJSConfig) {
+        return Promise.reject(new Error('EmailJS配置模块未加载'));
+    }
+    
+    return window.EmailJSConfig.init().then(() => {
+        return window.EmailJSConfig.sendEmail(data);
+    });
+}
 
 // 显示通知
 function showNotification(message, type = 'info') {
@@ -245,56 +436,14 @@ document.addEventListener('visibilitychange', function() {
     }
 });
 
-// 留言功能初始化 - 已迁移到email-service.js
-// 保留此函数以维持兼容性，实际功能由EmailService模块处理
-function initMessageModal() {
-    // 功能已完全迁移到email-service.js模块
-    // 不再在main.js中处理留言弹窗，避免冲突
-    console.log('留言功能已迁移到EmailService模块');
-}
-
-// EmailJS发送邮件功能 - 已迁移到email-service.js
-// 保留此函数以维持向后兼容性
-function sendEmailNotification(data) {
-    // 如果EmailService模块已加载，使用新的服务
-    if (typeof window.EmailService !== 'undefined') {
-        return window.EmailService.sendEmail(data);
-    }
-    
-    // 兼容性回退：使用原有逻辑
-    console.warn('EmailService模块未加载，使用兼容性邮件发送功能');
-    return new Promise((resolve, reject) => {
-        if (typeof emailjs === 'undefined') {
-            reject(new Error('EmailJS未加载'));
-            return;
-        }
-        
-        emailjs.send('service_y7euqtk', 'template_3vjncmk', {
-            to_email: 'qiuzt@carbonxtech.com.cn',
-            from_name: data.name,
-            from_email: data.email,
-            phone: data.phone,
-            message: data.message,
-            reply_to: data.email,
-            current_time: new Date().toLocaleString('zh-CN')
-        })
-        .then((response) => {
-            console.log('邮件发送成功:', response);
-            resolve(response);
-        })
-        .catch((error) => {
-            console.error('EmailJS发送失败:', error);
-            reject(error);
-        });
-    });
-}
-
 // 导出函数供其他脚本使用
 window.HydrergyMain = {
     showNotification,
     debounce,
-    throttle
+    throttle,
+    validateField
 };
 
-// 全局导出sendEmailNotification函数
+// 将邮件发送函数暴露到全局作用域，供contact.html等页面使用
 window.sendEmailNotification = sendEmailNotification;
+window.handleFormSubmit = handleFormSubmit;

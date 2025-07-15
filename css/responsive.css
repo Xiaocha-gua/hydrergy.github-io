@@ -111,7 +111,9 @@
         margin-top: 30px;
     }
     
-
+    .message-column {
+        order: -1;
+    }
     
     /* 弹窗调整 */
     .modal-content {
@@ -203,7 +205,10 @@
         font-size: 13px;
     }
     
-
+    .message-btn {
+        padding: 12px 25px;
+        font-size: 14px;
+    }
     
     /* 底部 */
     .main-footer {
@@ -215,7 +220,17 @@
         font-size: 14px;
     }
     
-
+    /* 弹窗 */
+    .modal-content {
+        margin: 15% auto;
+        padding: 15px;
+    }
+    
+    .message-form input,
+    .message-form textarea {
+        padding: 10px;
+        font-size: 13px;
+    }
 }
 
 /* 超小屏幕设备 (320px以下) */
@@ -241,7 +256,10 @@
         height: 50px;
     }
     
-
+    .message-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
     
     .footer-slogan {
         font-size: 13px;
@@ -305,7 +323,8 @@
 @media print {
     .top-bar,
     .main-nav,
-    .message-btn {
+    .message-btn,
+    .message-modal {
         display: none;
     }
     
@@ -354,7 +373,9 @@
         color: #fff;
     }
     
-
+    .message-btn {
+        border: 2px solid #000;
+    }
 }
 
 /* 深色模式支持 */
@@ -386,5 +407,15 @@
         background-color: #2d2d2d;
     }
     
-
+    .modal-content {
+        background-color: #2d2d2d;
+        color: #e0e0e0;
+    }
+    
+    .message-form input,
+    .message-form textarea {
+        background-color: #404040;
+        border-color: #555;
+        color: #e0e0e0;
+    }
 }

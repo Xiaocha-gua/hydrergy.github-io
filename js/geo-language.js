@@ -10,6 +10,15 @@
             return; // 已有设置，不进行地理检测
         }
         
+        // 检查是否已经进行过地理检测（避免重复检测）
+        const geoDetected = sessionStorage.getItem('geo-language-detected');
+        if (geoDetected) {
+            return; // 本次会话已检测过，不再重复
+        }
+        
+        // 标记已进行地理检测
+        sessionStorage.setItem('geo-language-detected', 'true');
+        
         // 尝试通过浏览器语言检测
         const browserLanguage = navigator.language || navigator.userLanguage;
         
@@ -22,7 +31,8 @@
         );
         
         if (isChineseBrowser) {
-            setLanguage('zh');
+            // 浏览器语言为中文，保持默认中文设置，不进行切换
+            return;
         } else {
             // 对于非中文浏览器，尝试IP地理位置检测
             detectLocationByIP();
@@ -53,6 +63,12 @@
     
     // 设置语言（与language.js协调）
     function setLanguage(language) {
+        // 避免不必要的语言切换，减少页面闪烁
+        const currentLang = localStorage.getItem('website-language') || 'zh';
+        if (currentLang === language) {
+            return; // 语言相同，无需切换
+        }
+        
         // 使用HydrergyLanguage命名空间中的函数
         if (window.HydrergyLanguage && typeof window.HydrergyLanguage.switchLanguage === 'function') {
             window.HydrergyLanguage.switchLanguage(language);
@@ -70,11 +86,15 @@
         }
     }
     
-    // 页面加载完成后执行检测
+    // 页面加载完成后执行检测（延迟执行以避免与language.js冲突）
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', detectAndSetLanguage);
+        document.addEventListener('DOMContentLoaded', function() {
+            // 延迟执行，确保language.js已完成初始化
+            setTimeout(detectAndSetLanguage, 500);
+        });
     } else {
-        detectAndSetLanguage();
+        // 延迟执行，确保language.js已完成初始化
+        setTimeout(detectAndSetLanguage, 500);
     }
     
     // 导出函数供其他脚本使用

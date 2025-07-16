@@ -97,8 +97,8 @@ const Web3FormsConfig = {
             errors.push('请输入有效的邮箱地址');
         }
         
-        if (!data.message || data.message.trim().length < 10) {
-            errors.push('请输入详细的留言内容（至少10个字符）');
+        if (!data.message || data.message.trim().length < 1) {
+            errors.push('请输入留言内容');
         }
         
         if (data.phone && !this.validatePhone(data.phone)) {

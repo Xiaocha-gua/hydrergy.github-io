@@ -15,8 +15,9 @@ const Web3FormsConfig = {
     
     // 发送邮件
     sendEmail: function(data) {
-        if (!this.validateFormData(data)) {
-            return Promise.reject(new Error('表单数据验证失败'));
+        const validation = this.validateFormData(data);
+        if (!validation.isValid) {
+            return Promise.reject(new Error(validation.message));
         }
         
         console.log('[Web3Forms Config] 发送邮件数据:', {
@@ -86,23 +87,30 @@ const Web3FormsConfig = {
     
     // 验证表单数据
     validateFormData: function(data) {
+        const errors = [];
+        
         if (!data.name || data.name.trim().length < 2) {
-            return { valid: false, message: '请输入有效的姓名（至少2个字符）' };
+            errors.push('请输入有效的姓名（至少2个字符）');
         }
         
         if (!data.email || !this.validateEmail(data.email)) {
-            return { valid: false, message: '请输入有效的邮箱地址' };
+            errors.push('请输入有效的邮箱地址');
         }
         
         if (!data.message || data.message.trim().length < 10) {
-            return { valid: false, message: '请输入详细的留言内容（至少10个字符）' };
+            errors.push('请输入详细的留言内容（至少10个字符）');
         }
         
         if (data.phone && !this.validatePhone(data.phone)) {
-            return { valid: false, message: '请输入有效的电话号码' };
+            errors.push('请输入有效的电话号码');
         }
         
-        return { valid: true };
+        return {
+            isValid: errors.length === 0,
+            valid: errors.length === 0,
+            errors: errors,
+            message: errors.join('；')
+        };
     },
     
     // 获取配置信息

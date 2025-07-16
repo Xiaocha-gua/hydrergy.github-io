@@ -150,26 +150,26 @@ function initMessageModal() {
         }
     });
     
-    // 表单提交 - 延迟绑定，等待EmailJS加载
+    // 表单提交 - 延迟绑定，等待Web3Forms加载
     messageForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        // 检查EmailJS是否已加载，如果没有则等待
-        waitForEmailJS().then(() => {
+        // 检查Web3Forms是否已加载，如果没有则等待
+        waitForWeb3Forms().then(() => {
             handleFormSubmit(this);
         }).catch((error) => {
-            console.error('EmailJS加载失败:', error);
+            console.error('Web3Forms加载失败:', error);
             showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
         });
     });
 }
 
-// EmailJS功能已迁移到emailjs-config.js模块
+// Web3Forms功能已迁移到web3forms-config.js模块
 // 此函数保留用于向后兼容
-function waitForEmailJS(maxWait = 10000) {
-    if (window.EmailJSConfig) {
-        return window.EmailJSConfig.waitForEmailJS(maxWait);
+function waitForWeb3Forms(maxWait = 10000) {
+    if (window.Web3FormsConfig) {
+        return window.Web3FormsConfig.init();
     }
-    return Promise.reject(new Error('EmailJS配置模块未加载'));
+    return Promise.reject(new Error('Web3Forms配置模块未加载'));
 }
 
 // 平滑滚动初始化
@@ -219,17 +219,17 @@ function validateField(field) {
     }
     
     // 使用统一配置模块的验证功能
-    if (window.EmailJSConfig) {
+    if (window.Web3FormsConfig) {
         // 邮箱验证
         if (field.type === 'email' && value) {
-            if (!window.EmailJSConfig.validateEmail(value)) {
+            if (!window.Web3FormsConfig.validateEmail(value)) {
                 isValid = false;
             }
         }
         
         // 电话验证
         if (field.type === 'tel' && value) {
-            if (!window.EmailJSConfig.validatePhone(value)) {
+            if (!window.Web3FormsConfig.validatePhone(value)) {
                 isValid = false;
             }
         }
@@ -274,8 +274,8 @@ function handleFormSubmit(form, event) {
     };
     
     // 使用统一配置模块进行表单验证
-    if (window.EmailJSConfig) {
-        const validation = window.EmailJSConfig.validateFormData(data);
+    if (window.Web3FormsConfig) {
+        const validation = window.Web3FormsConfig.validateFormData(data);
         if (!validation.isValid) {
             showNotification(validation.errors.join('；'), 'error');
             return;
@@ -326,12 +326,12 @@ function handleFormSubmit(form, event) {
 
 // 发送邮件通知 - 使用统一配置模块
 function sendEmailNotification(data) {
-    if (!window.EmailJSConfig) {
-        return Promise.reject(new Error('EmailJS配置模块未加载'));
+    if (!window.Web3FormsConfig) {
+        return Promise.reject(new Error('Web3Forms配置模块未加载'));
     }
     
-    return window.EmailJSConfig.init().then(() => {
-        return window.EmailJSConfig.sendEmail(data);
+    return window.Web3FormsConfig.init().then(() => {
+        return window.Web3FormsConfig.sendEmail(data);
     });
 }
 

@@ -268,7 +268,7 @@ function addSecurityHeaders() {
     // 扩展CSP策略
     const meta = document.createElement('meta');
     meta.httpEquiv = 'Content-Security-Policy';
-    meta.content = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.emailjs.com; img-src 'self' data:;";
+    meta.content = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.web3forms.com; img-src 'self' data:;";
     document.head.appendChild(meta);
 }
 

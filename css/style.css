@@ -14,13 +14,18 @@
 }
 
 /* 页面主体样式：设置字体、行高、颜色和背景 */
-/* padding-top: 140px 为固定顶部导航预留空间 */
+/* padding-top: 140px 为固定顶部导航和面包屑导航预留空间 */
 body {
     font-family: 'PingFang SC', 'Microsoft YaHei', 'Roboto', Arial, sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #fff;
-    padding-top: 140px; /* 为固定顶部导航预留空间 */
+    padding-top: 140px; /* 为固定顶部导航和面包屑导航预留空间 */
+}
+
+/* 当页面有面包屑导航时的样式 */
+body.breadcrumb-active {
+    padding-top: 140px; /* 为固定顶部导航和面包屑导航预留空间 */
 }
 
 /* 通用容器样式：限制最大宽度，居中显示，左右内边距 */

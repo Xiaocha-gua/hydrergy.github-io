@@ -54,12 +54,12 @@ const translations = {
         
         // 业务领域下拉菜单
         'business.hydrogen': 'Water Electrolysis Technology & Products',
-        'business.co2': 'CO₂ Electrolysis Technology & Products',
+        'business.co2': 'CO2 Electrolysis Technology & Products',
         'business.consulting': 'Technical Consulting & Database Services',
         
         // 业务展示区
         'business.hydrogen.desc': 'Professional water electrolysis components, equipments, and technical solutions—enabling hydrogen production and accelerating clean energy growth.',
-        'business.co2.desc': 'Specialized components, equipment, and technical solutions for CO₂ electrolysis – powering the efficient utilization of carbon resources.',
+        'business.co2.desc': 'Specialized components, equipment, and technical solutions for CO2 electrolysis – powering the efficient utilization of carbon resources.',
         'business.consulting.desc': 'Professional life cycle analysis, techno-economic analysis consulting, and comprehensive database services – delivering holistic support tailored for you.',
         
         // 信息区域

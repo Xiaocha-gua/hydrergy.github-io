@@ -16,7 +16,7 @@
     <title data-zh="多通道电解水测试系统 - HYDRERGY" data-en="Multi-channel Water Electrolysis Test System - HYDRERGY">多通道电解水测试系统 - HYDRERGY</title>
     <meta name="description" content="HYDRERGY多通道电解水测试系统，支持2-8个通道并行测试，适用于碱性电解水、AEM电解水、海水电解制氢，大幅提升测试效率">
     <meta name="keywords" content="多通道电解水测试系统,并行测试,碱性电解水,AEM电解水,海水电解制氢,HYDRERGY">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.web3forms.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.web3forms.com;">
     
     <link rel="stylesheet" href="../../css/style.css?v=20250112001">
     <link rel="stylesheet" href="../../css/business.css?v=20250112001">
@@ -50,14 +50,19 @@
         </div>
     </header>
 
+
+
     <!-- 主要内容区域 -->
     <main class="main-content">
         <div class="container">
-
+            <!-- 面包屑导航 -->
+            <nav class="breadcrumb-nav" id="breadcrumb-nav">
+                <!-- 面包屑导航由JS动态生成 -->
+            </nav>
 
             <!-- 主体区 -->
             <div class="main-area">
-                <div class="page-title" style="text-align: center;">
+                <div class="page-title" style="text-align: center; margin-top: 40px;">
                     <h1 data-lang="zh">多通道电解水测试系统</h1>
                     <h1 data-lang="en" style="display: none;">Multi-channel Water Electrolysis Test System</h1>
                 </div>
@@ -67,7 +72,9 @@
                         <div class="overview-content">
                             <div class="overview-text">
                                 <h2 class="section-title" data-zh="产品概述" data-en="Product Overview">产品概述</h2>
-                                <p data-zh="多通道电解水单池测试设备是针对碱性电解水、AEM 电解水、海水电解制氢领域开发的多通道并行测试平台，核心优势在于支持2~8个通道独立运行（用户可指定通道数量），可以同时对多个单池或短堆进行常压测试，实现粉体催化剂、电极、膜电极等多种材料的并行评估与验证，大幅缩短多样品测试周期，显著提升高效测试筛选能力。设备集成电解液循环系统、氮气吹扫单元、压力调节单元、气液分离单元、气体分析预处理单元、PLC 采集与控制单元、人机操作单元和安全监控单元，各通道可独立开展极化曲线、电化学测试（需选配电化学工作站）、氧中氢/氢中氧浓度在线监测、敏感性测试、耐久性测试等，且各通道运行参数（如流量、温度、电压、电流）可独立调控、互不干扰。" data-en="The multi-channel water electrolysis single-cell test equipment is a multi-channel parallel testing platform developed for alkaline water electrolysis, AEM water electrolysis, and seawater electrolysis hydrogen production fields. The core advantage is that it supports 2-8 channels operating independently (users can specify the number of channels), and can simultaneously conduct atmospheric pressure testing on multiple single cells or short stacks, achieving parallel evaluation and verification of various materials such as powder catalysts, electrodes, and membrane electrodes, greatly shortening the multi-sample testing cycle and significantly improving efficient testing and screening capabilities. The equipment integrates electrolyte circulation system, nitrogen purge unit, pressure regulation unit, gas-liquid separation unit, gas analysis pretreatment unit, PLC acquisition and control unit, human-machine operation unit and safety monitoring unit. Each channel can independently carry out polarization curves, electrochemical testing (requires optional electrochemical workstation), online monitoring of hydrogen in oxygen/oxygen in hydrogen concentration, sensitivity testing, durability testing, etc., and the operating parameters of each channel (such as flow rate, temperature, voltage, current) can be independently controlled without interfering with each other.">多通道电解水单池测试设备是针对碱性电解水、AEM 电解水、海水电解制氢领域开发的多通道并行测试平台，核心优势在于支持2~8个通道独立运行（用户可指定通道数量），可以同时对多个单池或短堆进行常压测试，实现粉体催化剂、电极、膜电极等多种材料的并行评估与验证，大幅缩短多样品测试周期，显著提升高效测试筛选能力。设备集成电解液循环系统、氮气吹扫单元、压力调节单元、气液分离单元、气体分析预处理单元、PLC 采集与控制单元、人机操作单元和安全监控单元，各通道可独立开展极化曲线、电化学测试（需选配电化学工作站）、氧中氢/氢中氧浓度在线监测、敏感性测试、耐久性测试等，且各通道运行参数（如流量、温度、电压、电流）可独立调控、互不干扰。</p>
+                                <p data-zh="多通道电解水单池测试设备是针对碱性电解水、AEM 电解水、海水电解制氢领域开发的多通道并行测试平台，核心优势在于支持2~8个通道独立运行（用户可指定通道数量），可以同时对多个单池或短堆进行常压测试，实现粉体催化剂、电极、膜电极等多种材料的并行评估与验证，大幅缩短多样品测试周期，显著提升高效测试筛选能力。设备集成电解液循环系统、氮气吹扫单元、压力调节单元、气液分离单元、气体分析预处理单元、PLC 采集与控制单元、人机操作单元和安全监控单元，各通道可独立开展极化曲线、电化学测试（需选配电化学工作站）、氧中氢/氢中氧浓度在线监测、敏感性测试、耐久性测试等，且各通道运行参数（如流量、温度、电压、电流）可独立调控、互不干扰。" data-en="Designed for alkaline, AEM, and seawater electrolysis, our state-of-the-art multi-channel testing system revolutionizes hydrogen production research. Supporting 2 to 8 independent channels (customizable to your needs), it enables simultaneous testing of multiple single cells or short stacks under ambient pressure. This cutting-edge platform accelerates the evaluation of powder catalysts, electrodes, and membrane electrode assemblies, slashing testing cycles and boosting high-throughput screening efficiency.
+
+Equipped with an electrolyte circulation system, nitrogen purging unit, pressure regulation, gas-liquid separation, gas analysis preprocessing, PLC control, user-friendly HMI, and robust safety monitoring, each channel operates independently with precise control over parameters like flow, temperature, voltage, and current. Conduct polarization curve analysis, electrochemical tests (with optional workstation), in-line H₂/O₂ concentration monitoring, sensitivity, and durability testing—all tailored to your research needs.">多通道电解水单池测试设备是针对碱性电解水、AEM 电解水、海水电解制氢领域开发的多通道并行测试平台，核心优势在于支持2~8个通道独立运行（用户可指定通道数量），可以同时对多个单池或短堆进行常压测试，实现粉体催化剂、电极、膜电极等多种材料的并行评估与验证，大幅缩短多样品测试周期，显著提升高效测试筛选能力。设备集成电解液循环系统、氮气吹扫单元、压力调节单元、气液分离单元、气体分析预处理单元、PLC 采集与控制单元、人机操作单元和安全监控单元，各通道可独立开展极化曲线、电化学测试（需选配电化学工作站）、氧中氢/氢中氧浓度在线监测、敏感性测试、耐久性测试等，且各通道运行参数（如流量、温度、电压、电流）可独立调控、互不干扰。</p>
                             </div>
                             <div class="overview-image">
                                 <img src="../../images/多通道电解水测试系统.jpg" alt="多通道电解水测试系统">
@@ -87,7 +94,7 @@
                             <div class="feature-card">
                                 <div class="feature-icon">🔬</div>
                                 <h3 data-zh="多应用领域" data-en="Multi-Application Fields">多应用领域</h3>
-                                <p data-zh="适用于碱性电解水、AEM电解水、海水电解制氢等多个应用领域" data-en="Suitable for alkaline water electrolysis, AEM water electrolysis, seawater electrolysis hydrogen production and other application fields">适用于碱性电解水、AEM电解水、海水电解制氢等多个应用领域</p>
+                                <p data-zh="适用于碱性电解水、AEM电解水、海水电解制氢等多个应用领域" data-en="Suitable for alkaline water electrolysis, AEM water electrolysis, seawater electrolysis and other application fields">适用于碱性电解水、AEM电解水、海水电解制氢等多个应用领域</p>
                             </div>
                             <div class="feature-card">
                                 <div class="feature-icon">⚙️</div>
@@ -227,7 +234,7 @@
                     <!-- 服务支持 -->
                     <section class="service-support-redesign">
                         <div class="section-header">
-                            <h2 class="section-title" data-zh="服务支持" data-en="Service Support">服务支持</h2>
+                            <h2 class="section-title" data-zh="服务支持" data-en="Service Support" style="margin-top: -40px;">服务支持</h2>
                             <p class="section-subtitle" data-zh="全方位专业服务，保障您的每一步" data-en="Comprehensive professional services to support every step">全方位专业服务，保障您的每一步</p>
                         </div>
                         <div class="support-grid support-1x4">
@@ -293,7 +300,7 @@
                     <!-- 应用领域 -->
                     <section class="applications-redesign">
                         <div class="section-header">
-                            <h2 class="section-title" data-zh="应用领域" data-en="Applications">应用领域</h2>
+                            <h2 class="section-title" data-zh="应用领域" data-en="Applications" style="margin-top: -40px">应用领域</h2>
                             <p class="section-subtitle" data-zh="广泛应用于科研、产业、验证等多个领域" data-en="Widely applied in research, industry, validation and other fields">广泛应用于科研、产业、验证等多个领域</p>
                         </div>
                         <div class="applications-container applications-1x4">
@@ -303,7 +310,7 @@
                                     <h3 data-zh="科研院所" data-en="Research Institutes">科研院所</h3>
                                     <p data-zh="为高校和科研院所电解水制氢技术研究提供专业测试平台，支持前沿技术探索" data-en="Provides professional testing platform for water electrolysis hydrogen production research in universities and research institutes, supporting cutting-edge technology exploration">为高校和科研院所电解水制氢技术研究提供专业测试平台，支持前沿技术探索</p>
                                     <div class="app-features">
-                                        <span class="feature-tag" data-zh="学术研究" data-en="Academic Research"  >学术研究</span>
+                                        <span class="feature-tag" data-zh="学术研究" data-en="Academic Research">学术研究</span>
                                         <span class="feature-tag" data-zh="技术创新" data-en="Technology Innovation">技术创新</span>
                                     </div>
                                 </div>
@@ -343,6 +350,7 @@
                             </div>
                         </div>
                     </section>
+                </div>
             </div>
         </div>
     </main>
@@ -431,10 +439,10 @@
     </div>
 
     <!-- JavaScript 文件 -->
-    <script src="../../js/main.js?v=20250112001"></script>
     <script src="../../js/language.js?v=20250112001"></script>
+    <script src="../../js/main.js?v=20250112001"></script>
     <script src="../../js/geo-language.js?v=20250112001"></script>
-    <script src="../../js/breadcrumb.js?v=20250112001"></script>
+    <script src="../../js/breadcrumb.js?v=20250112002"></script>
     <script src="../../js/security.js?v=20250112001"></script>
     <script src="../../js/web3forms-config.js?v=20250112001"></script>
 </body>

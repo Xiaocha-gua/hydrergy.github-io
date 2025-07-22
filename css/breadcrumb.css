@@ -14,6 +14,9 @@
     position: relative;
     z-index: 998; /* 低于顶部通栏但高于其他内容 */
     transition: all 0.3s ease;
+    display: block !important; /* 确保始终显示 */
+    visibility: visible !important; /* 确保可见 */
+    opacity: 1 !important; /* 确保不透明 */
 }
 
 /* 始终固定在顶部通栏下方 */
@@ -22,11 +25,13 @@
     top: 70px;
     left: 0;
     right: 0;
+    width: 100%; /* 确保宽度100% */
     z-index: 998;
     transform: translateZ(0);
     background: rgba(248, 249, 250, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: block !important; /* 确保始终显示 */
 }
 
 /* 面包屑导航列表 */

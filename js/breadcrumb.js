@@ -62,6 +62,14 @@ const breadcrumbConfig = {
         '/pages/business/desktop-water-electrolysis.html': {
             zh: '桌面式电解水测试设备',
             en: 'Desktop Water Electrolysis Test Equipment'
+        },
+        '/pages/business/multi-channel-water-electrolysis.html': {
+            zh: '多通道电解水系统',
+            en: 'Multi-channel Water Electrolysis System'
+        },
+        '/pages/business/co2-electrolysis-system.html': {
+            zh: '电解二氧化碳系统',
+            en: 'CO₂ Electrolysis System'
         }
     },
     
@@ -78,6 +86,8 @@ const breadcrumbConfig = {
         '/pages/business/anion-membrane.html': '/pages/business/hydrogen.html',
         '/pages/business/bench-water-electrolysis.html': '/pages/business/hydrogen.html',
         '/pages/business/desktop-water-electrolysis.html': '/pages/business/hydrogen.html',
+        '/pages/business/multi-channel-water-electrolysis.html': '/pages/business/hydrogen.html',
+        '/pages/business/co2-electrolysis-system.html': '/pages/business/co2.html',
         '/business': '/'
     }
 };
@@ -244,7 +254,7 @@ class BreadcrumbNavigation {
                 
                 items.push({
                      text: config[this.currentLanguage],
-                     href: isLast ? null : (path === '/business' ? this.getRelativePath('/') : this.getRelativePath(path))
+                     href: isLast ? null : (path === '/business' ? null : this.getRelativePath(path))
                  });
             }
         });

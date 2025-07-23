@@ -657,7 +657,8 @@
 /* 数据库服务页面特定样式 */
 .database-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 30px;
     margin-top: 30px;
 }
@@ -841,7 +842,8 @@
     }
     
     .database-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
     }
     
     .data-stats {
@@ -1145,7 +1147,8 @@
 
 .database-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 30px;
 }
 
@@ -1243,12 +1246,20 @@
     background: #f8f9fa;
 }
 
+.service-features .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .service-features h2 {
     text-align: center;
     font-size: 28px;
     color: #333;
+    margin-top: 0;
     margin-bottom: 40px;
     font-weight: 600;
+    padding-top: 20px;
 }
 
 .features-grid {
@@ -1590,6 +1601,7 @@
     
     .database-grid {
         grid-template-columns: 1fr;
+        grid-template-rows: repeat(6, 1fr);
     }
     
     .cases-grid {
@@ -1665,8 +1677,8 @@
 /* ========================================= */
 /* 所有子网页的section-title统一样式 */
 .section-title {
-    font-size: 1.7rem; /* 统一字体大小 */
-    margin-top: 40px; /* 统一上边距，与其他元素保持适当距离 */
+    font-size: 28px; /* 统一字体大小改为28px */
+    margin-top: -50px; /* 统一上边距，与其他元素保持适当距离 */
     margin-bottom: 20px; /* 统一下边距 */
     color: #2c3e50; /* 深色文字 */
     text-align: center; /* 居中对齐 */
@@ -1697,19 +1709,19 @@
 
 /* 页面主标题样式（h1级别的section-title） */
 h1.section-title {
-    font-size: 2.2rem; /* 主标题更大字体 */
+    font-size: 28px; /* 主标题字体统一为28px */
     margin-top: 20px; /* 主标题较小上边距 */
     margin-bottom: 30px; /* 主标题较大下边距 */
 }
 
 /* 板块标题样式（h2级别的section-title） */
 h2.section-title {
-    font-size: 1.7rem; /* 板块标题标准字体 */
+    font-size: 28px; /* 板块标题字体统一为28px */
 }
 
 /* 子标题样式（h3级别的section-title） */
 h3.section-title {
-    font-size: 1.4rem; /* 子标题较小字体 */
+    font-size: 28px; /* 子标题字体统一为28px */
     margin-top: 30px; /* 子标题较小上边距 */
     margin-bottom: 15px; /* 子标题较小下边距 */
 }
@@ -1739,6 +1751,7 @@ h3.section-title {
     line-height: 1.8;
     color: #555;
     margin-top: 20px;
+    text-align: justify;
 }
 
 .overview-image {
@@ -1919,7 +1932,7 @@ h3.section-title {
 }
 
 .applications-redesign .section-title {
-    font-size: 2.5rem;
+    font-size: 28px;
     color: #2c3e50;
     margin-bottom: 15px;
     font-weight: 700;
@@ -1963,12 +1976,14 @@ h3.section-title {
 .application-item {
     background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
     border-radius: 16px;
-    padding: 30px;
+    padding: 30px 30px 105px 30px; /* 底部增加75·px额外空间 */
     box-shadow: 0 8px 30px rgba(0,0,0,0.08);
     transition: all 0.4s ease;
     border: 1px solid #e9ecef;
     position: relative;
     overflow: hidden;
+    /* 容器自适应内容高度，底部增加100px额外空间 */
+    min-height: 300px; /* 保持最小高度不变 */
 }
 
 .application-item::before {
@@ -2016,17 +2031,68 @@ h3.section-title {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    justify-content: center; /* 居中对齐 */
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 80px; /* 增加最小高度以确保一致性 */
+    /* height: 80px; 移除固定高度限制，允许Academic Research标签移动 */
+    margin-top: 0px; /* 重置为默认值 */
+    padding: 8px 0;
+    position: relative;
+    /* overflow: hidden; 移除溢出隐藏，允许标签显示在容器外 */
 }
+
+/* 针对所有application-item中的标签进行特殊定位 */
+.application-item:first-child .app-features,
+.application-item:nth-child(2) .app-features,
+.application-item:nth-child(3) .app-features,
+.application-item:nth-child(4) .app-features {
+    position: absolute;
+    bottom: 10px;
+    left: 30px;
+    right: 30px;
+    margin-top: 0; /* 重置margin-top */
+}
+
+/* 确保所有application-item容器支持绝对定位 */
+.application-item:first-child,
+.application-item:nth-child(2),
+.application-item:nth-child(3),
+.application-item:nth-child(4) {
+    position: relative;
+    overflow: visible;
+}
+
 
 .feature-tag {
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
-    padding: 6px 12px;
+    padding: 0;
     border-radius: 20px;
     font-size: 12px;
     font-weight: 500;
     white-space: nowrap;
+    width: 140px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+    margin: 0 2px;
+    vertical-align: top;
+}
+
+/* 确保英文版本下标签对齐一致 */
+[data-lang="en"] .feature-tag {
+    font-size: 11px;
+    padding: 12px 14px;
+    min-width: 110px;
+    max-width: 170px;
+    height: 42px;
+    margin: 0 2px;
 }
 
 /* ========================================= */
@@ -2044,7 +2110,7 @@ h3.section-title {
 }
 
 .service-support-redesign .section-title {
-    font-size: 2.5rem;
+    font-size: 28px;
     color: #2c3e50;
     margin-bottom: 15px;
     font-weight: 700;
@@ -2083,6 +2149,11 @@ h3.section-title {
     transition: all 0.4s ease;
     border: 2px solid #f0f0f0;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    /* 容器自适应内容高度，底部增加100px额外空间 */
+    min-height: 200px; /* 保持最小高度不变 */
+    padding-bottom: -40px; /* 底部增加100px额外空间 */
 }
 
 .support-card:hover {
@@ -2138,6 +2209,9 @@ h3.section-title {
 .card-content {
     padding: 30px 25px;
     background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-content p {
@@ -2151,6 +2225,12 @@ h3.section-title {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    justify-content: center;
 }
 
 .service-features li {
@@ -2158,15 +2238,22 @@ h3.section-title {
     color: #555;
     font-size: 14px;
     position: relative;
-    padding-left: 20px;
+    min-height: 32px;
+    /* 移除固定高度，让内容自适应 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    line-height: 1.4; /* 统一行高 */
 }
 
 .service-features li::before {
     content: '✓';
-    position: absolute;
-    left: 0;
     color: #28a745;
     font-weight: bold;
+    margin-right: 6px;
+    display: inline-block;
+    flex-shrink: 0; /* 防止符号被压缩 */
 }
 
 /* 中等屏幕响应式设计 */
@@ -2212,7 +2299,7 @@ h3.section-title {
     /* 新设计的响应式样式 */
     .applications-redesign .section-title,
     .service-support-redesign .section-title {
-        font-size: 2rem;
+        font-size: 28px;
     }
     
     .applications-container,
@@ -2264,6 +2351,14 @@ h3.section-title {
     margin: 0 auto;
 }
 
+/* 2行3列布局 */
+.composition-grid.composition-2x3 {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
 /* 系统构成项目 */
 .composition-item {
     background: white;
@@ -2273,6 +2368,10 @@ h3.section-title {
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     border: 2px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px; /* 基础最小高度 */
+    height: auto;
 }
 
 .composition-item:hover {
@@ -2310,6 +2409,15 @@ h3.section-title {
     z-index: 1;
 }
 
+.composition-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    position: relative;
+}
+
 .composition-content h3 {
     font-size: 1.1rem;
     color: #2c3e50;
@@ -2317,11 +2425,24 @@ h3.section-title {
     font-weight: 600;
 }
 
+.composition-content p {
+    text-align: center;
+    margin-bottom: -70px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .composition-features {
     list-style: none;
     padding: 0;
-    margin: 0;
-    text-align: left;
+    margin: 8px 0 0 0;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .composition-features li {
@@ -2329,7 +2450,7 @@ h3.section-title {
     color: #666;
     font-size: 13px;
     position: relative;
-    padding-left: 15px;
+    padding-left: 8px;
 }
 
 .composition-features li::before {
@@ -2347,6 +2468,11 @@ h3.section-title {
         max-width: 1200px;
     }
     
+    .composition-grid.composition-2x3 {
+        gap: 25px;
+        max-width: 900px;
+    }
+    
     .composition-item {
         padding: 20px 15px;
     }
@@ -2356,6 +2482,11 @@ h3.section-title {
     .composition-grid.composition-1x5 {
         gap: 12px;
         max-width: 1000px;
+    }
+    
+    .composition-grid.composition-2x3 {
+        gap: 20px;
+        max-width: 800px;
     }
     
     .composition-item {
@@ -2371,6 +2502,11 @@ h3.section-title {
     .composition-grid.composition-1x5 {
         gap: 10px;
         max-width: 900px;
+    }
+    
+    .composition-grid.composition-2x3 {
+        gap: 15px;
+        max-width: 700px;
     }
     
     .composition-item {
@@ -2403,6 +2539,13 @@ h3.section-title {
         padding: 0 10px;
     }
     
+    .composition-grid.composition-2x3 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    
     .composition-item {
         padding: 12px 8px;
     }
@@ -2421,6 +2564,12 @@ h3.section-title {
 @media (max-width: 576px) {
     .composition-grid.composition-1x5 {
         gap: 5px;
+        padding: 0 5px;
+    }
+    
+    .composition-grid.composition-2x3 {
+        grid-template-columns: 1fr;
+        gap: 15px;
         padding: 0 5px;
     }
     
@@ -2454,7 +2603,7 @@ h3.section-title {
 }
 
 .system-composition .section-title {
-    font-size: 2.5rem;
+    font-size: 28px;
     color: #2c3e50;
     margin-bottom: 15px;
     font-weight: 700;
@@ -2569,7 +2718,7 @@ h3.section-title {
 /* 响应式设计 */
 @media (max-width: 768px) {
     .system-composition .section-title {
-        font-size: 2rem;
+        font-size: 28px;
     }
     
     .system-grid {

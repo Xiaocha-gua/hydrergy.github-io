@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4NYP19T7T1"></script>
@@ -13,18 +13,18 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>专业技术经济性分析服务，助力学术研究与论文写作</title>
-    <meta name="description" content="专业技术经济分析服务，针对学术研究和论文需求。提供全面的分析方法、模型构建和数据分析，确保研究的科学性和准确性。">
-    <meta name="keywords" content="技术经济性分析,LCA分析,经济可行性分析,技术经济评价,技术经济指标分析,学术论文技术经济性分析,技术经济性分析投稿">
+    <title>Life Cycle Analysis Application in Biochemical and Environmental Materials Research and Paper Writing Guide</title>
+    <meta name="description" content="Professional life cycle analysis services compliant with ISO standards, focusing on academic research needs of graduate students and professors, with rapid response and high-quality delivery.">
+    <meta name="keywords" content="life cycle analysis,life cycle analysis service,LCA service,carbon footprint analysis,academic LCA service,academic paper life cycle assessment,life cycle analysis submission">
     <link rel="icon" href="../../images/logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../css/style.css?v=20250113003">
-    <link rel="stylesheet" href="../../css/responsive.css?v=20250113003">
-    <link rel="stylesheet" href="../../css/business.css?v=20250113003">
-    <link rel="stylesheet" href="../../css/breadcrumb.css?v=20250113003">
+<link rel="stylesheet" href="../../css/responsive.css?v=20250113003">
+<link rel="stylesheet" href="../../css/business.css?v=20250113003">
+<link rel="stylesheet" href="../../css/breadcrumb.css?v=20250113003">
     <style>
-        /* 技术经济分析服务页面专用样式 */
+        /* Life Cycle Assessment Service Page Styles */
 
-        /* 案例分析图片优化 */
+        /* Case Analysis Image Optimization */
         .case-analysis-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -46,7 +46,7 @@
 
         .case-item img {
             width: 100%;
-            height: 500px; /* 进一步增加高度以完全显示图片内容 */
+            height: 500px;
             object-fit: contain;
             background: #f8f9fa;
             padding: 20px;
@@ -68,11 +68,11 @@
             line-height: 1.6;
         }
 
-        /* 服务客户校徽图片放大 */
+        /* Client Logo Enlargement */
         .client-grid-2x5 {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            gap: 30px;
             margin-top: 30px;
         }
 
@@ -80,21 +80,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 5px; /* 从20px减少到5px，减少留白 */
+            padding: 5px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .client-item img {
-            width: 150%; /* 使用百分比，占据容器95%的宽度 */
-            height: 150%; /* 使用百分比，占据容器95%的高度 */
-            max-width: 5000px; /* 设置最大宽度限制 */
-            max-height: 5000px; /* 设置最大高度限制 */
-            object-fit: cover; /* 改为cover，图片将填充整个容器 */
+            width: 150%;
+            height: 150%;
+            max-width: 500px;
+            max-height: 500px;
+            object-fit: cover;
         }
 
-        /* 服务流程优化 - 1行4列，图标在左，文字在右 */
+        /* Service Process Optimization - 1 row 4 columns, icon on left, text on right */
         .process-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -120,6 +120,7 @@
             align-items: center;
             justify-content: center;
             margin-right: 15px;
+            margin-top: 10px;
             flex-shrink: 0;
         }
 
@@ -132,6 +133,21 @@
 
         .step-icon:hover img {
             transform: scale(1.1);
+        }
+
+        .step-number {
+            width: 120px;
+            height: 120px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
         }
 
         .process-content {
@@ -154,7 +170,7 @@
             font-size: 0.9rem;
         }
 
-        /* 服务特色布局优化 - 1行4列布局 */
+        /* Service Features Layout Optimization - 1 row 4 columns layout */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -205,7 +221,7 @@
             margin: 0;
         }
 
-        /* 服务客户文字样式优化 */
+        /* Service Client Text Style Optimization */
         .service-stats {
             font-size: 18px;
             color: #333;
@@ -214,7 +230,7 @@
             font-weight: 500;
         }
 
-        /* 响应式设计 */
+        /* Responsive Design */
         @media (max-width: 1200px) {
             .features-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -244,11 +260,12 @@
                 text-align: center;
             }
             
-            .step-icon {
+            .step-number {
                 margin-right: 0;
                 margin-bottom: 15px;
-                width: 50px;
-                height: 50px;
+                width: 100px;
+                height: 100px;
+                font-size: 1.5rem;
             }
             
             .case-analysis-grid {
@@ -269,7 +286,7 @@
     </style>
 </head>
 <body>
-    <!-- 顶部通栏 -->
+    <!-- Top Bar -->
     <header class="top-bar">
         <div class="container">
             <div class="contact-info">
@@ -288,154 +305,151 @@
                     <span>+86-15680598517</span>
                 </span>
                 <a href="#" class="language-toggle">
-                    <span class="lang-text">EN</span>
+                    <span class="lang-text">中文</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- 页面标题区域 -->
-
-
-    <!-- 主要内容区域 -->
+    <!-- Main Content Area -->
     <main class="main-content">
         <div class="container">
-            <!-- 主体区 -->
+            <!-- Main Area -->
             <div class="main-area">
                 <div class="page-title" style="text-align: center;">
-                    <h1>技术经济分析服务</h1>
+                    <h1>Life Cycle Assessment Services</h1>
                 </div>
 
-                <!-- 服务介绍 -->
+                <!-- Service Introduction -->
                 <div class="service-intro">
                     <div class="intro-content">
-                        <h2 class="section-title">服务概述</h2>
-                        <p>技术经济分析（TEA）是评估新技术商业化可行性的重要工具，在学术研究和工业应用中发挥着关键作用。我们提供专业的TEA服务，帮助研究人员和企业全面评估技术的经济性能，为投资决策和技术发展提供科学依据。我们的分析结果已为众多客户在Nature Energy、Joule、Applied Energy等顶级期刊发表研究成果提供了重要支撑。</p>
+                        <h2 class="section-title">Service Overview</h2>
+                        <p>Life Cycle Assessment (LCA) is a critical component of modern academic research and technical publications, particularly in environmental science, energy technology, and sustainability. Our professional LCA services, aligned with ISO 14040/14044 standards, empower researchers and scholars with high-quality environmental impact assessment data. This robust data supports the publication of impactful research in top-tier journals. Our services have enabled numerous clients to successfully publish in prestigious outlets such as Nature Synthesis, AM, and Jacs, providing a solid foundation for advancing sustainable solutions.</p>
                     </div>
                 </div>
 
-                <!-- 服务特点 -->
+                <!-- Service Features -->
                 <div class="service-features">
-                    <h2 class="section-title">服务特点</h2>
+                    <h2 class="section-title">Service Features</h2>
                     <div class="features-grid">
                         <div class="feature-item">
-                            <div class="feature-icon">💰</div>
+                            <div class="feature-icon">🔬</div>
                             <div class="feature-content">
-                                <h3>成本精准</h3>
-                                <p>基于实际市场数据和工程经验，提供精确的成本估算</p>
+                                <h3>Scientific Rigor</h3>
+                                <p>Based on ISO 14040/14044 standards with scientifically rigorous assessment methods</p>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">📈</div>
+                            <div class="feature-icon">📊</div>
                             <div class="feature-content">
-                                <h3>模型可靠</h3>
-                                <p>采用成熟的经济评估模型和敏感性分析方法</p>
+                                <h3>Reliable Data</h3>
+                                <p>Using authoritative databases and measured data to ensure accuracy of assessment results</p>
                             </div>
                         </div>
                         <div class="feature-item">
                             <div class="feature-icon">🎯</div>
                             <div class="feature-content">
-                                <h3>场景全面</h3>
-                                <p>考虑多种技术路径和市场情景，提供全面的分析结果</p>
+                                <h3>Customized Service</h3>
+                                <p>Providing personalized assessment solutions and recommendations based on client needs</p>
                             </div>
                         </div>
                         <div class="feature-item">
-                            <div class="feature-icon">🔍</div>
+                            <div class="feature-icon">📈</div>
                             <div class="feature-content">
-                                <h3>深度洞察</h3>
-                                <p>识别关键成本驱动因素，提供技术优化建议</p>
+                                <h3>Continuous Optimization</h3>
+                                <p>Providing environmental impact optimization recommendations for sustainable development</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 服务流程 -->
+                <!-- Service Process -->
                 <div class="service-process">
-                    <h2 class="section-title">服务流程</h2>
+                    <h2 class="section-title">Service Process</h2>
                     <div class="process-grid">
                         <div class="process-step">
                             <div class="process-content">
-                                <h3>技术定义</h3>
-                                <p>明确技术路径、工艺流程和关键参数</p>
+                                <h3>Goal & Scope Definition</h3>
+                                <p>Define assessment goals, functional units and system boundaries</p>
                             </div>
                         </div>
                         <div class="process-step">
                             <div class="process-content">
-                                <h3>成本建模</h3>
-                                <p>建立详细的成本模型和经济评估框架</p>
+                                <h3>Inventory Analysis</h3>
+                                <p>Collect and quantify input-output data</p>
                             </div>
                         </div>
                         <div class="process-step">
                             <div class="process-content">
-                                <h3>敏感性分析</h3>
-                                <p>分析关键参数对经济性的影响</p>
+                                <h3>Impact Assessment</h3>
+                                <p>Assess potential environmental impacts</p>
                             </div>
                         </div>
                         <div class="process-step">
                             <div class="process-content">
-                                <h3>结果解读</h3>
-                                <p>提供详细的分析报告和优化建议</p>
+                                <h3>Interpretation</h3>
+                                <p>Analyze results and provide improvement recommendations</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 案例分析 -->
+                <!-- Case Studies -->
                 <div class="case-studies-main">
-                    <h2 class="section-title">案例分析</h2>
+                    <h2 class="section-title">Case Studies</h2>
                     <div class="case-analysis-grid">
                         <div class="case-item">
-                            <img src="../../images/电化学技术-1.png" alt="电化学技术案例">
-                            <h3>电化学相关技术</h3>
-                            <p>电解水制氢、燃料电池、电池技术等领域的TEA分析案例，为客户在ANGEW, JACS, Nature synthesis等顶级期刊发表提供经济性数据支撑</p>
+                            <img src="../../images/电化学技术-1.png" alt="Electrochemical Technologies Case">
+                            <h3>Electrochemical Technologies</h3>
+                            <p>Life cycle assessment in water electrolysis, fuel cells, battery technologies, providing data support for publications in top journals like Energy & Environmental Science and Nature Energy</p>
                         </div>
                         <div class="case-item">
-                            <img src="../../images/塑料合成和降解-1.png" alt="塑料合成和降解案例">
-                            <h3>塑料合成和降解技术</h3>
-                            <p>塑料回收、降解和合成等技术的经济可行性评估，助力客户在AM, CEJ, Environmental Science & Technology等期刊发表研究成果</p>
+                            <img src="../../images/塑料合成和降解-1.png" alt="Plastic Synthesis & Degradation Case">
+                            <h3>Plastic Synthesis & Degradation</h3>
+                            <p>Life cycle assessment in biodegradable plastics and chemical recycling, helping clients publish in journals like AM</p>
                         </div>
                         <div class="case-item">
-                            <img src="../../images/其他技术-1.png" alt="其他技术案例">
-                            <h3>其他技术</h3>
-                            <p>新能源、新材料等多领域技术的经济性分析，为跨学科研究提供专业的技术经济评估支持</p>
+                            <img src="../../images/其他技术-1.png" alt="Other Technologies Case">
+                            <h3>Other Technologies</h3>
+                            <p>Life cycle assessment of technologies in renewable energy and new materials, providing professional environmental impact analysis support for interdisciplinary research</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- 服务客户 -->
+                <!-- Service Clients -->
                 <div class="client-section-main">
-                    <h2 class="section-title">服务客户</h2>
-                    <p class="service-stats">已助力科研学术用户完成超过60+的技术经济性和生命周期服务,在Nature synthesis, Jacs, AM, Angew, Nature communication,等顶刊发表相关文章，相关领域包含二氧化碳还原制多碳产物，塑料合成与降解，合成生物学，碳捕集与封存，化工产品生产，SCR, 污水处理等。</p>
+                    <h2 class="section-title">Our Clients</h2>
+                    <p class="service-stats">We have supported over 60 academic and research clients with techno-economic analysis and life cycle assessment (LCA) services, enabling impactful publications in top-tier journals such as Nature Synthesis, JACS, Advanced Materials, Angewandte Chemie, and Nature Communications. Our expertise spans diverse fields, including CO₂ reduction to multi-carbon products, plastic synthesis and degradation, synthetic biology, carbon capture and storage, chemical product manufacturing, selective catalytic reduction (SCR), and wastewater treatment. Our services provide robust data to drive groundbreaking research and sustainable innovation.</p>
                     <div class="client-grid-2x5">
                         <div class="client-item">
-                            <img src="../../校徽/北大.png" alt="北京大学">
+                            <img src="../../校徽/北大.png" alt="Peking University">
                         </div>
                         <div class="client-item">
-                            <img src="../../校徽/清华.png" alt="清华大学">
+                            <img src="../../校徽/清华.png" alt="Tsinghua University">
                         </div>
                         <div class="client-item">
-                            <img src="../../校徽/中科大.png" alt="中科大">
+                            <img src="../../校徽/中科大.png" alt="USTC">
                         </div>
                         <div class="client-item">
-                            <img src="../../校徽/浙江.png" alt="浙江大学">
+                            <img src="../../校徽/浙江.png" alt="Zhejiang University">
                         </div>
                         <div class="client-item">
-                            <img src="../../校徽/南大.png" alt="南京大学">
+                            <img src="../../校徽/南大.png" alt="Nanjing University">
                         </div>
                         <div class="client-item">
-                            <img src="../../校徽/东南.png" alt="东南大学">
+                            <img src="../../校徽/东南.png" alt="Southeast University">
                         </div>
                         <div class="client-item">
-                            <img src="../../校徽/厦大.png" alt="厦门大学">
+                            <img src="../../校徽/厦大.png" alt="Xiamen University">
                         </div>
                         <div class="client-item">
-                            <img src="../../校徽/川大.png" alt="四川大学">
+                            <img src="../../校徽/川大.png" alt="Sichuan University">
                         </div>
                         <div class="client-item">
-                            <img src="../../校徽/新加坡科技局.png" alt="新加坡科技局">
+                            <img src="../../校徽/新加坡科技局.png" alt="Singapore Science and Technology Agency">
                         </div>
                         <div class="client-item">
-                            <img src="../../校徽/nus.png" alt="新加坡国立大学">
+                            <img src="../../校徽/nus.png" alt="National University of Singapore">
                         </div>
                     </div>
                 </div>
@@ -443,18 +457,18 @@
         </div>
     </main>
 
-    <!-- 信息区域 -->
+    <!-- Information Section -->
     <section class="info-section">
         <div class="container">
             <div class="info-grid">
-                <!-- 联系我们 -->
+                <!-- Contact Us -->
                 <div class="info-column contact-column">
-                    <h3>联系我们</h3>
+                    <h3>Contact Us</h3>
                     <div class="contact-details">
                         <div class="contact-item">
                             <a href="https://www.linkedin.com/in/qiu-tian-a8b90a365/" target="_blank" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none;">
                                  <div class="icon"><img src="../../images/领英.png" alt="LinkedIn" style="width: 24px; height: 24px;"></div>
-                                 <span>联系人：邱经理</span>
+                                 <span>Contact: Mr. Qiu</span>
                              </a>
                         </div>
                         <div class="contact-item">
@@ -468,59 +482,58 @@
                     </div>
                 </div>
 
-                <!-- 业务领域 -->
+                <!-- Business Areas -->
                 <div class="info-column business-column">
-                    <h3>业务领域</h3>
+                    <h3>Business Areas</h3>
                     <div class="business-details">
                         <div class="business-item">
-                            <a href="hydrogen.html">电解制氢技术与产品</a>
+                            <a href="hydrogen-en.html">Water Electrolysis Technology & Products</a>
                         </div>
                         <div class="business-item">
-                            <a href="co2.html">电解二氧化碳技术与产品</a>
+                            <a href="co2-en.html">CO₂ Electrolysis Technology & Products</a>
                         </div>
                         <div class="business-item">
-                            <a href="consulting.html">技术咨询服务与数据库</a>
+                            <a href="consulting-en.html">Technical Consulting & Database Services</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- 留言按钮 -->
+                <!-- Message Button -->
                 <div class="info-column message-column">
-                    <button class="message-btn" id="messageBtn">留言</button>
-                    <p class="contact-cta">专业咨询服务，助您决策无忧</p>
+                    <button class="message-btn" id="messageBtn">Message</button>
+                    <p class="contact-cta">Professional consulting services for worry-free decision making</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 底部 -->
+    <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
             <hr class="footer-divider">
-            <p class="footer-slogan">用高质量技术与产品，赋能碳中和技术发展</p>
+            <p class="footer-slogan">Empowering carbon neutrality technology development with high-quality technology and products</p>
         </div>
     </footer>
 
-    <!-- 留言弹窗 -->
+    <!-- Message Modal -->
     <div class="message-modal" id="messageModal">
         <div class="modal-content">
             <span class="close-btn" id="closeModal">&times;</span>
-            <h3>留言</h3>
+            <h3>Leave a Message</h3>
             <form class="message-form" id="messageForm">
-                <input type="text" name="name" placeholder="姓名" required>
-                <input type="email" name="email" placeholder="邮箱" required>
-                <input type="tel" name="phone" placeholder="电话">
-                <textarea name="message" placeholder="留言内容" required></textarea>
-                <button type="submit">发送</button>
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="tel" name="phone" placeholder="Phone">
+                <textarea name="message" placeholder="Message Content" required></textarea>
+                <button type="submit">Send</button>
             </form>
         </div>
     </div>
 <script src="../../js/page-index.js?v=20250113003"></script>
-    <script src="../../js/main.js?v=20250113003"></script>
+<script src="../../js/main.js?v=20250113003"></script>
 <script src="../../js/breadcrumb.js?v=20250113003"></script>
-
 <script src="../../js/security.js?v=20250113003"></script>
-    <!-- Web3Forms配置模块 -->
-<script src="../../js/web3forms-config.js"></script>
+    <!-- Web3Forms Configuration Module -->
+    <script src="../../js/web3forms-config.js"></script>
 </body>
 </html>

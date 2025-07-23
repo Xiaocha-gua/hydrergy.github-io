@@ -121,18 +121,22 @@ body.breadcrumb-active {
 /* 语言切换按钮：蓝色背景，白色文字，圆角设计 */
 .language-toggle {
     background: #007bff;
-    color: white;
+    color: white !important;
     border: none;
     padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 12px;
+    text-decoration: none !important;
+    display: inline-block;
     transition: background-color 0.3s ease; /* 背景色过渡效果 */
 }
 
 /* 语言切换按钮悬停效果：深蓝色背景 */
 .language-toggle:hover {
     background: #0056b3;
+    color: white !important;
+    text-decoration: none !important;
 }
 
 /* ========================================= */

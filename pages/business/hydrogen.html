@@ -13,14 +13,14 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-zh="电解制氢技术与产品 - HYDRERGY" data-en="Water Electrolysis Technology & Products - HYDRERGY">电解制氢技术与产品 - HYDRERGY</title>
-    <meta name="description" data-zh="HYDRERGY专业提供电解制氢技术与产品，包括阴离子交换膜、复合隔膜、电解水测试系统等，助力绿氢产业发展" data-en="HYDRERGY provides professional electrolytic hydrogen technology and products, including advanced water electrolysis equipment and anion exchange membranes." content="HYDRERGY专业提供电解制氢技术与产品，包括阴离子交换膜、复合隔膜、电解水测试系统等，助力绿氢产业发展">
-    <meta name="keywords" data-zh="电解制氢,阴离子交换膜,复合隔膜,电解水测试系统,绿氢技术,HYDRERGY" data-en="electrolytic hydrogen,hydrogen technology,water electrolysis,anion exchange membrane,hydrogen equipment" content="电解制氢,阴离子交换膜,复合隔膜,电解水测试系统,绿氢技术,HYDRERGY">
+    <title>电解制氢技术与产品 - HYDRERGY</title>
+    <meta name="description" content="HYDRERGY专业提供电解制氢技术与产品，包括阴离子交换膜、复合隔膜、电解水测试系统等，助力绿氢产业发展">
+    <meta name="keywords" content="电解制氢,阴离子交换膜,复合隔膜,电解水测试系统,绿氢技术,HYDRERGY">
     
-    <link rel="stylesheet" href="../../css/style.css?v=20250111001">
-    <link rel="stylesheet" href="../../css/responsive.css?v=20250111001">
-    <link rel="stylesheet" href="../../css/business.css?v=20250111001">
-    <link rel="stylesheet" href="../../css/breadcrumb.css?v=20250111001">
+    <link rel="stylesheet" href="../../css/style.css?v=20250113003">
+    <link rel="stylesheet" href="../../css/responsive.css?v=20250113003">
+    <link rel="stylesheet" href="../../css/business.css?v=20250113003">
+    <link rel="stylesheet" href="../../css/breadcrumb.css?v=20250113003">
 </head>
 <body>
     <!-- 顶部通栏 -->
@@ -33,17 +33,19 @@
                 </span>
             </div>
             <div class="logo">
-                <img src="../../images/hydrergy-logo-4.png" alt="HYDRERGY Logo" class="logo">
-                <span class="logo-text" style="display:none;">HYDRERGY</span>
+                <a href="../../index.html">
+                    <img src="../../images/hydrergy-logo-4.png" alt="HYDRERGY Logo" class="logo">
+                    <span class="logo-text" style="display:none;">HYDRERGY</span>
+                </a>
             </div>
             <div class="contact-phone">
                 <span class="phone">
                     <img src="../../images/电话.png" alt="Phone" style="width: 24px; height: 24px; vertical-align: middle;">
                     <span>+86-15680598517</span>
-                </span>
-                <button class="language-toggle" id="languageToggle">
-                    <span class="lang-text">EN</span>
-                </button>
+                    </span>
+                <a href="#" class="language-toggle">
+                    <span class="lang-text">English</span>
+                </a>
             </div>
         </div>
     </header>
@@ -60,50 +62,50 @@
                 <aside class="sidebar">
                     <!-- 业务领域导航 -->
                     <div class="sidebar-section">
-                        <h3 data-zh="业务领域" data-en="Business Areas" style="margin: 15px;">业务领域</h3>
+                        <h3 style="margin: 15px;">业务领域</h3>
                         <ul class="business-nav">
-                            <li class="active"><a href="hydrogen.html" data-zh="电解制氢技术与产品" data-en="Water Electrolysis Technology & Products">电解制氢技术与产品</a></li>
-                            <li><a href="co2.html" data-zh="电解二氧化碳技术与产品" data-en="CO₂ Electrolysis Technology & Products">电解二氧化碳技术与产品</a></li>
-                            <li><a href="consulting.html" data-zh="技术咨询服务与数据库" data-en="Technical Consulting & Database">技术咨询服务与数据库</a></li>
+                            <li class="active"><a href="hydrogen.html">电解制氢技术与产品</a></li>
+                            <li><a href="co2.html">电解二氧化碳技术与产品</a></li>
+                            <li><a href="consulting.html">技术咨询服务与数据库</a></li>
                         </ul>
                     </div>
                     
                     <!-- 推荐产品 -->
                     <div class="sidebar-section">
-                        <h3 data-zh="推荐产品" data-en="Recommended Products" style="margin: 0px;">推荐产品</h3>
+                        <h3 style="margin: 0px;">推荐产品</h3>
                         <div class="recommended-products">
-                            <div class="product-item">
+                            <div class="product-item" onclick="navigateToPageWithLanguage('anion-membrane')">
                                 <img src="../../images/电解水制氢用阴离子交换膜Hydrergy.png" alt="阴离子交换膜">
                                 <div class="product-info">
-                                    <h4 data-zh="电解水制氢用阴离子交换膜 Hydrergy" data-en="Anion Exchange Membrane Hydrergy">电解水制氢用阴离子交换膜 Hydrergy</h4>
+                                    <h4>电解水制氢用阴离子交换膜 Hydrergy</h4>
                                     <span class="arrow">→</span>
                                 </div>
                             </div>
-                            <div class="product-item" onclick="window.location.href='zsm-membrane.html'">
+                            <div class="product-item" onclick="navigateToPageWithLanguage('zsm-membrane')">
                                 <img src="../../images/电解水制氢用复合隔膜Hydrergy ZSM.png" alt="复合隔膜">
                                 <div class="product-info">
-                                    <h4 data-zh="电解水制氢用复合隔膜 Hydrergy ZSM" data-en="Alk Composite Membrane Hydrergy ZSM">电解水制氢用复合隔膜 Hydrergy ZSM</h4>
+                                    <h4>电解水制氢用复合隔膜 Hydrergy ZSM</h4>
                                     <span class="arrow">→</span>
                                 </div>
                             </div>
-                            <div class="product-item" onclick="window.location.href='desktop-water-electrolysis.html'">
+                            <div class="product-item" onclick="navigateToPageWithLanguage('desktop-water-electrolysis')">
                                 <img src="../../images/桌面式电解水测试系统.jpg" alt="桌面式测试系统">
                                 <div class="product-info">
-                                    <h4 data-zh="桌面式电解水测试系统" data-en="Desktop Water Electrolysis Test System">桌面式电解水测试系统</h4>
+                                    <h4>桌面式电解水测试系统</h4>
                                     <span class="arrow">→</span>
                                 </div>
                             </div>
-                            <div class="product-item" onclick="window.location.href='bench-water-electrolysis.html'">
+                            <div class="product-item" onclick="navigateToPageWithLanguage('bench-water-electrolysis')">
                                 <img src="../../images/台架式电解水测试系统.jpg" alt="台架式测试系统">
                                 <div class="product-info">
-                                    <h4 data-zh="台架式电解水测试系统" data-en="Bench-type Water Electrolysis Test System">台架式电解水测试系统</h4>
+                                    <h4>台架式电解水测试系统</h4>
                                     <span class="arrow">→</span>
                                 </div>
                             </div>
-                            <div class="product-item" onclick="window.location.href='multi-channel-water-electrolysis.html'">
+                            <div class="product-item" onclick="navigateToPageWithLanguage('multi-channel-water-electrolysis')">
                                 <img src="../../images/多通道电解水测试系统.jpg" alt="多通道测试系统">
                                 <div class="product-info">
-                                    <h4 data-zh="多通道电解水测试系统" data-en="Multi-channel Water Electrolysis Test System">多通道电解水测试系统</h4>
+                                    <h4>多通道电解水测试系统</h4>
                                     <span class="arrow">→</span>
                                 </div>
                             </div>
@@ -114,30 +116,30 @@
                 <!-- 中间主体区 -->
                 <div class="main-area">
                     <div class="page-title" style="margin: 30px;">
-                        <h1 class="section-title" data-zh="电解制氢技术与产品" data-en="Water Electrolysis Technology & Products" >电解制氢技术与产品</h1>
+                        <h1 class="section-title">电解制氢技术与产品</h1>
                     </div>
                     
                     <!-- 产品网格 -->
                     <div class="product-grid" style="margin: 0px;">
-                        <div class="product-card" onclick="window.location.href='anion-membrane.html'">
+                        <div class="product-card" onclick="navigateToPageWithLanguage('anion-membrane')">
                             <img src="../../images/电解水制氢用阴离子交换膜Hydrergy.png" alt="阴离子交换膜">
-                            <h3 data-zh="电解水制氢用阴离子交换膜 Hydrergy" data-en="Anion Exchange Membrane Hydrergy">电解水制氢用阴离子交换膜 Hydrergy</h3>
+                            <h3>电解水制氢用阴离子交换膜 Hydrergy</h3>
                         </div>
-                        <div class="product-card" onclick="window.location.href='zsm-membrane.html'">
+                        <div class="product-card" onclick="navigateToPageWithLanguage('zsm-membrane')">
                             <img src="../../images/电解水制氢用复合隔膜Hydrergy ZSM.png" alt="复合隔膜">
-                            <h3 data-zh="电解水制氢用复合隔膜 Hydrergy ZSM" data-en="Alk Composite Membrane Hydrergy ZSM">电解水制氢用复合隔膜 Hydrergy ZSM</h3>
+                            <h3>电解水制氢用复合隔膜 Hydrergy ZSM</h3>
                         </div>
-                        <div class="product-card" onclick="window.location.href='desktop-water-electrolysis.html'">
+                        <div class="product-card" onclick="navigateToPageWithLanguage('desktop-water-electrolysis')">
                             <img src="../../images/桌面式电解水测试系统.jpg" alt="桌面式测试系统">
-                            <h3 data-zh="桌面式电解水测试系统" data-en="Desktop Water Electrolysis Test System">桌面式电解水测试系统</h3>
+                            <h3>桌面式电解水测试系统</h3>
                         </div>
-                        <div class="product-card" onclick="window.location.href='bench-water-electrolysis.html'">
+                        <div class="product-card" onclick="navigateToPageWithLanguage('bench-water-electrolysis')">
                             <img src="../../images/台架式电解水测试系统.jpg" alt="台架式测试系统">
-                            <h3 data-zh="台架式电解水测试系统" data-en="Bench-type Water Electrolysis Test System">台架式电解水测试系统</h3>
+                            <h3>台架式电解水测试系统</h3>
                         </div>
-                        <div class="product-card" onclick="window.location.href='multi-channel-water-electrolysis.html'">
+                        <div class="product-card" onclick="navigateToPageWithLanguage('multi-channel-water-electrolysis')">
                             <img src="../../images/多通道电解水测试系统.jpg" alt="多通道测试系统">
-                            <h3 data-zh="多通道电解水测试系统" data-en="Multi-channel Water Electrolysis Test System">多通道电解水测试系统</h3>
+                            <h3>多通道电解水测试系统</h3>
                         </div>
                     </div>
                 </div>
@@ -151,12 +153,12 @@
             <div class="info-grid">
                 <!-- 联系我们 -->
                 <div class="info-column contact-column">
-                    <h3 data-zh="联系我们" data-en="Contact Us">联系我们</h3>
+                    <h3>联系我们</h3>
                     <div class="contact-details">
                         <div class="contact-item">
                             <a href="https://www.linkedin.com/in/qiu-tian-a8b90a365/" target="_blank" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none;">
                                  <div class="icon"><img src="../../images/领英.png" alt="LinkedIn" style="width: 24px; height: 24px;"></div>
-                                 <span data-zh="联系人：邱经理" data-en="Contact: Mr. Qiu">联系人：邱经理</span>
+                                 <span>联系人：邱经理</span>
                              </a>
                         </div>
                         <div class="contact-item">
@@ -172,24 +174,24 @@
 
                 <!-- 业务领域 -->
                 <div class="info-column business-column">
-                    <h3 data-zh="业务领域" data-en="Business Areas">业务领域</h3>
+                    <h3>业务领域</h3>
                     <div class="business-details">
                         <div class="business-item">
-                            <a href="hydrogen.html" data-zh="电解制氢技术与产品" data-en="Water Electrolysis Technology & Products">电解制氢技术与产品</a>
+                            <a href="hydrogen.html">电解制氢技术与产品</a>
                         </div>
                         <div class="business-item">
-                            <a href="co2.html" data-zh="电解二氧化碳技术与产品" data-en="CO₂ Electrolysis Technology & Products">电解二氧化碳技术与产品</a>
+                            <a href="co2.html">电解二氧化碳技术与产品</a>
                         </div>
                         <div class="business-item">
-                            <a href="consulting.html" data-zh="技术咨询服务与数据库" data-en="Technical Consulting & Database Services">技术咨询服务与数据库</a>
+                            <a href="consulting.html">技术咨询服务与数据库</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- 留言按钮 -->
                 <div class="info-column message-column">
-                    <button class="message-btn" id="messageBtn" data-zh="留言" data-en="Message">留言</button>
-                    <p class="contact-cta" data-zh="携手共创绿色氢能未来，开启清洁能源新时代" data-en="Join us to create a green hydrogen future and usher in a new era of clean energy">携手共创绿色氢能未来，开启清洁能源新时代</p>
+                    <button class="message-btn" id="messageBtn">留言</button>
+                    <p class="contact-cta">携手共创绿色氢能未来，开启清洁能源新时代</p>
                 </div>
             </div>
         </div>
@@ -199,7 +201,7 @@
     <footer class="main-footer">
         <div class="container">
             <hr class="footer-divider">
-            <p class="footer-slogan" data-zh="用高质量技术与产品，赋能碳中和技术发展" data-en="Empowering carbon neutrality technology development with high-quality technology and products">用高质量技术与产品，赋能碳中和技术发展</p>
+            <p class="footer-slogan">用高质量技术与产品，赋能碳中和技术发展</p>
         </div>
     </footer>
 
@@ -207,13 +209,13 @@
     <div class="message-modal" id="messageModal">
         <div class="modal-content">
             <span class="close-btn" id="closeModal">&times;</span>
-            <h3 data-zh="留言" data-en="Leave a Message">留言</h3>
+            <h3>留言</h3>
             <form class="message-form" id="messageForm">
-                <input type="text" name="name" placeholder="姓名" data-zh-placeholder="姓名" data-en-placeholder="Name" required>
-                <input type="email" name="email" placeholder="邮箱" data-zh-placeholder="邮箱" data-en-placeholder="Email" required>
-                <input type="tel" name="phone" placeholder="电话" data-zh-placeholder="电话" data-en-placeholder="Phone">
-                <textarea name="message" placeholder="留言内容" data-zh-placeholder="留言内容" data-en-placeholder="Message Content" required></textarea>
-                <button type="submit" data-zh="发送" data-en="Send">发送</button>
+                <input type="text" name="name" placeholder="姓名" required>
+                <input type="email" name="email" placeholder="邮箱" required>
+                <input type="tel" name="phone" placeholder="电话">
+                <textarea name="message" placeholder="留言内容" required></textarea>
+                <button type="submit">发送</button>
             </form>
         </div>
     </div>
@@ -221,11 +223,10 @@
     <!-- Web3Forms配置模块 -->
 <script src="../../js/web3forms-config.js"></script>
     
-    <script src="../../js/main.js?v=20250111001"></script>
-    <script src="../../js/language.js?v=20250111001"></script>
-    <script src="../../js/geo-language.js?v=20250111001"></script>
-    <script src="../../js/breadcrumb.js?v=20250112002"></script>
+    <script src="../../js/page-index.js?v=20250113003"></script>
+    <script src="../../js/main.js?v=20250113003"></script>
+    <script src="../../js/breadcrumb.js?v=20250113003"></script>
     
-    <script src="../../js/security.js?v=20250111001"></script>
+    <script src="../../js/security.js?v=20250113003"></script>
 </body>
 </html>

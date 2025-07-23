@@ -105,8 +105,13 @@ function handleBusinessClick(businessType) {
     };
     
     if (pages[businessType]) {
-        // 检查页面是否存在，如果不存在则显示提示
-        window.location.href = pages[businessType];
+        // 使用页面索引管理器进行语言感知的页面跳转
+        if (window.pageIndexManager) {
+            window.pageIndexManager.navigateToPage(pages[businessType]);
+        } else {
+            // 降级处理：直接跳转
+            window.location.href = pages[businessType];
+        }
     }
 }
 

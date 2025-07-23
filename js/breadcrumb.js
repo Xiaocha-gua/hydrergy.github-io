@@ -15,6 +15,10 @@ const breadcrumbConfig = {
             zh: '首页',
             en: 'Home'
         },
+        '/index-en.html': {
+            zh: '首页',
+            en: 'Home'
+        },
         '/business': {
             zh: '业务领域',
             en: 'Business Areas'
@@ -70,6 +74,59 @@ const breadcrumbConfig = {
         '/pages/business/co2-electrolysis-system.html': {
             zh: '电解二氧化碳系统',
             en: 'CO2 Electrolysis System'
+        },
+        // 英文版本页面路径映射
+        '/pages/contact-en.html': {
+            zh: '联系我们',
+            en: 'Contact Us'
+        },
+        '/pages/business/hydrogen-en.html': {
+            zh: '电解制氢技术与产品',
+            en: 'Water Electrolysis Technology & Products'
+        },
+        '/pages/business/co2-en.html': {
+            zh: '电解二氧化碳技术与产品',
+            en: 'CO2 Electrolysis Technology & Products'
+        },
+        '/pages/business/consulting-en.html': {
+            zh: '技术咨询服务',
+            en: 'Technical Consulting Services'
+        },
+        '/pages/business/database-service-en.html': {
+            zh: '专业数据库服务',
+            en: 'Professional Database Services'
+        },
+        '/pages/business/lca-service-en.html': {
+            zh: '生命周期评估服务',
+            en: 'Life Cycle Assessment Services'
+        },
+        '/pages/business/tea-service-en.html': {
+            zh: '技术经济分析服务',
+            en: 'Techno-Economic Analysis Services'
+        },
+        '/pages/business/zsm-membrane-en.html': {
+            zh: '电解水制氢用复合隔膜 Hydrergy ZSM',
+            en: 'Composite Membrane for Water Electrolysis Hydrergy ZSM'
+        },
+        '/pages/business/anion-membrane-en.html': {
+            zh: '电解水制氢用阴离子交换膜',
+            en: 'Anion Exchange Membrane for Water Electrolysis'
+        },
+        '/pages/business/bench-water-electrolysis-en.html': {
+            zh: '台架式电解水制氢系统',
+            en: 'Bench-type Water Electrolysis Hydrogen Production System'
+        },
+        '/pages/business/desktop-water-electrolysis-en.html': {
+            zh: '桌面式电解水测试设备',
+            en: 'Desktop Water Electrolysis Test Equipment'
+        },
+        '/pages/business/multi-channel-water-electrolysis-en.html': {
+            zh: '多通道电解水测试系统',
+            en: 'Multi-channel Water Electrolysis Test System'
+        },
+        '/pages/business/co2-electrolysis-system-en.html': {
+            zh: '电解二氧化碳系统',
+            en: 'CO2 Electrolysis System'
         }
     },
     
@@ -88,7 +145,21 @@ const breadcrumbConfig = {
         '/pages/business/desktop-water-electrolysis.html': '/pages/business/hydrogen.html',
         '/pages/business/multi-channel-water-electrolysis.html': '/pages/business/hydrogen.html',
         '/pages/business/co2-electrolysis-system.html': '/pages/business/co2.html',
-        '/business': '/'
+        '/business': '/',
+        // 英文版本页面父级路径映射
+        '/pages/contact-en.html': '/',
+        '/pages/business/hydrogen-en.html': '/business',
+        '/pages/business/co2-en.html': '/business',
+        '/pages/business/consulting-en.html': '/business',
+        '/pages/business/database-service-en.html': '/pages/business/consulting-en.html',
+        '/pages/business/lca-service-en.html': '/pages/business/consulting-en.html',
+        '/pages/business/tea-service-en.html': '/pages/business/consulting-en.html',
+        '/pages/business/zsm-membrane-en.html': '/pages/business/hydrogen-en.html',
+        '/pages/business/anion-membrane-en.html': '/pages/business/hydrogen-en.html',
+        '/pages/business/bench-water-electrolysis-en.html': '/pages/business/hydrogen-en.html',
+        '/pages/business/desktop-water-electrolysis-en.html': '/pages/business/hydrogen-en.html',
+        '/pages/business/multi-channel-water-electrolysis-en.html': '/pages/business/hydrogen-en.html',
+        '/pages/business/co2-electrolysis-system-en.html': '/pages/business/co2-en.html'
     }
 };
 
@@ -252,17 +323,35 @@ class BreadcrumbNavigation {
             return '/';
         }
         
-        // 移除文件扩展名前的路径部分，保持相对路径
-        if (path.includes('/new/')) {
-            path = path.substring(path.indexOf('/new/') + 4);
+        // 移除可能的项目路径前缀，但保持完整的相对路径结构
+        // 处理类似 /Lin_Lab_new/公司相关/SEO优化/网页-实时更新/ 这样的前缀
+        const pathSegments = path.split('/');
+        let cleanPath = '';
+        let foundStart = false;
+        
+        for (let i = 0; i < pathSegments.length; i++) {
+            const segment = pathSegments[i];
+            // 如果找到pages、index.html或index-en.html，说明这是我们需要的路径开始
+            if (segment === 'pages' || segment === 'index.html' || segment === 'index-en.html' || foundStart) {
+                foundStart = true;
+                if (segment) {
+                    cleanPath += '/' + segment;
+                }
+            }
+        }
+        
+        // 如果没有找到标准路径，使用原始路径
+        if (!foundStart) {
+            cleanPath = path;
         }
         
         // 确保以/开头
-        if (!path.startsWith('/')) {
-            path = '/' + path;
+        if (!cleanPath.startsWith('/')) {
+            cleanPath = '/' + cleanPath;
         }
         
-        return path;
+        console.log('面包屑导航：原始路径:', path, '-> 清理后路径:', cleanPath);
+        return cleanPath;
     }
     
     // 构建面包屑项目
@@ -276,7 +365,8 @@ class BreadcrumbNavigation {
                 text: breadcrumbConfig.pathMap['/'][this.currentLanguage],
                 href: this.getRelativePath('/')
             });
-            console.log('面包屑导航：未找到路径配置，只显示首页');
+            console.log('面包屑导航：未找到路径配置，当前路径:', currentPath, '只显示首页');
+            console.log('面包屑导航：可用路径配置:', Object.keys(breadcrumbConfig.pathMap));
             return items;
         }
         
@@ -425,6 +515,13 @@ class BreadcrumbNavigation {
     
     // 检测并返回当前语言（不设置currentLanguage属性）
     detectAndGetCurrentLanguage() {
+        // 首先检查当前页面URL是否包含英文标识
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('-en.html') || currentPath.includes('/en/')) {
+            console.log('面包屑导航：从URL路径检测到英文页面:', currentPath);
+            return 'en';
+        }
+        
         // 优先从localStorage获取保存的语言设置
         const savedLanguage = localStorage.getItem('website-language');
         if (savedLanguage && (savedLanguage === 'zh' || savedLanguage === 'en')) {
@@ -450,6 +547,12 @@ class BreadcrumbNavigation {
             console.log('面包屑导航：从HTML lang属性获取语言设置:', htmlLang);
             return 'en';
         } else {
+            // 如果是中文页面（不包含-en.html），默认为中文
+            if (currentPath.includes('.html') && !currentPath.includes('-en.html')) {
+                console.log('面包屑导航：检测到中文页面:', currentPath);
+                return 'zh';
+            }
+            
             // 最后检查浏览器语言
             const browserLang = navigator.language || navigator.userLanguage;
             const detectedLang = browserLang.startsWith('zh') ? 'zh' : 'en';

@@ -61,8 +61,8 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
-        header {
+        /* 页面主标题区域样式 - 避免与顶部通栏冲突 */
+        .page-header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 60px 0 40px;
@@ -70,7 +70,7 @@
             overflow: hidden;
         }
 
-        header::before {
+        .page-header::before {
             content: "";
             position: absolute;
             top: 0;
@@ -344,7 +344,7 @@
                     <img src="../../images/电话.png" alt="Phone" style="width: 24px; height: 24px; vertical-align: middle;">
                     <span>+86-15680598517</span>
                 </span>
-                <a href="#" class="language-toggle">
+                <a href="anion-membrane-en.html" class="language-toggle">
                     <span class="lang-text">English</span>
                 </a>
             </div>
@@ -500,7 +500,6 @@
 <script src="../../js/page-index.js?v=20250113003"></script>
 <script src="../../js/main.js?v=20250113003"></script>
 <script src="../../js/language.js?v=20250113003"></script>
-<script src="../../js/geo-language.js?v=20250113003"></script>
 <script src="../../js/breadcrumb.js?v=20250113003"></script>
 <script src="../../js/security.js?v=20250113003"></script>
     <!-- Web3Forms配置模块 -->

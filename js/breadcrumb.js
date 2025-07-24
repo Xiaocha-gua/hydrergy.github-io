@@ -251,10 +251,11 @@ class BreadcrumbNavigation {
         const currentPath = this.getCurrentPath();
         console.log('面包屑导航：当前路径:', currentPath, '当前页面路径:', window.location.pathname);
         
-        // 如果是首页，不显示面包屑
+        // 如果是首页或联系我们页面，不显示面包屑
         if (currentPath === '/' || currentPath === '/index.html' || currentPath === '' || 
-            window.location.pathname === '/' || window.location.pathname === '/index.html') {
-            console.log('面包屑导航：当前是首页，不显示面包屑');
+            window.location.pathname === '/' || window.location.pathname === '/index.html' ||
+            currentPath === '/pages/contact.html' || currentPath === '/pages/contact-en.html') {
+            console.log('面包屑导航：当前是首页或联系我们页面，不显示面包屑');
             this.container.style.display = 'none';
             return;
         }
@@ -323,31 +324,30 @@ class BreadcrumbNavigation {
             return '/';
         }
         
-        // 移除可能的项目路径前缀，但保持完整的相对路径结构
-        // 处理类似 /Lin_Lab_new/公司相关/SEO优化/网页-实时更新/ 这样的前缀
-        const pathSegments = path.split('/');
+        // 获取当前页面文件名
+        const fileName = path.split('/').pop();
+        
+        // 如果是首页文件
+        if (fileName === 'index.html' || fileName === 'index-en.html') {
+            return '/';
+        }
+        
+        // 构建标准化路径
         let cleanPath = '';
-        let foundStart = false;
         
-        for (let i = 0; i < pathSegments.length; i++) {
-            const segment = pathSegments[i];
-            // 如果找到pages、index.html或index-en.html，说明这是我们需要的路径开始
-            if (segment === 'pages' || segment === 'index.html' || segment === 'index-en.html' || foundStart) {
-                foundStart = true;
-                if (segment) {
-                    cleanPath += '/' + segment;
-                }
+        // 检查是否在pages目录下
+        if (path.includes('/pages/')) {
+            // 提取pages后的路径部分
+            const pagesIndex = path.indexOf('/pages/');
+            cleanPath = path.substring(pagesIndex);
+        } else {
+            // 直接使用文件名构建路径
+            if (fileName.includes('contact')) {
+                cleanPath = fileName.includes('-en.html') ? '/pages/contact-en.html' : '/pages/contact.html';
+            } else {
+                // 对于其他文件，尝试从文件名推断路径
+                cleanPath = path;
             }
-        }
-        
-        // 如果没有找到标准路径，使用原始路径
-        if (!foundStart) {
-            cleanPath = path;
-        }
-        
-        // 确保以/开头
-        if (!cleanPath.startsWith('/')) {
-            cleanPath = '/' + cleanPath;
         }
         
         console.log('面包屑导航：原始路径:', path, '-> 清理后路径:', cleanPath);
@@ -380,11 +380,11 @@ class BreadcrumbNavigation {
                 const isFirst = index === 0;
                 const isLast = index === pathChain.length - 1;
                 
-                // 确保业务领域也可以显示，但不可点击
+                // 确保业务领域也可以显示，并且可以点击指向首页
                 let href = null;
                 if (!isLast) {
                     if (path === '/business') {
-                        href = null; // 业务领域不可点击
+                        href = this.getRelativePath('/'); // 业务领域点击指向首页
                     } else {
                         href = this.getRelativePath(path);
                     }
@@ -515,14 +515,20 @@ class BreadcrumbNavigation {
     
     // 检测并返回当前语言（不设置currentLanguage属性）
     detectAndGetCurrentLanguage() {
-        // 首先检查当前页面URL是否包含英文标识
+        // 首先检查当前页面URL是否包含英文标识（最高优先级）
         const currentPath = window.location.pathname;
         if (currentPath.includes('-en.html') || currentPath.includes('/en/')) {
             console.log('面包屑导航：从URL路径检测到英文页面:', currentPath);
             return 'en';
         }
         
-        // 优先从localStorage获取保存的语言设置
+        // 如果是中文页面（不包含-en.html），明确返回中文
+        if (currentPath.includes('.html') && !currentPath.includes('-en.html')) {
+            console.log('面包屑导航：从URL路径检测到中文页面:', currentPath);
+            return 'zh';
+        }
+        
+        // 其次从localStorage获取保存的语言设置
         const savedLanguage = localStorage.getItem('website-language');
         if (savedLanguage && (savedLanguage === 'zh' || savedLanguage === 'en')) {
             console.log('面包屑导航：从localStorage获取语言设置:', savedLanguage);
@@ -547,12 +553,6 @@ class BreadcrumbNavigation {
             console.log('面包屑导航：从HTML lang属性获取语言设置:', htmlLang);
             return 'en';
         } else {
-            // 如果是中文页面（不包含-en.html），默认为中文
-            if (currentPath.includes('.html') && !currentPath.includes('-en.html')) {
-                console.log('面包屑导航：检测到中文页面:', currentPath);
-                return 'zh';
-            }
-            
             // 最后检查浏览器语言
             const browserLang = navigator.language || navigator.userLanguage;
             const detectedLang = browserLang.startsWith('zh') ? 'zh' : 'en';

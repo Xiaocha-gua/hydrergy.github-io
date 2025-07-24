@@ -53,6 +53,7 @@
             line-height: 1.6;
             color: var(--dark);
             background-color: var(--background);
+            padding-top: 140px; /* 为固定顶部导航和面包屑导航预留空间 */
         }
 
         .container {
@@ -61,8 +62,10 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
-        header {
+        /* 顶部通栏样式 - 移除内联样式，使用外部CSS文件中的定义 */
+
+        /* 页面主标题区域样式 - 避免与顶部通栏冲突 */
+        .page-header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 60px 0 40px;
@@ -70,7 +73,7 @@
             overflow: hidden;
         }
 
-        header::before {
+        .page-header::before {
             content: "";
             position: absolute;
             top: 0;
@@ -828,7 +831,7 @@
                     <img src="../../images/电话.png" alt="Phone" style="width: 24px; height: 24px; vertical-align: middle;">
                     <span>+86-15680598517</span>
                 </span>
-                <a href="#" class="language-toggle">
+                <a href="zsm-membrane.html" class="language-toggle">
                     <span class="lang-text">中文</span>
                 </a>
             </div>
@@ -836,8 +839,6 @@
     </header>
 
 
-
-    <!-- 面包屑导航由breadcrumb.js动态生成 -->
 
     <!-- 主要内容区域 -->
     <main class="main-content">
@@ -988,10 +989,8 @@
     </div>
 
     <!-- 引入现有网站的JavaScript文件 -->
-<script src="../../js/page-index.js?v=20250113003"></script>
 <script src="../../js/main.js?v=20250113003"></script>
 <script src="../../js/language.js?v=20250113003"></script>
-<script src="../../js/geo-language.js?v=20250113003"></script>
 <script src="../../js/breadcrumb.js?v=20250113003"></script>
 <script src="../../js/security.js?v=20250113003"></script>
     <!-- Web3Forms配置模块 -->

@@ -42,8 +42,8 @@
                     <img src="../../images/电话.png" alt="Phone" style="width: 24px; height: 24px; vertical-align: middle;">
                     <span>+86-15680598517</span>
                 </span>
-                <a href="#" class="language-toggle">
-                    <span class="lang-text">EN</span>
+                <a href="database-service-en.html" class="language-toggle">
+                    <span class="lang-text">English</span>
                 </a>
             </div>
         </div>
@@ -55,6 +55,11 @@
     <!-- 主要内容 -->
     <main class="main-content">
         <div class="container">
+            <!-- 面包屑导航 -->
+            <nav class="breadcrumb-nav" id="breadcrumb-nav">
+                <!-- 面包屑导航由JS动态生成 -->
+            </nav>
+
             <!-- 页面标题 -->
             <div class="page-title">
                 <h1 class="section-title">专业数据库服务</h1>
@@ -206,10 +211,36 @@
 
 <script src="../../js/page-index.js?v=20250113003"></script>
 <script src="../../js/main.js?v=20250113003"></script>
-<script src="../../js/geo-language.js?v=20250113003"></script>
 <script src="../../js/breadcrumb.js?v=20250113003"></script>
+<script src="../../js/language.js?v=20250113003"></script>
 <script src="../../js/security.js?v=20250113003"></script>
     <!-- Web3Forms配置模块 -->
 <script src="../../js/web3forms-config.js"></script>
+
+<script>
+// 页面初始化
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('数据库服务页面：开始初始化');
+    
+    // 初始化面包屑导航
+    if (typeof BreadcrumbNavigation !== 'undefined') {
+        console.log('数据库服务页面：初始化面包屑导航');
+        const breadcrumb = new BreadcrumbNavigation();
+        breadcrumb.init();
+    } else {
+        console.error('数据库服务页面：BreadcrumbNavigation未定义');
+    }
+    
+    // 初始化语言切换功能
+    if (typeof initPageLanguage !== 'undefined') {
+        console.log('数据库服务页面：初始化语言切换');
+        initPageLanguage();
+    } else {
+        console.error('数据库服务页面：initPageLanguage未定义');
+    }
+    
+    console.log('数据库服务页面：初始化完成');
+});
+</script>
 </body>
 </html>

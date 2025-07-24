@@ -208,14 +208,12 @@ class PageIndexManager {
     
     // 初始化
     init() {
-        this.setupLanguageToggle();
         this.setupNavigationLinks();
-        this.updatePageLanguage();
         
-        // 监听页面可见性变化，确保语言设置正确
+        // 监听页面可见性变化
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) {
-                this.updatePageLanguage();
+                // 页面可见性变化时的处理逻辑
             }
         });
     }
@@ -268,33 +266,7 @@ class PageIndexManager {
         return path;
     }
     
-    // 设置语言切换功能
-    setupLanguageToggle() {
-        // 检查是否已经有language.js处理语言切换
-        if (window.HydrergyLanguage) {
-            // 如果language.js已加载，不重复设置事件监听器
-            console.log('Language.js已处理语言切换功能，跳过page-index.js的设置');
-            return;
-        }
-        
-        // 查找所有可能的语言切换元素
-        const languageToggles = document.querySelectorAll('.language-toggle, #languageToggle');
-        
-        languageToggles.forEach(toggle => {
-            // 检查是否已经有事件监听器
-            if (toggle.dataset.languageHandled) {
-                return;
-            }
-            
-            toggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.switchLanguage();
-            });
-            
-            // 标记已处理
-            toggle.dataset.languageHandled = 'true';
-        });
-    }
+    // 语言切换功能已移除，统一由language.js处理
     
     // 设置导航链接的语言切换
     setupNavigationLinks() {
@@ -316,22 +288,7 @@ class PageIndexManager {
         });
     }
     
-    // 切换语言
-    switchLanguage() {
-        const newLanguage = this.currentLanguage === 'zh' ? 'en' : 'zh';
-        const targetPage = this.getTargetPageForLanguage(this.currentPage, newLanguage);
-        
-        if (targetPage) {
-            // 保存语言选择
-            localStorage.setItem('website-language', newLanguage);
-            
-            // 确保路径以正确的格式开始，避免相对路径问题
-            const finalUrl = targetPage.startsWith('/') ? targetPage : '/' + targetPage;
-            window.location.href = finalUrl;
-        } else {
-            console.warn('未找到对应语言的页面:', this.currentPage, newLanguage);
-        }
-    }
+    // 语言切换功能已移除，统一由language.js处理
     
     // 导航到指定页面（保持当前语言）
     navigateToPage(targetPath) {
@@ -393,38 +350,7 @@ class PageIndexManager {
         return null;
     }
     
-    // 更新页面语言显示
-    updatePageLanguage() {
-        // 更新所有语言切换按钮文本
-        const languageToggles = document.querySelectorAll('.language-toggle, #languageToggle');
-        const buttonText = this.currentLanguage === 'zh' ? 'EN' : '中文';
-        
-        languageToggles.forEach(toggle => {
-            // 如果按钮内部有<a>标签，更新<a>标签的文本
-            const innerLink = toggle.querySelector('a');
-            if (innerLink) {
-                const langSpan = innerLink.querySelector('.lang-text, span');
-                if (langSpan) {
-                    langSpan.textContent = buttonText;
-                } else {
-                    innerLink.textContent = buttonText;
-                }
-            } else {
-                // 直接更新按钮文本
-                const langSpan = toggle.querySelector('.lang-text, span');
-                if (langSpan) {
-                    langSpan.textContent = buttonText;
-                } else {
-                    toggle.textContent = buttonText;
-                }
-            }
-        });
-        
-        // 如果存在language.js的切换功能，也调用它
-        if (window.HydrergyLanguage && window.HydrergyLanguage.switchLanguage) {
-            window.HydrergyLanguage.switchLanguage(this.currentLanguage);
-        }
-    }
+    // 页面语言显示更新功能已移除，统一由language.js处理
     
     // 获取页面标题
     getPageTitle(pagePath, language) {
@@ -467,16 +393,7 @@ window.PageIndexManager = PageIndexManager;
 window.pageIndexManager = pageIndexManager;
 window.PAGE_INDEX = PAGE_INDEX;
 
-// 为了向后兼容，也导出一些常用函数
-window.switchToLanguagePage = function(language) {
-    if (pageIndexManager) {
-        const targetPage = pageIndexManager.getTargetPageForLanguage(pageIndexManager.currentPage, language);
-        if (targetPage) {
-            localStorage.setItem('website-language', language);
-            window.location.href = targetPage;
-        }
-    }
-};
+// 语言切换函数已移除，统一由language.js处理
 
 window.navigateToPageWithLanguage = function(targetPath) {
     if (pageIndexManager) {

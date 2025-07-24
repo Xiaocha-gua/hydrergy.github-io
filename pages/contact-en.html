@@ -57,9 +57,9 @@
                 <li class="dropdown">
                     <a href="#business" class="nav-link">Business Areas</a>
                     <ul class="dropdown-menu">
-                        <li><a href="business/hydrogen-en.html">Water Electrolysis Technology & Products</a></li>
-                        <li><a href="business/co2-en.html">CO₂ Electrolysis Technology & Products</a></li>
-                        <li><a href="business/consulting-en.html">Technical Consulting & Database Services</a></li>
+                        <li><a href="../pages/business/hydrogen-en.html">Water Electrolysis Technology & Products</a></li>
+                        <li><a href="../pages/business/co2-en.html">CO₂ Electrolysis Technology & Products</a></li>
+                        <li><a href="../pages/business/consulting-en.html">Technical Consulting & Database Services</a></li>
                     </ul>
                 </li>
                 <li><a href="contact-en.html" class="nav-link active">Contact Us</a></li>
@@ -123,6 +123,12 @@
                     <div class="contact-form-container">
                         <h2>Online Message</h2>
                         <form class="contact-form" id="contactForm">
+                            <!-- Web3Forms required hidden fields -->
+                            <input type="hidden" name="access_key" value="39b05b6a-5db9-4676-8fea-e59bec4ca71c">
+                            <input type="hidden" name="from_name" value="HYDRERGY Website">
+                            <input type="hidden" name="to" value="qiuzt@carbonxtech.com.cn">
+                            <input type="hidden" name="botcheck" class="hidden" style="display: none !important;">
+                            
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" id="name" name="name" required placeholder="Please enter your name">
@@ -147,11 +153,11 @@
                                 <label for="subject">Subject</label>
                                 <select id="subject" name="subject" required>
                                     <option value="">Please select inquiry topic</option>
-                                    <option value="hydrogen">Water Electrolysis Technology & Products</option>
-                                    <option value="co2">CO₂ Electrolysis Technology & Products</option>
-                                    <option value="consulting">Technical Consulting & Database Services</option>
-                                    <option value="cooperation">Business Cooperation</option>
-                                    <option value="other">Other</option>
+                                    <option value="Water Electrolysis Technology & Products">Water Electrolysis Technology & Products</option>
+                                    <option value="CO₂ Electrolysis Technology & Products">CO₂ Electrolysis Technology & Products</option>
+                                    <option value="Technical Consulting & Database Services">Technical Consulting & Database Services</option>
+                                    <option value="Business Cooperation">Business Cooperation</option>
+                                    <option value="Other">Other</option>
                                 </select>
                             </div>
                             
@@ -206,6 +212,7 @@
     <script src="../js/web3forms-config.js"></script>
     <script src="../js/page-index.js?v=20250113003"></script>
 <script src="../js/main.js?v=20250113003"></script>
+<script src="../js/language.js?v=20250113003"></script>
 <script src="../js/breadcrumb.js?v=20250113003"></script>
 <script src="../js/security.js?v=20250113003"></script>
     
@@ -218,25 +225,57 @@
                 contactForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     
-                    // Get form data
-                    const name = this.querySelector('input[name="name"]').value;
-                    const email = this.querySelector('input[name="email"]').value;
-                    const phone = this.querySelector('input[name="phone"]').value || 'Not provided';
-                    const company = this.querySelector('input[name="company"]').value || 'Not provided';
-                    const subject = this.querySelector('select[name="subject"]').value || 'Not selected';
-                    const message = this.querySelector('textarea[name="message"]').value;
+                    const formData = new FormData(this);
+                    const name = formData.get('name');
+                    const email = formData.get('email');
+                    const phone = formData.get('phone');
+                    const company = formData.get('company');
+                    const subject = formData.get('subject');
+                    const message = formData.get('message');
                     
                     // Build detailed message content
-                    const detailedMessage = `Inquiry Topic: ${subject}\nCompany: ${company}\n\nMessage Content:\n${message}`;
+                    let detailedMessage = `Name: ${name}\nEmail: ${email}`;
+                    if (phone) detailedMessage += `\nPhone: ${phone}`;
+                    if (company) detailedMessage += `\nCompany: ${company}`;
+                    detailedMessage += `\nSubject: ${subject}\nMessage: ${message}`;
                     
-                    // Use unified form handling function
-                    if (typeof handleFormSubmit === 'function') {
-                        handleFormSubmit(this, e);
+                    // Update the message field with detailed content
+                    formData.set('message', detailedMessage);
+                    
+                    // Wait for Web3Forms to load and then handle form submission
+                    if (typeof waitForWeb3Forms === 'function') {
+                        waitForWeb3Forms(() => {
+                            if (typeof handleFormSubmit === 'function') {
+                                handleFormSubmit(formData, this);
+                            } else {
+                                console.error('handleFormSubmit function not found');
+                            }
+                        });
+                    } else if (typeof handleFormSubmit === 'function') {
+                        handleFormSubmit(formData, this);
+                    } else if (typeof sendEmailNotification === 'function') {
+                        // Fallback to direct email sending
+                        const submitBtn = this.querySelector('button[type="submit"]');
+                        const originalText = submitBtn.textContent;
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = 'Sending...';
+                        
+                        sendEmailNotification(formData)
+                            .then(() => {
+                                alert('Message sent successfully!');
+                                this.reset();
+                            })
+                            .catch((error) => {
+                                console.error('Error sending message:', error);
+                                alert('Failed to send message. Please try again.');
+                            })
+                            .finally(() => {
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = originalText;
+                            });
                     } else {
-                        console.error('handleFormSubmit function not found');
-                        if (window.HydrergyMain) {
-                            window.HydrergyMain.showNotification('Form handling function not loaded, please refresh and try again', 'error');
-                        }
+                        console.error('No email sending function available');
+                        alert('Email service is not available. Please try again later.');
                     }
                 });
             }

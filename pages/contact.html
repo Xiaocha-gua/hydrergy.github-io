@@ -57,9 +57,9 @@
                 <li class="dropdown">
                     <a href="#business" class="nav-link">业务领域</a>
                     <ul class="dropdown-menu">
-                        <li><a href="business/hydrogen.html">电解制氢技术与产品</a></li>
-                        <li><a href="business/co2.html">电解二氧化碳技术与产品</a></li>
-                        <li><a href="business/consulting.html">技术咨询服务与数据库</a></li>
+                        <li><a href="../pages/business/hydrogen.html">电解制氢技术与产品</a></li>
+                        <li><a href="../pages/business/co2.html">电解二氧化碳技术与产品</a></li>
+                        <li><a href="../pages/business/consulting.html">技术咨询服务与数据库</a></li>
                     </ul>
                 </li>
                 <li><a href="contact.html" class="nav-link active">联系我们</a></li>
@@ -123,6 +123,12 @@
                     <div class="contact-form-container">
                         <h2>在线留言</h2>
                         <form class="contact-form" id="contactForm">
+                            <!-- Web3Forms必需的隐藏字段 -->
+                            <input type="hidden" name="access_key" value="39b05b6a-5db9-4676-8fea-e59bec4ca71c">
+                            <input type="hidden" name="from_name" value="HYDRERGY网站">
+                            <input type="hidden" name="to" value="qiuzt@carbonxtech.com.cn">
+                            <input type="hidden" name="botcheck" class="hidden" style="display: none !important;">
+                            
                             <div class="form-group">
                                 <label for="name">姓名</label>
                                 <input type="text" id="name" name="name" required placeholder="请输入您的姓名">
@@ -147,11 +153,11 @@
                                 <label for="subject">主题</label>
                                 <select id="subject" name="subject" required>
                                     <option value="">请选择咨询主题</option>
-                                    <option value="hydrogen">电解制氢技术与产品</option>
-                                    <option value="co2">电解二氧化碳技术与产品</option>
-                                    <option value="consulting">技术咨询服务与数据库</option>
-                                    <option value="cooperation">合作洽谈</option>
-                                    <option value="other">其他</option>
+                                    <option value="电解制氢技术与产品">电解制氢技术与产品</option>
+                                    <option value="电解二氧化碳技术与产品">电解二氧化碳技术与产品</option>
+                                    <option value="技术咨询服务与数据库">技术咨询服务与数据库</option>
+                                    <option value="合作洽谈">合作洽谈</option>
+                                    <option value="其他">其他</option>
                                 </select>
                             </div>
                             
@@ -172,19 +178,19 @@
             <div class="container">
                 <h2>我们的业务领域</h2>
                 <div class="quick-links-grid">
-                    <a href="business/hydrogen.html" class="quick-link-item">
+                    <a href="../pages/business/hydrogen.html" class="quick-link-item">
                         <img src="../images/电解制氢技术与产品.png" alt="电解制氢技术与产品">
                         <h3>电解制氢技术与产品</h3>
                         <p>了解更多 →</p>
                     </a>
                     
-                    <a href="business/co2.html" class="quick-link-item">
+                    <a href="../pages/business/co2.html" class="quick-link-item">
                         <img src="../images/电解二氧化碳技术与产品.png" alt="电解二氧化碳技术与产品">
                         <h3>电解二氧化碳技术与产品</h3>
                         <p>了解更多 →</p>
                     </a>
                     
-                    <a href="business/consulting.html" class="quick-link-item">
+                    <a href="../pages/business/consulting.html" class="quick-link-item">
                         <img src="../images/技术咨询服务与数据库.png" alt="技术咨询服务与数据库">
                         <h3>技术咨询服务与数据库</h3>
                         <p>了解更多 →</p>
@@ -207,6 +213,7 @@
     
     <script src="../js/page-index.js?v=20250113003"></script>
 <script src="../js/main.js?v=20250113003"></script>
+<script src="../js/language.js?v=20250113003"></script>
 <script src="../js/breadcrumb.js?v=20250113003"></script>
 <script src="../js/security.js?v=20250113003"></script>
     
@@ -220,24 +227,67 @@
                     e.preventDefault();
                     
                     // 获取表单数据
-                    const name = this.querySelector('input[name="name"]').value;
-                    const email = this.querySelector('input[name="email"]').value;
-                    const phone = this.querySelector('input[name="phone"]').value || '未提供';
-                    const company = this.querySelector('input[name="company"]').value || '未提供';
-                    const subject = this.querySelector('select[name="subject"]').value || '未选择';
-                    const message = this.querySelector('textarea[name="message"]').value;
+                    const formData = new FormData(this);
+                    const name = formData.get('name');
+                    const email = formData.get('email');
+                    const phone = formData.get('phone') || '未提供';
+                    const company = formData.get('company') || '未提供';
+                    const subject = formData.get('subject') || '未选择';
+                    const message = formData.get('message');
                     
-                    // 构建详细的留言内容
-                    const detailedMessage = `咨询主题：${subject}\n公司：${company}\n\n留言内容：\n${message}`;
+                    // 构建详细的留言内容，包含公司和主题信息
+                    const detailedMessage = `咨询主题：${subject}\n公司：${company}\n电话：${phone}\n\n留言内容：\n${message}`;
                     
-                    // 使用统一的表单处理函数
-                    if (typeof handleFormSubmit === 'function') {
-                        handleFormSubmit(this, e);
+                    // 更新表单中的message字段为详细信息
+                    const messageField = this.querySelector('textarea[name="message"]');
+                    const originalMessage = messageField.value;
+                    messageField.value = detailedMessage;
+                    
+                    // 检查Web3Forms是否已加载，如果没有则等待
+                    if (typeof waitForWeb3Forms === 'function') {
+                        waitForWeb3Forms().then(() => {
+                            if (typeof handleFormSubmit === 'function') {
+                                handleFormSubmit(this, e);
+                            } else {
+                                // 直接使用Web3Forms发送
+                                sendEmailNotification({
+                                    name: name,
+                                    email: email,
+                                    phone: phone,
+                                    company: company,
+                                    subject: subject,
+                                    message: detailedMessage,
+                                    pageSource: '联系我们页面'
+                                }).then(() => {
+                                    if (typeof showNotification === 'function') {
+                                        showNotification('留言发送成功！我们会尽快回复您。', 'success');
+                                    } else {
+                                        alert('留言发送成功！我们会尽快回复您。');
+                                    }
+                                    this.reset();
+                                }).catch((error) => {
+                                    console.error('发送失败:', error);
+                                    if (typeof showNotification === 'function') {
+                                        showNotification(error.message || '发送失败，请稍后重试', 'error');
+                                    } else {
+                                        alert(error.message || '发送失败，请稍后重试');
+                                    }
+                                }).finally(() => {
+                                    // 恢复原始留言内容
+                                    messageField.value = originalMessage;
+                                });
+                            }
+                        }).catch((error) => {
+                            console.error('Web3Forms加载失败:', error);
+                            if (typeof showNotification === 'function') {
+                                showNotification('邮件服务初始化失败，请刷新页面重试', 'error');
+                            } else {
+                                alert('邮件服务初始化失败，请刷新页面重试');
+                            }
+                        });
                     } else {
-                        console.error('handleFormSubmit函数未找到');
-                        if (window.HydrergyMain) {
-                            window.HydrergyMain.showNotification('表单处理函数未加载，请刷新页面重试', 'error');
-                        }
+                        console.error('waitForWeb3Forms函数未找到');
+                        alert('表单处理函数未加载，请刷新页面重试');
                     }
                 });
             }

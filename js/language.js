@@ -1,4 +1,5 @@
-// 页面跳转式多语言切换功能
+// 统一的语言切换系统 - 简化版
+// 只支持中英文页面切换，无IP地理位置检测
 
 // 页面映射表：中文页面 -> 英文页面
 const pageMapping = {
@@ -60,48 +61,19 @@ function getCorrespondingPageUrl(targetLanguage) {
     
     if (currentLanguage === 'zh' && targetLanguage === 'en') {
         // 中文切换到英文
-        const targetPage = pageMapping[currentPage] || currentPage;
-        return targetPage;
+        const targetPage = pageMapping[currentPage];
+        return targetPage || currentPage;
     } else if (currentLanguage === 'en' && targetLanguage === 'zh') {
         // 英文切换到中文
-        const targetPage = reversePageMapping[currentPage] || currentPage.replace('-en.html', '.html');
-        return targetPage;
+        const targetPage = reversePageMapping[currentPage];
+        if (targetPage) {
+            return targetPage;
+        }
+        // 如果映射表中没有，尝试简单的文件名替换
+        return currentPage.replace('-en.html', '.html');
     }
     
     return currentPage;
-}
-
-// 当前语言
-let currentLanguage = getCurrentPageLanguage();
-
-// 初始化语言功能
-function initLanguage() {
-    // 查找所有语言切换按钮（支持多种选择器）
-    const languageToggles = document.querySelectorAll('.language-toggle, #languageToggle, [class*="lang"]');
-    
-    languageToggles.forEach(toggle => {
-        // 移除之前可能存在的事件监听器标记，重新绑定
-        if (toggle.dataset.languageHandled) {
-            // 如果已经处理过，先移除标记，重新绑定以确保功能正常
-            delete toggle.dataset.languageHandled;
-        }
-        
-        // 移除可能存在的旧事件监听器
-        const newToggle = toggle.cloneNode(true);
-        toggle.parentNode.replaceChild(newToggle, toggle);
-        
-        newToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
-            switchToLanguagePage(targetLanguage);
-        });
-        
-        // 标记已处理
-        newToggle.dataset.languageHandled = 'true';
-    });
-    
-    // 更新语言切换按钮显示
-    updateLanguageToggleDisplay();
 }
 
 // 切换到对应语言页面
@@ -113,56 +85,58 @@ function switchToLanguagePage(targetLanguage) {
     
     // 跳转到对应语言页面
     if (targetUrl && targetUrl !== window.location.pathname.substring(1)) {
-        // 构建正确的URL，确保不重复路径
-        let finalUrl;
-        if (targetUrl.startsWith('/')) {
-            // 如果已经以/开头，直接使用
-            finalUrl = targetUrl;
-        } else {
-            // 否则添加/前缀
-            finalUrl = '/' + targetUrl;
-        }
-        
-        console.log('Switching from:', window.location.pathname);
-        console.log('Target URL:', targetUrl);
-        console.log('Final URL:', finalUrl);
-        
+        // 构建正确的URL
+        const finalUrl = targetUrl.startsWith('/') ? targetUrl : '/' + targetUrl;
         window.location.href = finalUrl;
     }
 }
 
 // 更新语言切换按钮显示
 function updateLanguageToggleDisplay() {
+    const currentLanguage = getCurrentPageLanguage();
     const languageToggles = document.querySelectorAll('.language-toggle, #languageToggle, [class*="lang"]');
     
     languageToggles.forEach(toggle => {
         const langText = toggle.querySelector('.lang-text, span');
+        const displayText = currentLanguage === 'zh' ? 'English' : '中文';
+        
         if (langText) {
-            // 根据当前页面语言显示对应的切换文本
-            langText.textContent = currentLanguage === 'zh' ? 'English' : '中文';
+            langText.textContent = displayText;
         } else {
-            // 如果没有子元素，直接设置按钮文本
-            toggle.textContent = currentLanguage === 'zh' ? 'English' : '中文';
+            toggle.textContent = displayText;
         }
     });
 }
 
-// 页面加载时初始化
-function initPageLanguage() {
-    // 检测当前页面语言并更新全局变量
-    currentLanguage = getCurrentPageLanguage();
+// 初始化语言切换功能
+function initLanguage() {
+    // 查找所有语言切换按钮
+    const languageToggles = document.querySelectorAll('.language-toggle, #languageToggle, [class*="lang"]');
     
-    // 初始化语言切换功能
-    initLanguage();
+    languageToggles.forEach(toggle => {
+        // 移除可能存在的旧事件监听器
+        const newToggle = toggle.cloneNode(true);
+        toggle.parentNode.replaceChild(newToggle, toggle);
+        
+        // 添加点击事件监听器
+        newToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const currentLanguage = getCurrentPageLanguage();
+            const targetLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
+            
+            switchToLanguagePage(targetLanguage);
+        });
+    });
     
-    // 检查是否需要根据用户偏好跳转
-    checkLanguagePreference();
+    // 更新按钮显示
+    updateLanguageToggleDisplay();
 }
 
-// 检查用户语言偏好
+// 检查并应用保存的语言偏好
 function checkLanguagePreference() {
     const savedLanguage = localStorage.getItem('website-language');
-    const browserLanguage = navigator.language || navigator.userLanguage;
+    const currentLanguage = getCurrentPageLanguage();
     
     // 如果用户有保存的语言偏好，且与当前页面语言不符，则跳转
     if (savedLanguage && savedLanguage !== currentLanguage) {
@@ -170,29 +144,26 @@ function checkLanguagePreference() {
         if (targetUrl && targetUrl !== window.location.pathname.substring(1)) {
             const finalUrl = targetUrl.startsWith('/') ? targetUrl : '/' + targetUrl;
             window.location.href = finalUrl;
-            return;
         }
     }
-    
-    // 如果没有保存的偏好，根据浏览器语言进行智能跳转
-    if (!savedLanguage) {
-        const preferredLanguage = browserLanguage.startsWith('zh') ? 'zh' : 'en';
-        if (preferredLanguage !== currentLanguage) {
-            const targetUrl = getCorrespondingPageUrl(preferredLanguage);
-            if (targetUrl && targetUrl !== window.location.pathname.substring(1)) {
-                // 保存偏好并跳转
-                localStorage.setItem('website-language', preferredLanguage);
-                const finalUrl = targetUrl.startsWith('/') ? targetUrl : '/' + targetUrl;
-                window.location.href = finalUrl;
-                return;
-            }
-        }
-    }
- }
+}
 
-// 页面加载时初始化
+// 页面加载时初始化语言功能
+function initPageLanguage() {
+    // 初始化语言切换功能
+    initLanguage();
+    
+    // 检查语言偏好（延迟执行，避免页面加载冲突）
+    setTimeout(() => {
+        checkLanguagePreference();
+    }, 100);
+}
+
+// 页面加载完成后自动初始化
 document.addEventListener('DOMContentLoaded', function() {
-    initPageLanguage();
+    setTimeout(() => {
+        initPageLanguage();
+    }, 50);
 });
 
 // 导出函数供其他脚本使用
@@ -200,6 +171,6 @@ window.HydrergyLanguage = {
     switchToLanguagePage,
     getCurrentPageLanguage,
     getCorrespondingPageUrl,
-    getCurrentLanguage: () => currentLanguage,
-    getSupportedLanguages: () => ['zh', 'en']
+    initPageLanguage,
+    updateLanguageToggleDisplay
 };

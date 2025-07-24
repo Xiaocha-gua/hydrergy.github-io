@@ -13,13 +13,7 @@ function initializeWebsite() {
     initSmoothScroll();
     initFormValidation();
     
-    // 加载保存的语言设置 - 延迟执行，等待language.js加载
-    setTimeout(() => {
-        const savedLanguage = localStorage.getItem('website-language') || 'zh';
-        if (savedLanguage === 'en' && window.HydrergyLanguage && window.HydrergyLanguage.switchLanguage) {
-            window.HydrergyLanguage.switchLanguage('en');
-        }
-    }, 100);
+    // 语言设置加载功能已移除，统一由language.js处理
 }
 
 // 导航功能初始化

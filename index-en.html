@@ -43,7 +43,7 @@
                     <img src="images/电话.png" alt="Phone" style="width: 24px; height: 24px; vertical-align: middle;">
                     <span>+86-15680598517</span>
                 </span>
-                <a href="#" class="language-toggle">
+                <a href="index.html" class="language-toggle">
                     <span class="lang-text">中文</span>
                 </a>
             </div>
@@ -176,7 +176,17 @@
     <script src="js/main.js?v=20250113003"></script>
     <script src="js/breadcrumb.js?v=20250113003"></script>
     <script src="js/security.js?v=20250113003"></script>
+    <script src="js/language.js?v=20250113003"></script>
     <!-- Web3Forms Configuration Module -->
     <script src="js/web3forms-config.js"></script>
+    <script>
+        // 页面加载完成后初始化语言功能
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('首页英文版：开始初始化语言功能');
+            // 初始化语言切换功能
+            initPageLanguage();
+            console.log('首页英文版：语言功能初始化完成');
+        });
+    </script>
 </body>
 </html>

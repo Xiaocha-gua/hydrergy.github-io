@@ -20,9 +20,16 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Hydrergy高校实验室定制化电解制氢&CO₂电解系统-技术经济性评估服务-高性价比学术解决方案</title>
-    <link rel="stylesheet" href="css/style.css?v=20250113003">
-    <link rel="stylesheet" href="css/responsive.css?v=20250113003">
-    <link rel="stylesheet" href="css/breadcrumb.css?v=20250113003">
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="images/hydrergy-logo-4.png" as="image">
+    <link rel="preload" href="css/style.css?v=20250113004" as="style">
+    <link rel="preload" href="js/main.js?v=20250113004" as="script">
+    
+    <!-- 关键CSS文件 -->
+    <link rel="stylesheet" href="css/style.css?v=20250113004">
+    <link rel="stylesheet" href="css/responsive.css?v=20250113004">
+    <link rel="stylesheet" href="css/breadcrumb.css?v=20250113004">
+    <link rel="stylesheet" href="css/lazy-loading.css?v=20250113004">
 </head>
 <body>
     <!-- 顶部通栏 -->
@@ -30,7 +37,7 @@
         <div class="container">
             <div class="contact-info">
                 <span class="email">
-                    <img src="images/邮箱.png" alt="Email" style="width: 24px; height: 24px; vertical-align: middle;">
+                    <img data-src="images/邮箱.png" alt="Email" class="lazy-load" style="width: 24px; height: 24px; vertical-align: middle;">
                     <a href="mailto:sales@carbonxtech.com.cn">sales@carbonxtech.com.cn</a>
                 </span>
             </div>
@@ -42,7 +49,7 @@
             </div>
             <div class="contact-phone">
                 <span class="phone">
-                    <img src="images/电话.png" alt="Phone" style="width: 24px; height: 24px; vertical-align: middle;">
+                    <img data-src="images/电话.png" alt="Phone" class="lazy-load" style="width: 24px; height: 24px; vertical-align: middle;">
                     <span>+86-15680598517</span>
                 </span>
                 <a href="index-en.html" class="language-toggle">
@@ -78,21 +85,33 @@
                 <div class="business-grid">
                     <div class="business-item" data-business="hydrogen">
                         <div class="business-icon">
-                            <img src="images/电解制氢技术与产品-new-1.png" alt="电解制氢技术与产品" onmouseover="this.src='images/电解制氢技术与产品-new-2.png'" onmouseout="this.src='images/电解制氢技术与产品-new-1.png'">
+                            <img data-src="images/电解制氢技术与产品-new-1.png" alt="电解制氢技术与产品" 
+                                 class="lazy-load business-image"
+                                 data-hover="images/电解制氢技术与产品-new-2.png"
+                                 onmouseover="this.src='images/电解制氢技术与产品-new-2.png'" 
+                                 onmouseout="this.src='images/电解制氢技术与产品-new-1.png'">
                         </div>
                         <h3>电解制氢技术与产品</h3>
                         <p>专业的电解制氢设备和技术解决方案，助力清洁能源发展</p>
                     </div>
                     <div class="business-item" data-business="co2">
                         <div class="business-icon">
-                            <img src="images/电解二氧化碳技术与产品-new-1.png" alt="电解二氧化碳技术与产品" onmouseover="this.src='images/电解二氧化碳技术与产品-new-2.png'" onmouseout="this.src='images/电解二氧化碳技术与产品-new-1.png'">
+                            <img data-src="images/电解二氧化碳技术与产品-new-1.png" alt="电解二氧化碳技术与产品" 
+                                 class="lazy-load business-image"
+                                 data-hover="images/电解二氧化碳技术与产品-new-2.png"
+                                 onmouseover="this.src='images/电解二氧化碳技术与产品-new-2.png'" 
+                                 onmouseout="this.src='images/电解二氧化碳技术与产品-new-1.png'">
                         </div>
                         <h3>电解二氧化碳技术与产品</h3>
                         <p>创新的二氧化碳电解技术，实现碳资源高效利用</p>
                     </div>
                     <div class="business-item" data-business="consulting">
                         <div class="business-icon">
-                            <img src="images/技术咨询服务与数据库-new-1.png" alt="技术咨询服务与数据库" onmouseover="this.src='images/技术咨询服务与数据库-new-2.png'" onmouseout="this.src='images/技术咨询服务与数据库-new-1.png'">
+                            <img data-src="images/技术咨询服务与数据库-new-1.png" alt="技术咨询服务与数据库" 
+                                 class="lazy-load business-image"
+                                 data-hover="images/技术咨询服务与数据库-new-2.png"
+                                 onmouseover="this.src='images/技术咨询服务与数据库-new-2.png'" 
+                                 onmouseout="this.src='images/技术咨询服务与数据库-new-1.png'">
                         </div>
                         <h3>技术咨询服务与数据库</h3>
                         <p>专业的生命周期分析、技术经济分析咨询和完善的数据库服务，为您提供全方位支持</p>
@@ -111,16 +130,16 @@
                         <div class="contact-details">
                             <div class="contact-item">
                             <a href="https://www.linkedin.com/in/qiu-tian-a8b90a365/" target="_blank" style="display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none;">
-                                <div class="icon"><img src="images/领英.png" alt="LinkedIn" style="width: 24px; height: 24px;"></div>
+                                <div class="icon"><img data-src="images/领英.png" alt="LinkedIn" class="lazy-load" style="width: 24px; height: 24px;"></div>
                                 <span>联系人：邱经理</span>
                             </a>
                         </div>
                             <div class="contact-item">
-                                <div class="icon"><img src="images/电话.png" alt="Phone" style="width: 24px; height: 24px;"></div>
+                                <div class="icon"><img data-src="images/电话.png" alt="Phone" class="lazy-load" style="width: 24px; height: 24px;"></div>
                                 <span>+86-15680598517</span>
                             </div>
                             <div class="contact-item">
-                                <div class="icon"><img src="images/邮箱.png" alt="Email" style="width: 24px; height: 24px;"></div>
+                                <div class="icon"><img data-src="images/邮箱.png" alt="Email" class="lazy-load" style="width: 24px; height: 24px;"></div>
                                 <a href="mailto:sales@carbonxtech.com.cn">sales@carbonxtech.com.cn</a>
                             </div>
                         </div>
@@ -174,11 +193,17 @@
         </div>
     </div>
 
-    <script src="js/page-index.js?v=20250113003"></script>
-    <script src="js/main.js?v=20250113003"></script>
-    <script src="js/breadcrumb.js?v=20250113003"></script>
-    <script src="js/security.js?v=20250113003"></script>
-    <script src="js/language.js?v=20250113003"></script>
+    <!-- 性能优化脚本 -->
+    <script src="js/preloader.js?v=20250113004"></script>
+    <script src="js/lazy-loading.js?v=20250113004"></script>
+    
+    <!-- 核心功能脚本 -->
+    <script src="js/page-index.js?v=20250113004"></script>
+    <script src="js/main.js?v=20250113004"></script>
+    <script src="js/breadcrumb.js?v=20250113004"></script>
+    <script src="js/security.js?v=20250113004"></script>
+    <script src="js/language.js?v=20250113004"></script>
+    
     <!-- Web3Forms配置模块 -->
     <script src="js/web3forms-config.js"></script>
     <script>

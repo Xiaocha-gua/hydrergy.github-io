@@ -1,0 +1,297 @@
+/* ========================================= */
+/* HYDRERGY 电解制氢页面专用样式文件 */
+/* ========================================= */
+/* 作者：HYDRERGY 开发团队 */
+/* 创建时间：2025年1月 */
+/* 用途：电解制氢技术与产品页面专用样式，包含制氢设备展示、技术特点等 */
+/* 适用页面：hydrogen.html */
+
+/* ========================================= */
+/* 制氢技术特色样式 */
+/* ========================================= */
+/* 制氢技术亮点区域：浅蓝背景，突出技术优势 */
+.hydrogen-highlights {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); /* 浅蓝渐变背景 */
+    padding: 40px;
+    border-radius: 12px;
+    margin: 30px 0;
+    border-left: 4px solid #2196f3; /* 左侧蓝色边框 */
+}
+
+/* 制氢技术亮点标题：蓝色主题 */
+.hydrogen-highlights h3 {
+    color: #1976d2; /* 深蓝色 */
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* 制氢技术亮点列表：去除默认样式 */
+.hydrogen-highlights ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* 制氢技术亮点列表项：带图标，间距 */
+.hydrogen-highlights li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    color: #1565c0;
+    font-weight: 500;
+}
+
+/* 制氢技术亮点列表项图标：蓝色圆点 */
+.hydrogen-highlights li::before {
+    content: '●';
+    position: absolute;
+    left: 0;
+    color: #2196f3;
+    font-size: 1.2rem;
+}
+
+/* ========================================= */
+/* 电解水设备展示样式 */
+/* ========================================= */
+/* 设备展示容器：网格布局，设备图片和参数并排显示 */
+.equipment-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 两列等宽 */
+    gap: 40px;
+    margin: 40px 0;
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+/* 设备图片容器：居中对齐 */
+.equipment-image {
+    text-align: center;
+}
+
+/* 设备图片：最大宽度，圆角，阴影 */
+.equipment-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 设备参数容器：参数列表展示 */
+.equipment-specs {
+    padding: 20px;
+}
+
+/* 设备参数标题：深色，底部间距 */
+.equipment-specs h4 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid #2196f3;
+    padding-bottom: 10px;
+}
+
+/* 参数表格：全宽，边框合并 */
+.specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+/* 参数表格单元格：内边距，边框，对齐 */
+.specs-table td {
+    padding: 10px 15px;
+    border: 1px solid #dee2e6;
+    vertical-align: top;
+}
+
+/* 参数表格标签列：浅灰背景，粗体 */
+.specs-table td:first-child {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    width: 40%;
+}
+
+/* 参数表格数值列：白色背景 */
+.specs-table td:last-child {
+    background: white;
+    color: #666;
+}
+
+/* ========================================= */
+/* 制氢工艺流程样式 */
+/* ========================================= */
+/* 工艺流程容器：流程步骤展示 */
+.process-flow {
+    margin: 40px 0;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 流程步骤网格：四列布局，展示制氢步骤 */
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 四列等宽 */
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* 单个流程步骤：居中对齐，内边距 */
+.process-step {
+    text-align: center;
+    padding: 20px 10px;
+    position: relative;
+}
+
+/* 流程步骤图标：大字体，蓝色，圆形背景 */
+.process-step .step-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* 流程步骤标题：深色，小字体，粗体 */
+.process-step h5 {
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* 流程步骤描述：灰色，小字体 */
+.process-step p {
+    color: #666;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+/* 流程步骤连接箭头：除最后一个步骤外显示 */
+.process-step:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #2196f3;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* ========================================= */
+/* 技术优势展示样式 */
+/* ========================================= */
+/* 技术优势容器：突出显示技术特点 */
+.tech-advantages {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); /* 浅橙渐变背景 */
+    padding: 40px;
+    border-radius: 12px;
+    margin: 30px 0;
+    border-left: 4px solid #ff9800; /* 左侧橙色边框 */
+}
+
+/* 技术优势网格：两列布局 */
+.advantages-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+/* 单个技术优势：白色背景，圆角，阴影 */
+.advantage-item {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 技术优势图标：橙色，大字体，底部间距 */
+.advantage-item .advantage-icon {
+    color: #ff9800;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+/* 技术优势标题：深色，底部间距 */
+.advantage-item h4 {
+    color: #333;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* 技术优势描述：灰色，行高 */
+.advantage-item p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ========================================= */
+/* 应用场景展示样式 */
+/* ========================================= */
+/* 应用场景容器：展示制氢技术应用领域 */
+.applications-showcase {
+    margin:00px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+/* 应用场景网格：三列布局 */
+.applications-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* 单个应用场景：白色背景，居中对齐，圆角，阴影 */
+.application-item {
+    background: white;
+    text-align: center;
+    padding: 25px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+/* 应用场景悬停效果：向上移动，增强阴影 */
+.application-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 应用场景图标：绿色，大字体，底部间距 */
+.application-item .app-icon {
+    color: #4caf50;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+/* 应用场景标题：深色，底部间距 */
+.application-item h4 {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* 应用场景描述：灰色，小字体 */
+.application-item p {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+}
